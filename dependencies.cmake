@@ -18,7 +18,7 @@ if(NOT ${use_installed_dependencies})
     endif()
 else()
     find_package(azure_macro_utils_c REQUIRED CONFIG)
-    find_package(umock_c REQUIRED CONFIG)
+    # find_package(umock_c REQUIRED CONFIG)
 endif()
 
 include_directories(${MACRO_UTILS_INC_FOLDER})
