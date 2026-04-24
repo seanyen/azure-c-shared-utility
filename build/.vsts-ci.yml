@@ -281,7 +281,15 @@ jobs:
     submodules: true
   - script: |
       set -e
+      # The Microsoft-hosted ubuntu-24.04 image preinstalls libmbedtls-dev,
+      # which on 24.04 is mbedTLS 3.x. The unit test relies on umock-c
+      # parsing <mbedtls/ssl.h> to auto-mock mbedTLS symbols used by
+      # adapters/tlsio_mbedtls.c (e.g. mbedtls_ssl_get_max_out_record_payload),
+      # but that function does not exist in 3.x's headers, so it is left as
+      # an undefined external at link time. Purge the system mbedTLS so the
+      # 2.28 install under /usr/local is the only one CMake can find.
       sudo apt-get update
+      sudo apt-get purge -y 'libmbedtls*' 'libmbedcrypto*' 'libmbedx509*' || true
       sudo apt-get install -y \
         clang \
         cmake \
