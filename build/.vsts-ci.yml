@@ -268,6 +268,10 @@ jobs:
     condition: succeededOrFailed()
 
 - job: linux_mbed
+  # Ubuntu 24.04 ships mbedTLS 3.x via libmbedtls-dev, but adapters/tlsio_mbedtls.c
+  # in this repo targets the mbedTLS 2.x API (e.g. mbedtls_ssl_get_max_out_record_payload).
+  # Install mbedTLS 2.28 (LTS) from source so the link step resolves, mirroring
+  # the mbedtls_2_28 job in azure-iot-sdk-c.
   timeoutInMinutes: 60
   pool:
     vmImage: 'ubuntu-24.04'
@@ -285,17 +289,30 @@ jobs:
         pkg-config \
         curl \
         libcurl4-openssl-dev \
-        uuid-dev \
-        libmbedtls-dev
+        uuid-dev
     displayName: 'Host setup'
+  - script: |
+      set -e
+      git clone --depth 1 -b mbedtls-2.28.10 https://github.com/Mbed-TLS/mbedtls /tmp/mbedtls-2.28
+      cd /tmp/mbedtls-2.28
+      mkdir build && cd build
+      cmake -DUSE_SHARED_MBEDTLS_LIBRARY=ON -DCMAKE_INSTALL_PREFIX=/usr/local ..
+      make -j$(nproc)
+      sudo make install
+      sudo ldconfig
+    displayName: 'Install mbedTLS 2.28'
   - script: |
       chmod +x jenkins/linux_mbed_clang_buildonly.sh
       ./jenkins/linux_mbed_clang_buildonly.sh
     displayName: 'Clang Build'
+    env:
+      LD_LIBRARY_PATH: /usr/local/lib
   - script: |
       sudo chmod 755 jenkins/linux_mbed.sh
       sudo -E ./jenkins/linux_mbed.sh
     displayName: 'Build'
+    env:
+      LD_LIBRARY_PATH: /usr/local/lib
 
 - job: wolfssl
   timeoutInMinutes: 60
@@ -436,6 +453,12 @@ jobs:
   timeoutInMinutes: 60
   variables:
     CodeQL.Enabled: false
+    # macOS-14 ships CMake 4.x, which removed compatibility with
+    # cmake_minimum_required(VERSION < 3.5). The submodule
+    # deps/azure-macro-utils-c/CMakeLists.txt still requests 2.8.x, so we
+    # raise the floor via this env var (honored by CMake 3.31+/4.x) instead
+    # of patching the submodule.
+    CMAKE_POLICY_VERSION_MINIMUM: '3.5'
   pool:
     vmImage: 'macOS-14'
   displayName: 'OSX'
@@ -467,6 +490,8 @@ jobs:
   timeoutInMinutes: 60
   variables:
     CodeQL.Enabled: false
+    # See note on the OSX job above.
+    CMAKE_POLICY_VERSION_MINIMUM: '3.5'
   pool:
     vmImage: 'macOS-14'
   displayName: 'XCode Native'
