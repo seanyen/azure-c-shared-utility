@@ -8,7 +8,7 @@
 #include <inttypes.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 
 void* real_malloc(size_t size)
 {

@@ -25,7 +25,7 @@
 #include <time.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 
 #include "dns_resolver.h"
 
@@ -105,7 +105,7 @@ int my_getaddrinfo(const char *node, const char *service, const struct addrinfo 
 #include "umock_c/umocktypes_bool.h"
 #include "umock_c/umocktypes_stdint.h"
 #include "umock_c/umock_c_negative_tests.h"
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 
 
 

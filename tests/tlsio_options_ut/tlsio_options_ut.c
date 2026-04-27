@@ -9,7 +9,7 @@
 #include <stddef.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 
 /**
 * The gballoc.h will replace the malloc, free, and realloc by the my_gballoc functions, in this case,

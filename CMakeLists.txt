@@ -1,7 +1,9 @@
 #Copyright (c) Microsoft. All rights reserved.
 #Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-cmake_minimum_required (VERSION 3.5)
+if(NOT DEFINED CMAKE_MINIMUM_REQUIRED_VERSION)
+    cmake_minimum_required(VERSION 3.18)
+endif()
 
 if (TARGET aziotsharedutil)
     RETURN()
@@ -10,6 +12,54 @@ endif()
 project(azure_c_shared_utility)
 
 FILE(READ ${CMAKE_CURRENT_LIST_DIR}/version.txt C_SHARED_VERSION)
+
+#bring in dependencies
+#do not add or build any tests of the dependencies
+set(original_run_e2e_tests ${run_e2e_tests})
+set(original_run_int_tests ${run_int_tests})
+set(original_run_perf_tests ${run_perf_tests})
+set(original_run_unittests ${run_unittests})
+set(original_run_traceability ${run_traceability})
+set(original_run_reals_check ${run_reals_check})
+
+set(run_e2e_tests OFF)
+set(run_int_tests OFF)
+set(run_perf_tests OFF)
+set(run_unittests OFF)
+set(run_traceability OFF)
+set(run_reals_check OFF)
+
+if ((NOT TARGET c_build_tools) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-build-tools/CMakeLists.txt))
+    add_subdirectory(deps/c-build-tools)
+    set_default_build_options()
+endif()
+
+if ((NOT TARGET macro_utils_c) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/macro-utils-c/CMakeLists.txt))
+    add_subdirectory(deps/macro-utils-c)
+endif()
+
+if ((NOT TARGET c_logging) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-logging/CMakeLists.txt))
+    add_subdirectory(deps/c-logging)
+endif()
+
+if ((NOT TARGET ctest) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/ctest/CMakeLists.txt))
+    add_subdirectory(deps/ctest)
+endif()
+
+if ((NOT TARGET testrunnerswitcher) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-testrunnerswitcher/CMakeLists.txt))
+    add_subdirectory(deps/c-testrunnerswitcher)
+endif()
+
+if ((NOT TARGET umock_c) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/umock-c/CMakeLists.txt))
+    add_subdirectory(deps/umock-c)
+endif()
+
+set(run_e2e_tests ${original_run_e2e_tests})
+set(run_int_tests ${original_run_int_tests})
+set(run_perf_tests ${original_run_perf_tests})
+set(run_unittests ${original_run_unittests})
+set(run_traceability ${original_run_traceability})
+set(run_reals_check ${original_run_reals_check})
 
 # Include the common build rules for the C SDK
 include(configs/azure_iot_build_rules.cmake)
@@ -212,8 +262,6 @@ elseif(APPLE)
     endif()
 endif()
 
-
-include_directories(${UMOCK_C_INC_FOLDER})
 
 #these are the C source files
 set(source_c_files
@@ -487,6 +535,7 @@ add_library(aziotsharedutil ${source_c_files} ${source_h_files} ${aziotshareduti
 setTargetBuildProperties(aziotsharedutil)
 
 target_include_directories(aziotsharedutil PUBLIC $<BUILD_INTERFACE:${SHARED_UTIL_INC_FOLDER}>)
+target_link_libraries(aziotsharedutil PUBLIC macro_utils_c)
 
 if(MSVC)
     set(source_h_files ${source_h_files}
@@ -651,31 +700,11 @@ if(${build_as_dynamic})
     target_link_libraries(aziotsharedutil_dll ${aziotsharedutil_target_libs})
 endif()
 
-set(original_run_e2e_tests ${run_e2e_tests})
-set(original_run_unittests ${run_unittests})
-set(original_run_int_tests ${run_int_tests})
-
-set(run_e2e_tests OFF)
-set(run_unittests OFF)
-set(run_int_tests OFF)
-
-include(dependencies.cmake)
-
-if (${original_run_unittests} OR ${original_run_e2e_tests})
-    include("${CMAKE_CURRENT_LIST_DIR}/dependencies-test.cmake")
+# Dependencies are already loaded in the preamble via deps/c-build-tools etc.
+# testtools/micromock and testtools/sal are still needed for legacy test infrastructure
+if (${run_unittests} OR ${run_e2e_tests})
     add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/testtools)
-
-    setTargetBuildProperties(ctest)
-    setTargetBuildProperties(testrunnerswitcher)
-    setTargetBuildProperties(umock_c)
 endif()
-
-set(run_e2e_tests ${original_run_e2e_tests})
-set(run_unittests ${original_run_unittests})
-set(run_int_tests ${original_run_int_tests})
-
-include_directories(${MACRO_UTILS_INC_FOLDER})
-include_directories(${UMOCK_C_INC_FOLDER})
 
 if (${run_unittests} OR ${run_int_tests})
     add_subdirectory(tests)

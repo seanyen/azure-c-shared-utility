@@ -19,7 +19,7 @@ void my_gballoc_free(void* ptr)
     free(ptr);
 }
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 #include "testrunnerswitcher.h"
 #include "some_refcount_impl.h"
 #include "umock_c/umock_c.h"
