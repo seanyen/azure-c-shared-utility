@@ -40,6 +40,11 @@ endif()
 
 if ((NOT TARGET c_logging) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-logging/CMakeLists.txt))
     add_subdirectory(deps/c-logging)
+    # c-logging's own guard checks TARGET c_logging, but only c_logging_v2 is created.
+    # Create an alias so nested copies (in ctest, umock-c, etc.) skip their own add_subdirectory.
+    if (NOT TARGET c_logging)
+        add_library(c_logging ALIAS c_logging_v2)
+    endif()
 endif()
 
 if ((NOT TARGET ctest) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/ctest/CMakeLists.txt))
@@ -535,7 +540,12 @@ add_library(aziotsharedutil ${source_c_files} ${source_h_files} ${aziotshareduti
 setTargetBuildProperties(aziotsharedutil)
 
 target_include_directories(aziotsharedutil PUBLIC $<BUILD_INTERFACE:${SHARED_UTIL_INC_FOLDER}>)
-target_link_libraries(aziotsharedutil PUBLIC macro_utils_c c_logging_v2)
+target_link_libraries(aziotsharedutil PUBLIC macro_utils_c)
+# c_logging_v2 and umock_c provide headers needed by aziotsharedutil sources.
+# Use include_directories (not target_link_libraries) to avoid adding these
+# targets to the export set — matching the legacy behavior.
+include_directories(${CMAKE_CURRENT_LIST_DIR}/deps/c-logging/v2/inc)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/deps/umock-c/inc)
 
 if(MSVC)
     set(source_h_files ${source_h_files}
@@ -695,9 +705,9 @@ if(LINUX)
     endif()
 endif()
 
-target_link_libraries(aziotsharedutil ${aziotsharedutil_target_libs})
+target_link_libraries(aziotsharedutil PUBLIC ${aziotsharedutil_target_libs})
 if(${build_as_dynamic})
-    target_link_libraries(aziotsharedutil_dll ${aziotsharedutil_target_libs})
+    target_link_libraries(aziotsharedutil_dll PUBLIC ${aziotsharedutil_target_libs})
 endif()
 
 # Dependencies are already loaded in the preamble via deps/c-build-tools etc.
