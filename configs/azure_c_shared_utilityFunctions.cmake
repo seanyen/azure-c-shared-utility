@@ -303,7 +303,7 @@ function(c_windows_unittests_add_dll whatIsBuilding folder)
                PROPERTIES
                COMPILE_FLAGS /TP)
 
-    target_link_libraries(${whatIsBuilding}_dll umock_c ctest testrunnerswitcher ${whatIsBuilding}_testsonly_lib )
+    target_link_libraries(${whatIsBuilding}_dll umock_c ctest testrunnerswitcher c_logging_v2 ${whatIsBuilding}_testsonly_lib )
 
     set(PARSING_ADDITIONAL_LIBS OFF)
     set(PARSING_VALGRIND_SUPPRESSIONS_FILE OFF)
@@ -365,7 +365,7 @@ function(c_windows_unittests_add_exe whatIsBuilding folder)
 
     target_compile_definitions(${whatIsBuilding}_exe PUBLIC -DUSE_CTEST)
     target_include_directories(${whatIsBuilding}_exe PUBLIC ${sharedutil_include_directories})
-    target_link_libraries(${whatIsBuilding}_exe umock_c ctest testrunnerswitcher)
+    target_link_libraries(${whatIsBuilding}_exe umock_c ctest testrunnerswitcher c_logging_v2)
 
     set(PARSING_ADDITIONAL_LIBS OFF)
     set(PARSING_VALGRIND_SUPPRESSIONS_FILE OFF)
@@ -460,7 +460,7 @@ function(c_linux_unittests_add_exe whatIsBuilding folder)
 
     endforeach()
 
-    target_link_libraries(${whatIsBuilding}_exe umock_c ctest m)
+    target_link_libraries(${whatIsBuilding}_exe umock_c ctest c_logging_v2 m)
 
     add_test(NAME ${whatIsBuilding} COMMAND $<TARGET_FILE:${whatIsBuilding}_exe>)
 
