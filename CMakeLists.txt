@@ -535,7 +535,7 @@ add_library(aziotsharedutil ${source_c_files} ${source_h_files} ${aziotshareduti
 setTargetBuildProperties(aziotsharedutil)
 
 target_include_directories(aziotsharedutil PUBLIC $<BUILD_INTERFACE:${SHARED_UTIL_INC_FOLDER}>)
-target_link_libraries(aziotsharedutil PUBLIC macro_utils_c)
+target_link_libraries(aziotsharedutil PUBLIC macro_utils_c c_logging_v2)
 
 if(MSVC)
     set(source_h_files ${source_h_files}
