@@ -42,6 +42,7 @@ typedef void(*LOGGER_LOG_GETLASTERROR)(const char* file, const char* func, int l
 
 #ifdef NO_LOGGING
 /*no logging is useful when time and fprintf are mocked*/
+#define LOG(...)
 #define LogInfo(...)
 #define LogBinary(...)
 #define LogError(...)
@@ -52,6 +53,7 @@ typedef void(*LOGGER_LOG_GETLASTERROR)(const char* file, const char* func, int l
 #define UNUSED(x) (void)(x)
 
 #elif (defined MINIMAL_LOGERROR)
+#define LOG(...)
 #define LogInfo(...)
 #define LogBinary(...)
 #define LogError(...) printf("error %s: line %d\n",__FILE__,__LINE__);
@@ -73,6 +75,10 @@ typedef void(*LOGGER_LOG_GETLASTERROR)(const char* file, const char* func, int l
 #else /* Normal build: use c-logging */
 
 #include "c_logging/logger.h"
+
+// Legacy LOG(category, options, format, ...) macro used by uamqp.
+// Map to LogInfo since c-logging handles severity internally.
+#define LOG(log_category, log_options, format, ...) LogInfo(format, ##__VA_ARGS__)
 
 // LogError, LogInfo, LogVerbose, LogLastError, LogCritical, LogWarning
 // are now provided by c_logging/logger_v1_v2.h (included via logger.h)
