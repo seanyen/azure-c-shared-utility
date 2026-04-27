@@ -288,6 +288,7 @@ if(${use_schannel})
     set(source_c_files ${source_c_files}
         ./adapters/tlsio_schannel.c
         ./adapters/x509_schannel.c
+        ./adapters/csr_gen_schannel.c
     )
 endif()
 # If SocketIO isn't used, then we need to substitute stubs for HTTP Proxy
@@ -320,6 +321,7 @@ if(${use_openssl})
     set(source_c_files ${source_c_files}
         ./adapters/tlsio_openssl.c
         ./adapters/x509_openssl.c
+        ./adapters/csr_gen_openssl.c
     )
 endif()
 if(${use_applessl})
@@ -433,6 +435,7 @@ if(${use_schannel})
     set(source_h_files ${source_h_files}
     ./inc/azure_c_shared_utility/tlsio_schannel.h
     ./inc/azure_c_shared_utility/x509_schannel.h
+    ./inc/azure_c_shared_utility/csr_gen.h
     )
 endif()
 
@@ -453,6 +456,7 @@ if(${use_openssl})
     set(source_h_files ${source_h_files}
         ./inc/azure_c_shared_utility/tlsio_openssl.h
         ./inc/azure_c_shared_utility/x509_openssl.h
+        ./inc/azure_c_shared_utility/csr_gen.h
         )
 endif()
 if(${use_applessl})
@@ -476,6 +480,7 @@ if(DEFINED LINUX OR DEFINED MACOSX)
     SOURCE
       ${CMAKE_CURRENT_LIST_DIR}/adapters/tlsio_openssl.c
       ${CMAKE_CURRENT_LIST_DIR}/adapters/x509_openssl.c
+      ${CMAKE_CURRENT_LIST_DIR}/adapters/csr_gen_openssl.c
       ${CMAKE_CURRENT_LIST_DIR}/adapters/httpapi_curl.c
     PROPERTY COMPILE_OPTIONS
       -Wno-deprecated-declarations
@@ -560,7 +565,7 @@ endif(${use_http})
 
 if(${use_schannel})
     if(WIN32)
-         set(aziotsharedutil_target_libs ${aziotsharedutil_target_libs} crypt32 ws2_32 secur32 advapi32 ncrypt)
+         set(aziotsharedutil_target_libs ${aziotsharedutil_target_libs} crypt32 ws2_32 secur32 advapi32 ncrypt bcrypt)
     endif()
 endif()
 
