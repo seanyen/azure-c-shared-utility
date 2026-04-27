@@ -244,8 +244,7 @@ BEGIN_TEST_SUITE(map_unittests)
         MAP_HANDLE handle;
 
         ///arrange
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
 
         STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG)) /*keys*/
             .IgnoreArgument(1);
@@ -361,8 +360,7 @@ BEGIN_TEST_SUITE(map_unittests)
         ///arrange
         MAP_HANDLE handle;
         whenShallcalloc_fail = 1;
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
 
         ///act
         handle = Map_Create(NULL);
@@ -2134,8 +2132,7 @@ BEGIN_TEST_SUITE(map_unittests)
         MAP_HANDLE handle = Map_Create(NULL);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
 
         ///act
         result = Map_Clone(handle);
@@ -2162,8 +2159,7 @@ BEGIN_TEST_SUITE(map_unittests)
         umock_c_reset_all_calls();
 
         whenShallcalloc_fail = currentcalloc_call + 1;
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
 
         ///act
         result = Map_Clone(handle);
@@ -2188,8 +2184,7 @@ BEGIN_TEST_SUITE(map_unittests)
         (void)Map_AddOrUpdate(handle, TEST_REDKEY, TEST_REDVALUE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/;
 
         STRICT_EXPECTED_CALL(gballoc_malloc(sizeof(char*))); /*this is creating a clone of the storage for keys*/
 
@@ -2226,8 +2221,7 @@ BEGIN_TEST_SUITE(map_unittests)
         (void)Map_AddOrUpdate(handle, TEST_REDKEY, TEST_REDVALUE);
         umock_c_reset_all_calls();
  
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/;
 
         STRICT_EXPECTED_CALL(gballoc_malloc(sizeof(char*))); /*this is creating a clone of the storage for keys*/
 
@@ -2268,8 +2262,7 @@ BEGIN_TEST_SUITE(map_unittests)
         (void)Map_AddOrUpdate(handle, TEST_REDKEY, TEST_REDVALUE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/;
 
         STRICT_EXPECTED_CALL(gballoc_malloc(sizeof(char*))); /*this is creating a clone of the storage for keys*/
 
@@ -2306,8 +2299,7 @@ BEGIN_TEST_SUITE(map_unittests)
         (void)Map_AddOrUpdate(handle, TEST_REDKEY, TEST_REDVALUE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/;
 
         STRICT_EXPECTED_CALL(gballoc_malloc(sizeof(char*))); /*this is creating a clone of the storage for keys*/
 
@@ -2340,8 +2332,7 @@ BEGIN_TEST_SUITE(map_unittests)
         (void)Map_AddOrUpdate(handle, TEST_REDKEY, TEST_REDVALUE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/;
         whenShallmalloc_fail = currentmalloc_call + 1;
         STRICT_EXPECTED_CALL(gballoc_malloc(sizeof(char*))); /*this is creating a clone of the storage for keys*/
         STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
@@ -2369,8 +2360,7 @@ BEGIN_TEST_SUITE(map_unittests)
         umock_c_reset_all_calls();
 
         whenShallcalloc_fail = currentcalloc_call + 1;
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/;
 
         ///act
         result = Map_Clone(handle);
@@ -2397,8 +2387,7 @@ BEGIN_TEST_SUITE(map_unittests)
         (void)Map_AddOrUpdate(handle, TEST_BLUEKEY, TEST_BLUEVALUE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/;
 
         STRICT_EXPECTED_CALL(gballoc_malloc(2*sizeof(char*))); /*this is creating a clone of the storage for keys*/
 
@@ -2440,8 +2429,7 @@ BEGIN_TEST_SUITE(map_unittests)
         (void)Map_AddOrUpdate(handle, TEST_BLUEKEY, TEST_BLUEVALUE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/;
 
         STRICT_EXPECTED_CALL(gballoc_malloc(2 * sizeof(char*))); /*this is creating a clone of the storage for keys*/
 
@@ -2491,8 +2479,7 @@ BEGIN_TEST_SUITE(map_unittests)
         (void)Map_AddOrUpdate(handle, TEST_BLUEKEY, TEST_BLUEVALUE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/;
 
         STRICT_EXPECTED_CALL(gballoc_malloc(2 * sizeof(char*))); /*this is creating a clone of the storage for keys*/
 
@@ -2538,8 +2525,7 @@ BEGIN_TEST_SUITE(map_unittests)
         (void)Map_AddOrUpdate(handle, TEST_BLUEKEY, TEST_BLUEVALUE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/;
 
         STRICT_EXPECTED_CALL(gballoc_malloc(2 * sizeof(char*))); /*this is creating a clone of the storage for keys*/
 
@@ -2581,8 +2567,7 @@ BEGIN_TEST_SUITE(map_unittests)
         (void)Map_AddOrUpdate(handle, TEST_BLUEKEY, TEST_BLUEVALUE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/;
 
         STRICT_EXPECTED_CALL(gballoc_malloc(2 * sizeof(char*))); /*this is creating a clone of the storage for keys*/
 
@@ -2620,8 +2605,7 @@ BEGIN_TEST_SUITE(map_unittests)
         (void)Map_AddOrUpdate(handle, TEST_BLUEKEY, TEST_BLUEVALUE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/;
 
         STRICT_EXPECTED_CALL(gballoc_malloc(2 * sizeof(char*))); /*this is creating a clone of the storage for keys*/
 
@@ -2655,8 +2639,7 @@ BEGIN_TEST_SUITE(map_unittests)
         (void)Map_AddOrUpdate(handle, TEST_BLUEKEY, TEST_BLUEVALUE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/;
 
         whenShallmalloc_fail = currentmalloc_call + 1;
         STRICT_EXPECTED_CALL(gballoc_malloc(2 * sizeof(char*))); /*this is creating a clone of the storage for keys*/
@@ -2686,8 +2669,7 @@ BEGIN_TEST_SUITE(map_unittests)
         umock_c_reset_all_calls();
 
         whenShallcalloc_fail = currentcalloc_call + 1;
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)) /*this is creating the HANDLE structure*/;
 
         ///act
         result = Map_Clone(handle);

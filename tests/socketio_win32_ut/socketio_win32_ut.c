@@ -911,8 +911,7 @@ TEST_FUNCTION(socketio_send_returns_1_succeeds)
     EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_ARG));
     EXPECTED_CALL(send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG)).SetReturn(1);
     EXPECTED_CALL(WSAGetLastError()).SetReturn(WSAEWOULDBLOCK);
-    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
     EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     EXPECTED_CALL(singlylinkedlist_add(IGNORED_ARG, IGNORED_ARG));
 

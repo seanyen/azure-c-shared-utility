@@ -56,6 +56,8 @@ static void tickcounter_ms_t_ToString(char* string, size_t bufferSize, tickcount
     (void)snprintf(string, bufferSize, "%llu", (unsigned long long)val);
 }
 
+CTEST_DEFINE_EQUALITY_ASSERTION_FUNCTIONS_FOR_TYPE(tickcounter_ms_t, static)
+
 static void on_umock_c_error(UMOCK_C_ERROR_CODE error_code)
 {
     ASSERT_FAIL("umock_c reported error :%" PRI_MU_ENUM "", MU_ENUM_VALUE(UMOCK_C_ERROR_CODE, error_code));

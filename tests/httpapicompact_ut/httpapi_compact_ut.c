@@ -563,8 +563,7 @@ static void setupAllCallBeforeOpenHTTPsequence(HTTP_HEADERS_HANDLE requestHttpHe
             .IgnoreArgument(1)
             .IgnoreArgument(3);
     }
-    STRICT_EXPECTED_CALL(xio_open(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_open(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     for (i = 0; i < numberOfDoWork; i++)
     {
         STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG))
@@ -585,52 +584,45 @@ static void setupAllCallBeforeReceiveHTTPsequenceWithSuccess()
 
     STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG)).IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(HTTPHeaders_AddHeaderNameValuePair(IGNORED_ARG, "content-length", "10")).IgnoreArgument(1);
 
     STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG)).IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(HTTPHeaders_AddHeaderNameValuePair(IGNORED_ARG, "transfer-encoding", "")).IgnoreArgument(1);
 
     STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG)).IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG))
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG)).IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
 }
 
 static void setupAllCallBeforeSendHTTPsequenceWithSuccess(HTTP_HEADERS_HANDLE requestHttpHeaders)
 {
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(HTTPHeaders_GetHeader(requestHttpHeaders, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument(2).IgnoreArgument(3);
     STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPHeaders_GetHeader(requestHttpHeaders, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument(2).IgnoreArgument(3);
     STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 }
 
 #define TEST_HEAD_RECEIVED_ANSWER (const unsigned char*)"HTTP/111.222 433 555\r\ncontent-length:10\r\ntransfer-encoding:\r\n\r\n"
@@ -959,8 +951,7 @@ TEST_FUNCTION(HTTPAPI_CloseConnection__valid_hostName_Succeed)
 {
     /// arrange
     HTTP_HANDLE httpHandle = createHttpConnection();
-    STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_destroy(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
@@ -1003,8 +994,7 @@ TEST_FUNCTION(HTTPAPI_CloseConnection__free_certificate_memory_succeed)
     /// arrange
     HTTP_HANDLE httpHandle = createHttpConnection();
     setHttpCertificate(httpHandle);
-    STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_destroy(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
@@ -1034,8 +1024,7 @@ TEST_FUNCTION(HTTPAPI_CloseConnection__free_x509client_memory_succeed)
     HTTP_HANDLE httpHandle = createHttpConnection();
     setHttpx509ClientCertificateAndKey(httpHandle);
     umock_c_reset_all_calls();
-    STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_destroy(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG)) // From the xio destroy
@@ -1070,8 +1059,7 @@ TEST_FUNCTION(HTTPAPI_CloseConnection__return_LINE_failed)
     SkipDoworkJobsCloseResult = 0;
     call_on_io_close_complete_in_xio_close = true;
 
-    STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_destroy(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
@@ -1122,8 +1110,7 @@ TEST_FUNCTION(HTTPAPI_CloseConnection__close_on_dowork_succeed)
     SkipDoworkJobsCloseResult = 0;
     call_on_io_close_complete_in_xio_close = false;
 
-    STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(xio_destroy(IGNORED_ARG))
@@ -1191,8 +1178,7 @@ TEST_FUNCTION(HTTPAPI_CloseConnection__close_on_dowork_retry_n_succeed)
     SkipDoworkJobsCloseResult = 90;
     call_on_io_close_complete_in_xio_close = false;
 
-    STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     for (i = 0; i < SkipDoworkJobsCloseResult; i++)
     {
         STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG))
@@ -1266,8 +1252,7 @@ TEST_FUNCTION(HTTPAPI_CloseConnection__close_on_dowork_retry_n_failed)
     SkipDoworkJobsCloseResult = 90;
     call_on_io_close_complete_in_xio_close = false;
 
-    STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     for (i = 0; i < SkipDoworkJobsCloseResult + 1; i++)
     {
         STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG))
@@ -1341,8 +1326,7 @@ TEST_FUNCTION(HTTPAPI_CloseConnection__close_timeout_failed)
     SkipDoworkJobsCloseResult = 101;
     call_on_io_close_complete_in_xio_close = false;
 
-    STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     for (i = 0; i < SkipDoworkJobsCloseResult; i++)
     {
         STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG))
@@ -2334,8 +2318,7 @@ TEST_FUNCTION(HTTPAPI_ExecuteRequest__io_send_header_return_error_failed)
     setHttpx509ClientCertificateAndKey(httpHandle);
     setupAllCallBeforeOpenHTTPsequence(requestHttpHeaders, 1, true);
     xio_send_shallReturn = (const int*)xio_send_e;
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
     /// act
     result = HTTPAPI_ExecuteRequest(
@@ -2378,13 +2361,11 @@ TEST_FUNCTION(HTTPAPI_ExecuteRequest__on_send_header_complete_with_success_befor
     xio_send_shallReturn = (const int*)xio_send_0_e;
 
     setupAllCallBeforeOpenHTTPsequence(requestHttpHeaders, 1, false);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(HTTPHeaders_GetHeader(requestHttpHeaders, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument(2).IgnoreArgument(3);
     STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
 
@@ -2431,15 +2412,12 @@ TEST_FUNCTION(HTTPAPI_ExecuteRequest__on_send_header_complete_with_2_success_bef
     xio_send_shallReturn = (const int*)xio_send_00_e;
 
     setupAllCallBeforeOpenHTTPsequence(requestHttpHeaders, 1, false);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(HTTPHeaders_GetHeader(requestHttpHeaders, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument(2).IgnoreArgument(3);
     STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
 
@@ -2489,8 +2467,7 @@ TEST_FUNCTION(HTTPAPI_ExecuteRequest__on_send_header_complete_timeout_failed)
     call_on_send_complete_in_xio_send = false;
 
     setupAllCallBeforeOpenHTTPsequence(requestHttpHeaders, 1, false);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     SkipDoworkJobsSendResult = 200;
     for (i = 0; i < SkipDoworkJobsSendResult; i++)
     {
@@ -2547,8 +2524,7 @@ TEST_FUNCTION(HTTPAPI_ExecuteRequest__on_send_header_complete_retry_n_and_failed
     call_on_send_complete_in_xio_send = false;
 
     setupAllCallBeforeOpenHTTPsequence(requestHttpHeaders, 1, false);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     SkipDoworkJobsSendResult = 10;
     for (i = 0; i < SkipDoworkJobsSendResult; i++)
     {
@@ -2603,31 +2579,24 @@ TEST_FUNCTION(HTTPAPI_ExecuteRequest__on_send_buffer_complete_with_error_failed)
 
     setupAllCallBeforeOpenHTTPsequence(requestHttpHeaders, 1, false);
 
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(HTTPHeaders_GetHeader(requestHttpHeaders, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument(2).IgnoreArgument(3);
     STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPHeaders_GetHeader(requestHttpHeaders, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument(2).IgnoreArgument(3);
     STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
     HTTPHeaders_GetHeader_shallReturn = HTTP_HEADERS_OK;
 
@@ -3204,8 +3173,7 @@ TEST_FUNCTION(HTTPAPI_ExecuteRequest__Execute_request_retry_send_succeed)
 
     setupAllCallBeforeOpenHTTPsequence(requestHttpHeaders, 1, false);
 
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     SkipDoworkJobsSendResult = 199;
     for (i = 0; i < SkipDoworkJobsSendResult+1; i++)
     {
@@ -3216,13 +3184,11 @@ TEST_FUNCTION(HTTPAPI_ExecuteRequest__Execute_request_retry_send_succeed)
     STRICT_EXPECTED_CALL(HTTPHeaders_GetHeader(requestHttpHeaders, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument(2).IgnoreArgument(3);
     STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(ThreadAPI_Sleep(100));
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(ThreadAPI_Sleep(100));
@@ -3231,26 +3197,22 @@ TEST_FUNCTION(HTTPAPI_ExecuteRequest__Execute_request_retry_send_succeed)
     STRICT_EXPECTED_CALL(HTTPHeaders_GetHeader(requestHttpHeaders, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument(2).IgnoreArgument(3);
     STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(ThreadAPI_Sleep(100));
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(ThreadAPI_Sleep(100));
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(ThreadAPI_Sleep(100));
 
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(ThreadAPI_Sleep(100));
@@ -3721,28 +3683,22 @@ TEST_FUNCTION(HTTPAPI_ExecuteRequest__request_NULL_content_succeed)
     DoworkJobsSendResult = DoworkJobsSendResult_ReceiveHead;
 
     setupAllCallBeforeOpenHTTPsequence(requestHttpHeaders, 1, false);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(HTTPHeaders_GetHeader(requestHttpHeaders, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument(2).IgnoreArgument(3);
     STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPHeaders_GetHeader(requestHttpHeaders, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument(2).IgnoreArgument(3);
     STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     setupAllCallBeforeReceiveHTTPsequenceWithSuccess();
 
     HTTPHeaders_GetHeader_shallReturn = HTTP_HEADERS_OK;
@@ -3794,28 +3750,22 @@ TEST_FUNCTION(HTTPAPI_ExecuteRequest__request_content_size_0_succeed)
 
     setupAllCallBeforeOpenHTTPsequence(requestHttpHeaders, 1, false);
 
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(HTTPHeaders_GetHeader(requestHttpHeaders, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument(2).IgnoreArgument(3);
     STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPHeaders_GetHeader(requestHttpHeaders, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument(2).IgnoreArgument(3);
     STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     setupAllCallBeforeReceiveHTTPsequenceWithSuccess();
 
     HTTPHeaders_GetHeader_shallReturn = HTTP_HEADERS_OK;
@@ -3914,30 +3864,23 @@ TEST_FUNCTION(HTTPAPI_ExecuteRequest__Execute_request_no_responseHeadersHandle_s
 
     setupAllCallBeforeOpenHTTPsequence(requestHttpHeaders, 1, false);
 
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(HTTPHeaders_GetHeader(requestHttpHeaders, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument(2).IgnoreArgument(3);
     STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPHeaders_GetHeader(requestHttpHeaders, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument(2).IgnoreArgument(3);
     STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
-    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, DoworkJobsReceivedBuffer_size[0])).IgnoreArgument(1);

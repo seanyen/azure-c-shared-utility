@@ -641,8 +641,7 @@ TEST_FUNCTION(HTTPAPIEX_Create_succeeds)
 {
     /// arrange
     HTTPAPIEX_HANDLE result;
-    STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(STRING_construct(TEST_HOSTNAME));
 
     STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_ARG))
@@ -813,8 +812,7 @@ TEST_FUNCTION(HTTPAPIEX_Create_fails_when_malloc_fails)
     /// arrange
     HTTPAPIEX_HANDLE result;
     whenShallcalloc_fail = currentcalloc_call + 1;
-    STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
 
     /// act
     result = HTTPAPIEX_Create(TEST_HOSTNAME);
@@ -831,8 +829,7 @@ TEST_FUNCTION(HTTPAPIEX_Create_fails_when_STRING_construct_fails)
 {
     /// arrange
     HTTPAPIEX_HANDLE result;
-    STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
 
     STRICT_EXPECTED_CALL(STRING_construct(TEST_HOSTNAME))
         .SetReturn(NULL);
@@ -855,8 +852,7 @@ TEST_FUNCTION(HTTPAPIEX_Create_fails_when_VECTOR_create_fails)
 {
     /// arrange
     HTTPAPIEX_HANDLE result;
-    STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
 
     STRICT_EXPECTED_CALL(STRING_construct(TEST_HOSTNAME));
 

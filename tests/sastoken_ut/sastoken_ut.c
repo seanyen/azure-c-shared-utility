@@ -609,8 +609,8 @@ TEST_FUNCTION(SASToken_validate_proper_format_1_pass)
     STRICT_EXPECTED_CALL(STRING_length(handle)).SetReturn(TEST_INVALID_SE_LENGTH);
     EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(get_time(IGNORED_ARG));
-    STRICT_EXPECTED_CALL(get_difftime(IGNORED_ARG, IGNORED_ARG)).IgnoreAllArguments().SetReturn(TEST_TIME_T);
-    EXPECTED_CALL(gballoc_free(IGNORED_ARG)).IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(get_difftime(IGNORED_ARG, IGNORED_ARG)).SetReturn(TEST_TIME_T);
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     result = SASToken_Validate(handle);
@@ -634,8 +634,8 @@ TEST_FUNCTION(SASToken_validate_proper_format_with_skn_1_pass)
     STRICT_EXPECTED_CALL(STRING_length(handle)).SetReturn(TEST_INVALID_SE_LENGTH);
     EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(get_time(IGNORED_ARG));
-    STRICT_EXPECTED_CALL(get_difftime(IGNORED_ARG, IGNORED_ARG)).IgnoreAllArguments().SetReturn(TEST_TIME_T);
-    EXPECTED_CALL(gballoc_free(IGNORED_ARG)).IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(get_difftime(IGNORED_ARG, IGNORED_ARG)).SetReturn(TEST_TIME_T);
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     result = SASToken_Validate(handle);
@@ -658,8 +658,8 @@ TEST_FUNCTION(SASToken_validate_proper_format_with_skn_expired_se_fail)
     STRICT_EXPECTED_CALL(STRING_length(handle)).SetReturn(TEST_INVALID_SE_LENGTH);
     EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(get_time(IGNORED_ARG));
-    STRICT_EXPECTED_CALL(get_difftime(IGNORED_ARG, IGNORED_ARG)).IgnoreAllArguments().SetReturn(TEST_TIME_T);
-    EXPECTED_CALL(gballoc_free(IGNORED_ARG)).IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(get_difftime(IGNORED_ARG, IGNORED_ARG)).SetReturn(TEST_TIME_T);
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     result = SASToken_Validate(handle);
@@ -682,8 +682,8 @@ TEST_FUNCTION(SASToken_validate_proper_format_2_pass)
     STRICT_EXPECTED_CALL(STRING_length(handle)).SetReturn(TEST_INVALID_SE_LENGTH);
     EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(get_time(IGNORED_ARG));
-    STRICT_EXPECTED_CALL(get_difftime(IGNORED_ARG, IGNORED_ARG)).IgnoreAllArguments().SetReturn(TEST_TIME_T);
-    EXPECTED_CALL(gballoc_free(IGNORED_ARG)).IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(get_difftime(IGNORED_ARG, IGNORED_ARG)).SetReturn(TEST_TIME_T);
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     result = SASToken_Validate(handle);
@@ -706,8 +706,8 @@ TEST_FUNCTION(SASToken_validate_proper_format_3_pass)
     STRICT_EXPECTED_CALL(STRING_length(handle)).SetReturn(TEST_INVALID_SE_LENGTH);
     EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(get_time(IGNORED_ARG));
-    STRICT_EXPECTED_CALL(get_difftime(IGNORED_ARG, IGNORED_ARG)).IgnoreAllArguments().SetReturn(TEST_TIME_T);
-    EXPECTED_CALL(gballoc_free(IGNORED_ARG)).IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(get_difftime(IGNORED_ARG, IGNORED_ARG)).SetReturn(TEST_TIME_T);
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     result = SASToken_Validate(handle);
@@ -730,8 +730,8 @@ TEST_FUNCTION(SASToken_validate_not_expired_pass)
     STRICT_EXPECTED_CALL(STRING_length(handle)).SetReturn(TEST_INVALID_SE_LENGTH);
     EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(get_time(IGNORED_ARG));
-    STRICT_EXPECTED_CALL(get_difftime(IGNORED_ARG, IGNORED_ARG)).IgnoreAllArguments().SetReturn(TEST_EARLY_TIME);
-    EXPECTED_CALL(gballoc_free(IGNORED_ARG)).IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(get_difftime(IGNORED_ARG, IGNORED_ARG)).SetReturn(TEST_EARLY_TIME);
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     result = SASToken_Validate(handle);
@@ -755,8 +755,8 @@ TEST_FUNCTION(SASToken_validate_not_expired_large_int_pass)
     STRICT_EXPECTED_CALL(STRING_length(handle)).SetReturn(TEST_INVALID_SE_LENGTH);
     EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(get_time(IGNORED_ARG));
-    STRICT_EXPECTED_CALL(get_difftime(IGNORED_ARG, IGNORED_ARG)).IgnoreAllArguments().SetReturn(TEST_EARLY_TIME);
-    EXPECTED_CALL(gballoc_free(IGNORED_ARG)).IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(get_difftime(IGNORED_ARG, IGNORED_ARG)).SetReturn(TEST_EARLY_TIME);
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     result = SASToken_Validate(handle);
@@ -780,8 +780,8 @@ TEST_FUNCTION(SASToken_validate_expired_fail)
     STRICT_EXPECTED_CALL(STRING_length(handle)).SetReturn(TEST_INVALID_SE_LENGTH);
     EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(get_time(IGNORED_ARG));
-    STRICT_EXPECTED_CALL(get_difftime(TEST_TIME_T, IGNORED_ARG)).IgnoreAllArguments().SetReturn(TEST_LATER_TIME);
-    EXPECTED_CALL(gballoc_free(IGNORED_ARG)).IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(get_difftime(TEST_TIME_T, IGNORED_ARG)).SetReturn(TEST_LATER_TIME);
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     result = SASToken_Validate(handle);
@@ -803,7 +803,7 @@ TEST_FUNCTION(SASToken_validate_invalid_expiry_1_fail)
     STRICT_EXPECTED_CALL(STRING_c_str(handle)).SetReturn(TEST_INVALID_SE);
     STRICT_EXPECTED_CALL(STRING_length(handle)).SetReturn(TEST_INVALID_SE_LENGTH);
     EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_ARG)).IgnoreAllArguments();
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     result = SASToken_Validate(handle);
@@ -825,7 +825,7 @@ TEST_FUNCTION(SASToken_validate_invalid_expiry_2_fail)
     STRICT_EXPECTED_CALL(STRING_c_str(handle)).SetReturn(TEST_INVALID_SE);
     STRICT_EXPECTED_CALL(STRING_length(handle)).SetReturn(TEST_INVALID_SE_LENGTH);
     EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_ARG)).IgnoreAllArguments();
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     result = SASToken_Validate(handle);
@@ -847,7 +847,7 @@ TEST_FUNCTION(SASToken_validate_invalid_expiry_3_fail)
     STRICT_EXPECTED_CALL(STRING_c_str(handle)).SetReturn(TEST_INVALID_SE);
     STRICT_EXPECTED_CALL(STRING_length(handle)).SetReturn(TEST_INVALID_SE_LENGTH);
     EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_ARG)).IgnoreAllArguments();
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     result = SASToken_Validate(handle);
@@ -869,7 +869,7 @@ TEST_FUNCTION(SASToken_validate_invalid_expiry_4_fail)
     STRICT_EXPECTED_CALL(STRING_c_str(handle)).SetReturn(TEST_INVALID_SE);
     STRICT_EXPECTED_CALL(STRING_length(handle)).SetReturn(TEST_INVALID_SE_LENGTH);
     EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_ARG)).IgnoreAllArguments();
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     result = SASToken_Validate(handle);
@@ -891,7 +891,7 @@ TEST_FUNCTION(SASToken_validate_invalid_expiry_5_fail)
     STRICT_EXPECTED_CALL(STRING_c_str(handle)).SetReturn(TEST_INVALID_SE);
     STRICT_EXPECTED_CALL(STRING_length(handle)).SetReturn(TEST_INVALID_SE_LENGTH);
     EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_ARG)).IgnoreAllArguments();
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     result = SASToken_Validate(handle);

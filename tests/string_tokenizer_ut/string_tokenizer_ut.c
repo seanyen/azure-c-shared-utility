@@ -168,8 +168,7 @@ BEGIN_TEST_SUITE(string_tokenizer_unittests)
 
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))  //Token Allocation.
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));  //Token Allocation.
 
         STRICT_EXPECTED_CALL(gballoc_malloc(0))  //Token Content Allocation.
             .IgnoreArgument(1);
@@ -210,8 +209,7 @@ BEGIN_TEST_SUITE(string_tokenizer_unittests)
 
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))  //Token Allocation.
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));  //Token Allocation.
 
         STRICT_EXPECTED_CALL(gballoc_malloc(0))  //Token Content Allocation.
             .IgnoreArgument(1);
@@ -239,8 +237,7 @@ BEGIN_TEST_SUITE(string_tokenizer_unittests)
         umock_c_reset_all_calls();
 
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))  //Token Allocation.
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));  //Token Allocation.
 
 
         whenShallcalloc_fail = currentcalloc_call + 1;

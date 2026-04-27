@@ -388,8 +388,7 @@ TEST_FUNCTION(http_proxy_io_create_succeeds)
     http_proxy_io_config.username = "test_user";
     http_proxy_io_config.password = "shhhh";
 
-    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "a_proxy"))
@@ -427,8 +426,7 @@ TEST_FUNCTION(http_proxy_io_create_with_NULL_username_and_password_succeeds)
     http_proxy_io_config.username = NULL;
     http_proxy_io_config.password = NULL;
 
-    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments();
+    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "a_proxy"))
@@ -563,7 +561,6 @@ TEST_FUNCTION(when_a_call_made_by_http_proxy_io_create_fails_then_http_proxy_io_
     ASSERT_ARE_EQUAL(int, 0, negativeTestsInitResult);
 
     EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
-        .IgnoreAllArguments()
         .SetFailReturn(NULL);
     STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination()

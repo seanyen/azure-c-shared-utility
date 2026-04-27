@@ -376,7 +376,7 @@ TEST_FUNCTION(when_the_key_is_zero_length_then_connectionstringparser_parse_fail
     umock_c_reset_all_calls();
     STRICT_EXPECTED_CALL(STRING_TOKENIZER_create(TEST_STRING_HANDLE_PAIR));
     STRICT_EXPECTED_CALL(STRING_c_str(TEST_STRING_HANDLE_PAIR));
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(STRING_new()).SetReturn(key);
     STRICT_EXPECTED_CALL(STRING_new()).SetReturn(value);
     STRICT_EXPECTED_CALL(Map_Create(NULL)).SetReturn(map);
@@ -447,7 +447,7 @@ TEST_FUNCTION(when_getting_the_C_string_for_the_key_fails_then_connectionstringp
     umock_c_reset_all_calls();
     STRICT_EXPECTED_CALL(STRING_TOKENIZER_create(TEST_STRING_HANDLE_PAIR));
     STRICT_EXPECTED_CALL(STRING_c_str(TEST_STRING_HANDLE_PAIR));
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(STRING_new()).SetReturn(key);
     STRICT_EXPECTED_CALL(STRING_new()).SetReturn(value);
     STRICT_EXPECTED_CALL(Map_Create(NULL)).SetReturn(map);

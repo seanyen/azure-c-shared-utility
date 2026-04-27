@@ -283,6 +283,7 @@ function(c_windows_unittests_add_dll whatIsBuilding folder)
     target_include_directories(${whatIsBuilding}_testsonly_lib PUBLIC ${sharedutil_include_directories} $ENV{VCInstallDir}UnitTest/include)
     target_compile_definitions(${whatIsBuilding}_testsonly_lib PUBLIC -DCPP_UNITTEST)
     target_compile_options(${whatIsBuilding}_testsonly_lib PUBLIC /TP /EHsc)
+    target_link_libraries(${whatIsBuilding}_testsonly_lib umock_c ctest testrunnerswitcher c_logging_v2 macro_utils_c)
 
     add_library(${whatIsBuilding}_dll SHARED
         ${${whatIsBuilding}_cpp_files}

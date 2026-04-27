@@ -294,7 +294,6 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         umock_c_reset_all_calls();
 
         STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-            .IgnoreAllArguments()
             .CopyOutArgumentBuffer(4, &zero, sizeof(zero));
 
         ///act
@@ -948,7 +947,6 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         umock_c_reset_all_calls();
 
         STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
-            .IgnoreAllArguments()
             .SetReturn(MAP_ERROR);
 
         ///act

@@ -100,7 +100,17 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
         REGISTER_GLOBAL_MOCK_FAIL_RETURN(gballoc_malloc, NULL);
         REGISTER_GLOBAL_MOCK_HOOK(gballoc_free, my_gballoc_free);
 
-        REGISTER_GLOBAL_INTERFACE_HOOKS(vector);
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_create, UMOCK_REAL(VECTOR_create));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_move, UMOCK_REAL(VECTOR_move));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_destroy, UMOCK_REAL(VECTOR_destroy));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_push_back, UMOCK_REAL(VECTOR_push_back));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_erase, UMOCK_REAL(VECTOR_erase));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_clear, UMOCK_REAL(VECTOR_clear));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_element, UMOCK_REAL(VECTOR_element));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_front, UMOCK_REAL(VECTOR_front));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_back, UMOCK_REAL(VECTOR_back));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_find_if, UMOCK_REAL(VECTOR_find_if));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_size, UMOCK_REAL(VECTOR_size));
         REGISTER_GLOBAL_MOCK_FAIL_RETURN(VECTOR_create, NULL);
         REGISTER_GLOBAL_MOCK_FAIL_RETURN(VECTOR_push_back, MU_FAILURE);
 
@@ -804,8 +814,7 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
     {
         STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "name"))
             .IgnoreArgument_destination();
-        STRICT_EXPECTED_CALL(aCloneOption("name", value))
-            .IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(aCloneOption("name", value));
         STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1))
             .IgnoreArgument_handle()
             .IgnoreArgument_elements();
