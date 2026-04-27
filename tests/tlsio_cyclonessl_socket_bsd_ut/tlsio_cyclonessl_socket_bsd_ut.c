@@ -156,8 +156,8 @@ TEST_FUNCTION(tlsio_cyclonessl_socket_create_succeeds)
     TlsSocket socket;
 
     STRICT_EXPECTED_CALL(socket(AF_INET, SOCK_STREAM, IPPROTO_TCP));
-    EXPECTED_CALL(getaddrinfo(IGNORED_PTR_ARG, IGNORED_PTR_ARG, &TEST_ADDR_INFO, IGNORED_PTR_ARG));
-    EXPECTED_CALL(connect(TEST_SOCKET, &test_sock_addr, IGNORED_NUM_ARG))
+    EXPECTED_CALL(getaddrinfo(IGNORED_ARG, IGNORED_ARG, &TEST_ADDR_INFO, IGNORED_ARG));
+    EXPECTED_CALL(connect(TEST_SOCKET, &test_sock_addr, IGNORED_ARG))
         .ValidateArgument_s();
 
     ///act
@@ -208,9 +208,9 @@ TEST_FUNCTION(when_a_failure_occurs_for_tlsio_cyclonessl_socket_create_then_crea
 
     STRICT_EXPECTED_CALL(socket(AF_INET, SOCK_STREAM, IPPROTO_TCP))
         .SetFailReturn((SOCKET)-1);
-    EXPECTED_CALL(getaddrinfo(IGNORED_PTR_ARG, IGNORED_PTR_ARG, &TEST_ADDR_INFO, IGNORED_PTR_ARG))
+    EXPECTED_CALL(getaddrinfo(IGNORED_ARG, IGNORED_ARG, &TEST_ADDR_INFO, IGNORED_ARG))
         .SetFailReturn(-1);
-    EXPECTED_CALL(connect(TEST_SOCKET, &test_sock_addr, IGNORED_NUM_ARG))
+    EXPECTED_CALL(connect(TEST_SOCKET, &test_sock_addr, IGNORED_ARG))
         .ValidateArgument_s()
         .SetFailReturn(-1);
 
@@ -242,8 +242,8 @@ TEST_FUNCTION(tlsio_cyclonessl_socket_destroy_closes_the_socket)
     TlsSocket socket;
 
     STRICT_EXPECTED_CALL(socket(AF_INET, SOCK_STREAM, IPPROTO_TCP));
-    EXPECTED_CALL(getaddrinfo(IGNORED_PTR_ARG, IGNORED_PTR_ARG, &TEST_ADDR_INFO, IGNORED_PTR_ARG));
-    EXPECTED_CALL(connect(TEST_SOCKET, &test_sock_addr, IGNORED_NUM_ARG))
+    EXPECTED_CALL(getaddrinfo(IGNORED_ARG, IGNORED_ARG, &TEST_ADDR_INFO, IGNORED_ARG));
+    EXPECTED_CALL(connect(TEST_SOCKET, &test_sock_addr, IGNORED_ARG))
         .ValidateArgument_s();
     int result = tlsio_cyclonessl_socket_create("testhostname", 4242, &socket);
     umock_c_reset_all_calls();

@@ -228,7 +228,7 @@ BEGIN_TEST_SUITE(dns_resolver_ut)
         bool result;
         DNSRESOLVER_HANDLE dns = dns_resolver_create("fake.com", 53, NULL);
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(getaddrinfo(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(getaddrinfo(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
         ///act
         result = dns_resolver_is_lookup_complete(dns);
@@ -248,7 +248,7 @@ BEGIN_TEST_SUITE(dns_resolver_ut)
         uint32_t ipv4;
         DNSRESOLVER_HANDLE dns = dns_resolver_create("fake.com", 53, NULL);
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(getaddrinfo(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(getaddrinfo(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
         result = dns_resolver_is_lookup_complete(dns);
         ASSERT_IS_TRUE(result, "Unexpected non-completion");
 
@@ -269,7 +269,7 @@ BEGIN_TEST_SUITE(dns_resolver_ut)
         bool result;
         DNSRESOLVER_HANDLE dns = dns_resolver_create("fake.com", 53, NULL);
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(getaddrinfo(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG)).SetReturn(GETADDRINFO_FAIL);
+        STRICT_EXPECTED_CALL(getaddrinfo(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG)).SetReturn(GETADDRINFO_FAIL);
 
         ///act
         result = dns_resolver_is_lookup_complete(dns);
@@ -289,7 +289,7 @@ BEGIN_TEST_SUITE(dns_resolver_ut)
         uint32_t ipv4;
         DNSRESOLVER_HANDLE dns = dns_resolver_create("fake.com", 53, NULL);
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(getaddrinfo(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG)).SetReturn(GETADDRINFO_FAIL);
+        STRICT_EXPECTED_CALL(getaddrinfo(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG)).SetReturn(GETADDRINFO_FAIL);
         result = dns_resolver_is_lookup_complete(dns);
         ASSERT_IS_TRUE(result, "Unexpected non-completion");
 
@@ -364,8 +364,8 @@ BEGIN_TEST_SUITE(dns_resolver_ut)
         DNSRESOLVER_HANDLE result = dns_resolver_create("fake.com", 53, NULL);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_NUM_ARG));  // copy hostname
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_NUM_ARG));  // instance
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));  // copy hostname
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));  // instance
 
         ///act
         dns_resolver_destroy(result);
@@ -379,8 +379,8 @@ BEGIN_TEST_SUITE(dns_resolver_ut)
     {
         ///arrange
         DNSRESOLVER_HANDLE result;
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG));  // copy hostname
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));  // instance
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));  // copy hostname
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));  // instance
 
         ///act
         result = dns_resolver_create("fake.com", 53, NULL);
@@ -401,8 +401,8 @@ BEGIN_TEST_SUITE(dns_resolver_ut)
         int negativeTestsInitResult = umock_c_negative_tests_init();
         ASSERT_ARE_EQUAL(int, 0, negativeTestsInitResult);
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG));  // copy hostname
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));  // instance
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));  // copy hostname
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));  // instance
         umock_c_negative_tests_snapshot();
 
         for (i = 0; i < umock_c_negative_tests_call_count(); i++)

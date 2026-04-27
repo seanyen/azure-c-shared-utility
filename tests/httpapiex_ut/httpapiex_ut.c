@@ -342,15 +342,15 @@ static void destroyHttpObjects(HTTP_HEADERS_HANDLE* requestHttpHeaders, HTTP_HEA
 static void setupAllCallBeforeHTTPsequence(void)
 {
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(TEST_BUFFER_SIZE);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, TEST_BUFFER_SIZE))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, TEST_BUFFER_SIZE))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
         .IgnoreArgument(1);
 }
 
@@ -361,10 +361,10 @@ static void setupAllCallForHTTPsequence(const char* relativePath, HTTP_HEADERS_H
     STRICT_EXPECTED_CALL(HTTPAPI_Init());
 
     /*this is getting the hostname for the HTTAPI_connect call)*/
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
         .IgnoreArgument(1);
 
     STRICT_EXPECTED_CALL(BUFFER_length(requestHttpBody))
@@ -375,13 +375,13 @@ static void setupAllCallForHTTPsequence(const char* relativePath, HTTP_HEADERS_H
 
     /*this is getting the buffer content and buffer length to pass to httpapi_executerequest*/
     STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         HTTPAPI_REQUEST_HEAD,
         relativePath,
         requestHttpHeaders,
         requestHttpBodyContent,
         requestHttpBodyLength,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         responseHttpHeaders,
         responseHttpBody))
         .ValidateArgumentBuffer(5, TEST_BUFFER, TEST_BUFFER_SIZE)
@@ -395,29 +395,29 @@ static void setupAllCallForHTTPsequence(const char* relativePath, HTTP_HEADERS_H
 static void prepareHTTPAPIEX_ExecuteRequest(unsigned int *asGivenByHttpApi, HTTP_HEADERS_HANDLE requestHttpHeaders, HTTP_HEADERS_HANDLE responseHttpHeaders, BUFFER_HANDLE responseHttpBody, HTTPAPI_RESULT resultToBeUsed)
 {
     /*this is building the host and content-length for the http request headers, this happens every time*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(TEST_BUFFER_SIZE);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, TEST_BUFFER_SIZE))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, TEST_BUFFER_SIZE))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(TEST_BUFFER_SIZE);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(TEST_BUFFER);
     STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         HTTPAPI_REQUEST_HEAD,
         TEST_RELATIVE_PATH,
         requestHttpHeaders,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         TEST_BUFFER_SIZE,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         responseHttpHeaders,
         responseHttpBody))
         .IgnoreArgument(1)
@@ -641,11 +641,11 @@ TEST_FUNCTION(HTTPAPIEX_Create_succeeds)
 {
     /// arrange
     HTTPAPIEX_HANDLE result;
-    STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
         .IgnoreAllArguments();
     STRICT_EXPECTED_CALL(STRING_construct(TEST_HOSTNAME));
 
-    STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_ARG))
         .IgnoreArgument(1);
 
     /// act
@@ -666,13 +666,13 @@ TEST_FUNCTION(HTTPAPIEX_Destroy_frees_resources_1) /*this is destroy after creat
     HTTPAPIEX_HANDLE handle = HTTPAPIEX_Create(TEST_HOSTNAME);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_PTR_ARG)) /*this is the copy of the hostName*/
+    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_ARG)) /*this is the copy of the hostName*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(VECTOR_destroy(IGNORED_PTR_ARG)) /*these are the options vector*/
+    STRICT_EXPECTED_CALL(VECTOR_destroy(IGNORED_ARG)) /*these are the options vector*/
         .IgnoreArgument(1);
 
     STRICT_EXPECTED_CALL(gballoc_free(handle)); /*this is handle data*/
@@ -693,21 +693,21 @@ TEST_FUNCTION(HTTPAPIEX_Destroy_frees_resources_2) /*this is destroy after setti
     (void)HTTPAPIEX_SetOption(handle, "someOption1", "someValue"); /*this is something handled*/
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_PTR_ARG)) /*this is the copy of the hostName*/
+    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_ARG)) /*this is the copy of the hostName*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+    STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG)) /*this is "someValue"*/
+    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG)) /*this is "someValue"*/
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG)) /*this is "someOption"*/
+    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG)) /*this is "someOption"*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(VECTOR_destroy(IGNORED_PTR_ARG)) /*these are the options vector*/
+    STRICT_EXPECTED_CALL(VECTOR_destroy(IGNORED_ARG)) /*these are the options vector*/
         .IgnoreArgument(1);
 
     STRICT_EXPECTED_CALL(gballoc_free(handle)); /*this is handle data*/
@@ -736,17 +736,17 @@ TEST_FUNCTION(HTTPAPIEX_Destroy_frees_resources_3) /*this is destroy after havin
     (void)HTTPAPIEX_ExecuteRequest(httpapiexhandle, HTTPAPI_REQUEST_HEAD, TEST_RELATIVE_PATH, requestHttpHeaders, requestHttpBody, &httpStatusCode, responseHttpHeaders, responseHttpBody);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG)) /*closing the conenction*/
+    STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG)) /*closing the conenction*/
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPAPI_Deinit()); /*deinit */
 
-    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_PTR_ARG)) /*this is hostname*/
+    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_ARG)) /*this is hostname*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(VECTOR_destroy(IGNORED_PTR_ARG)) /*these are the options vector*/
+    STRICT_EXPECTED_CALL(VECTOR_destroy(IGNORED_ARG)) /*these are the options vector*/
         .IgnoreArgument(1);
 
     STRICT_EXPECTED_CALL(gballoc_free(httpapiexhandle)); /*this is the handle*/
@@ -781,16 +781,16 @@ TEST_FUNCTION(HTTPAPIEX_Destroy_not_call_HTTPAPI_Deinit_after_HTTPAPIEX_Init_suc
     (void)HTTPAPIEX_ExecuteRequest(httpapiexhandle, HTTPAPI_REQUEST_HEAD, TEST_RELATIVE_PATH, requestHttpHeaders, requestHttpBody, &httpStatusCode, responseHttpHeaders, responseHttpBody);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG)) /*closing the conenction*/
+    STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG)) /*closing the conenction*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_PTR_ARG)) /*this is hostname*/
+    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_ARG)) /*this is hostname*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(VECTOR_destroy(IGNORED_PTR_ARG)) /*these are the options vector*/
+    STRICT_EXPECTED_CALL(VECTOR_destroy(IGNORED_ARG)) /*these are the options vector*/
         .IgnoreArgument(1);
 
     STRICT_EXPECTED_CALL(gballoc_free(httpapiexhandle)); /*this is the handle*/
@@ -813,7 +813,7 @@ TEST_FUNCTION(HTTPAPIEX_Create_fails_when_malloc_fails)
     /// arrange
     HTTPAPIEX_HANDLE result;
     whenShallcalloc_fail = currentcalloc_call + 1;
-    STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
         .IgnoreAllArguments();
 
     /// act
@@ -831,13 +831,13 @@ TEST_FUNCTION(HTTPAPIEX_Create_fails_when_STRING_construct_fails)
 {
     /// arrange
     HTTPAPIEX_HANDLE result;
-    STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
         .IgnoreAllArguments();
 
     STRICT_EXPECTED_CALL(STRING_construct(TEST_HOSTNAME))
         .SetReturn(NULL);
 
-    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
 
     /// act
@@ -855,17 +855,17 @@ TEST_FUNCTION(HTTPAPIEX_Create_fails_when_VECTOR_create_fails)
 {
     /// arrange
     HTTPAPIEX_HANDLE result;
-    STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
         .IgnoreAllArguments();
 
     STRICT_EXPECTED_CALL(STRING_construct(TEST_HOSTNAME));
 
-    STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(NULL);
 
-    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
 
     /// act
@@ -1016,38 +1016,38 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_NULL_request_headers_and_NULL_reques
 
     STRICT_EXPECTED_CALL(HTTPHeaders_Alloc()); /*because it makes fakes request headers*/
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(0);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, 0))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, 0))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", "0"))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", "0"))
         .IgnoreArgument(1);
 
     /*this is getting the buffer content and buffer length to pass to httpapi_executerequest*/
     STRICT_EXPECTED_CALL(HTTPAPI_Init());
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(0);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(NULL);
 
     STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         HTTPAPI_REQUEST_HEAD,
         TEST_RELATIVE_PATH,
-        IGNORED_PTR_ARG,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
+        IGNORED_ARG,
         0,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         responseHttpHeaders,
         responseHttpBody))
         .IgnoreArgument(1)
@@ -1056,9 +1056,9 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_NULL_request_headers_and_NULL_reques
         .IgnoreArgument(7)
         ;
 
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_Free(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(HTTPHeaders_Free(IGNORED_ARG))
         .IgnoreArgument(1);
 
     /// act
@@ -1091,21 +1091,21 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_NULL_request_headers_and_NULL_reques
 
     STRICT_EXPECTED_CALL(HTTPHeaders_Alloc()); /*because it makes fakes request headers*/
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(0);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, 0))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, 0))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", "0"))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", "0"))
         .IgnoreArgument(1)
         .SetReturn(HTTP_HEADERS_ERROR);
 
-    STRICT_EXPECTED_CALL(HTTPHeaders_Free(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(HTTPHeaders_Free(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .IgnoreArgument(1);
 
     /// act
@@ -1138,19 +1138,19 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_NULL_request_headers_and_NULL_reques
 
     STRICT_EXPECTED_CALL(HTTPHeaders_Alloc()); /*because it makes fakes request headers*/
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(TEST_BUFFER_SIZE);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, TEST_BUFFER_SIZE))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, TEST_BUFFER_SIZE))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1)
         .SetReturn(HTTP_HEADERS_ERROR);
 
-    STRICT_EXPECTED_CALL(HTTPHeaders_Free(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(HTTPHeaders_Free(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .IgnoreArgument(1);
 
     /// act
@@ -1184,7 +1184,7 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_NULL_request_headers_and_NULL_reques
     STRICT_EXPECTED_CALL(HTTPHeaders_Alloc())
         .SetReturn(NULL); /*because it makes fakes request headers*/
 
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .IgnoreArgument(1);
 
     /// act
@@ -1219,38 +1219,38 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_non_NULL_request_headers_and_NULL_re
     STRICT_EXPECTED_CALL(BUFFER_new()); /*because it makes a fake buffer*/
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(0);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, 0))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, 0))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", "0"))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", "0"))
         .IgnoreArgument(1);
 
     /*this is getting the buffer content and buffer length to pass to httpapi_executerequest*/
     STRICT_EXPECTED_CALL(HTTPAPI_Init());
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(0);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(NULL);
 
     STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         HTTPAPI_REQUEST_HEAD,
         TEST_RELATIVE_PATH,
         requestHttpHeaders,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         0,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         responseHttpHeaders,
         responseHttpBody))
         .IgnoreArgument(1)
@@ -1259,7 +1259,7 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_non_NULL_request_headers_and_NULL_re
         .IgnoreArgument(7)
         ;
 
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .IgnoreArgument(1);
 
     /// act
@@ -1291,19 +1291,19 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_non_NULL_request_headers_and_NULL_re
     STRICT_EXPECTED_CALL(BUFFER_new()); /*because it makes a fake buffer*/
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(0);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, 0))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, 0))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", "0"))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", "0"))
         .IgnoreArgument(1)
         .SetReturn(HTTP_HEADERS_ERROR);
 
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .IgnoreArgument(1);
 
     /// act
@@ -1335,17 +1335,17 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_non_NULL_request_headers_and_NULL_re
     STRICT_EXPECTED_CALL(BUFFER_new()); /*because it makes a fake buffer*/
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, TEST_BUFFER_SIZE))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, TEST_BUFFER_SIZE))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1)
         .SetReturn(HTTP_HEADERS_ERROR);
 
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .IgnoreArgument(1);
 
     /// act
@@ -1405,38 +1405,38 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_non_NULL_request_headers_and_non_NUL
     umock_c_reset_all_calls();
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, TEST_BUFFER_SIZE))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, TEST_BUFFER_SIZE))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
         .IgnoreArgument(1);
 
     /*this is getting the buffer content and buffer length to pass to httpapi_executerequest*/
     STRICT_EXPECTED_CALL(HTTPAPI_Init());
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .IgnoreArgument(1);
 
     STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         HTTPAPI_REQUEST_HEAD,
         TEST_RELATIVE_PATH,
         requestHttpHeaders,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         TEST_BUFFER_SIZE,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         responseHttpHeaders,
         responseHttpBody))
         .IgnoreArgument(1)
@@ -1475,37 +1475,37 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_not_call_HTTPAPI_Init_after_HTTPAPIEX_Ini
     umock_c_reset_all_calls();
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, TEST_BUFFER_SIZE))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, TEST_BUFFER_SIZE))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
         .IgnoreArgument(1);
 
     /*this is getting the buffer content and buffer length to pass to httpapi_executerequest*/
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .IgnoreArgument(1);
 
     STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         HTTPAPI_REQUEST_HEAD,
         TEST_RELATIVE_PATH,
         requestHttpHeaders,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         TEST_BUFFER_SIZE,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         responseHttpHeaders,
         responseHttpBody))
         .IgnoreArgument(1)
@@ -1549,36 +1549,36 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_not_call_HTTPAPI_Deinit_after_HTTPAPIEX_I
     prepareHTTPAPIEX_ExecuteRequest(&asGivenByHttpApi, requestHttpHeaders, responseHttpHeaders, responseHttpBody, HTTPAPI_ERROR);
 
     {
-        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG))
             .IgnoreArgument(1);
 
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
             .IgnoreArgument(1);
         whenShallHTTPAPI_CreateConnection_fail[0] = currentHTTPAPI_CreateConnection_call + 1;
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
     }
 
     {
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
             .IgnoreArgument(1);
     }
 
     {
-        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             HTTPAPI_REQUEST_HEAD,
             TEST_RELATIVE_PATH,
             requestHttpHeaders,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             TEST_BUFFER_SIZE,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             responseHttpHeaders,
             responseHttpBody))
             .IgnoreArgument(1)
@@ -1620,15 +1620,15 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_non_NULL_request_headers_and_non_NUL
     umock_c_reset_all_calls();
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, TEST_BUFFER_SIZE))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, TEST_BUFFER_SIZE))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
         .IgnoreArgument(1)
         .SetReturn(HTTP_HEADERS_ERROR);
 
@@ -1660,13 +1660,13 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_non_NULL_request_headers_and_non_NUL
     umock_c_reset_all_calls();
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, TEST_BUFFER_SIZE))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, TEST_BUFFER_SIZE))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1)
         .SetReturn(HTTP_HEADERS_ERROR);
 
@@ -1697,38 +1697,38 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_NULL_statusCode_succeeds)
     umock_c_reset_all_calls();
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(TEST_BUFFER_SIZE);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, TEST_BUFFER_SIZE))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, TEST_BUFFER_SIZE))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
         .IgnoreArgument(1);
 
     /*this is getting the buffer content and buffer length to pass to httpapi_executerequest*/
     STRICT_EXPECTED_CALL(HTTPAPI_Init());
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .IgnoreArgument(1);
 
     STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         HTTPAPI_REQUEST_HEAD,
         TEST_RELATIVE_PATH,
         requestHttpHeaders,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         TEST_BUFFER_SIZE,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         responseHttpHeaders,
         responseHttpBody))
         .IgnoreArgument(1)
@@ -1767,38 +1767,38 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_non_NULL_statusCode_returns_that_cod
     umock_c_reset_all_calls();
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(TEST_BUFFER_SIZE);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, TEST_BUFFER_SIZE))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, TEST_BUFFER_SIZE))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
         .IgnoreArgument(1);
 
     /*this is getting the buffer content and buffer length to pass to httpapi_executerequest*/
     STRICT_EXPECTED_CALL(HTTPAPI_Init());
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .IgnoreArgument(1);
 
     STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         HTTPAPI_REQUEST_HEAD,
         TEST_RELATIVE_PATH,
         requestHttpHeaders,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         TEST_BUFFER_SIZE,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         responseHttpHeaders,
         responseHttpBody))
         .IgnoreArgument(1)
@@ -1840,24 +1840,24 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_cleans_when_originalhttpbody_is_NULL_and_
     STRICT_EXPECTED_CALL(HTTPHeaders_Alloc());
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(0);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, 0))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, 0))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", "0"))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", "0"))
         .IgnoreArgument(1);
 
     /*Because it is creating fake response headers*/
     STRICT_EXPECTED_CALL(HTTPHeaders_Alloc())
         .SetReturn(NULL);
 
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_Free(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(HTTPHeaders_Free(IGNORED_ARG))
         .IgnoreArgument(1);
 
     /// act
@@ -1889,15 +1889,15 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_cleans_when_responsehttpbody_is_NULL_and_
     STRICT_EXPECTED_CALL(HTTPHeaders_Alloc());
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(0);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, 0))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, 0))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", "0"))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", "0"))
         .IgnoreArgument(1);
 
     /*Because it is creating fake response headers*/
@@ -1906,11 +1906,11 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_cleans_when_responsehttpbody_is_NULL_and_
     STRICT_EXPECTED_CALL(BUFFER_new())
         .SetReturn(NULL); /*because it makes a fake buffer*/
 
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_Free(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(HTTPHeaders_Free(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_Free(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(HTTPHeaders_Free(IGNORED_ARG))
         .IgnoreArgument(1);
 
     /// act
@@ -1942,15 +1942,15 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_NULL_response_headers_suceeds)
     umock_c_reset_all_calls();
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, TEST_BUFFER_SIZE))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, TEST_BUFFER_SIZE))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
         .IgnoreArgument(1);
 
     /*Because it is creating fake response headers*/
@@ -1958,26 +1958,26 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_NULL_response_headers_suceeds)
 
     /*this is getting the buffer content and buffer length to pass to httpapi_executerequest*/
     STRICT_EXPECTED_CALL(HTTPAPI_Init());
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .IgnoreArgument(1);
 
     STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         HTTPAPI_REQUEST_HEAD,
         TEST_RELATIVE_PATH,
         requestHttpHeaders,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         TEST_BUFFER_SIZE,
-        IGNORED_PTR_ARG,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
+        IGNORED_ARG,
         responseHttpBody))
         .IgnoreArgument(1)
         .IgnoreArgument(4)
@@ -1988,7 +1988,7 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_NULL_response_headers_suceeds)
         .CopyOutArgumentBuffer(7, &asGivenByHttpApi, sizeof(asGivenByHttpApi))
         ;
 
-    STRICT_EXPECTED_CALL(HTTPHeaders_Free(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(HTTPHeaders_Free(IGNORED_ARG))
         .IgnoreArgument(1);
 
     /// act
@@ -2020,15 +2020,15 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_NULL_response_headers_fails_when_HTT
     umock_c_reset_all_calls();
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, TEST_BUFFER_SIZE))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, TEST_BUFFER_SIZE))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
         .IgnoreArgument(1);
 
     /*Because it is creating fake response headers*/
@@ -2064,38 +2064,38 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_non_NULL_response_headers_suceeds)
     umock_c_reset_all_calls();
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, TEST_BUFFER_SIZE))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, TEST_BUFFER_SIZE))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
         .IgnoreArgument(1);
 
     /*this is getting the buffer content and buffer length to pass to httpapi_executerequest*/
     STRICT_EXPECTED_CALL(HTTPAPI_Init());
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(TEST_BUFFER_SIZE);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(TEST_BUFFER);
 
     STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         HTTPAPI_REQUEST_HEAD,
         TEST_RELATIVE_PATH,
         requestHttpHeaders,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         TEST_BUFFER_SIZE,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         responseHttpHeaders,
         responseHttpBody))
         .IgnoreArgument(1)
@@ -2134,42 +2134,42 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_NULL_response_body_suceeds)
     umock_c_reset_all_calls();
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, TEST_BUFFER_SIZE))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, TEST_BUFFER_SIZE))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
         .IgnoreArgument(1);
 
     STRICT_EXPECTED_CALL(BUFFER_new()); /*because it makes a fake response buffer*/
 
     /*this is getting the buffer content and buffer length to pass to httpapi_executerequest*/
     STRICT_EXPECTED_CALL(HTTPAPI_Init());
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(TEST_BUFFER_SIZE);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .IgnoreArgument(1).SetReturn(TEST_BUFFER);
 
     STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         HTTPAPI_REQUEST_HEAD,
         TEST_RELATIVE_PATH,
         requestHttpHeaders,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         TEST_BUFFER_SIZE,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         responseHttpHeaders,
-        IGNORED_PTR_ARG))
+        IGNORED_ARG))
         .IgnoreArgument(1)
         .IgnoreArgument(4)
         .IgnoreArgument(5)
@@ -2179,7 +2179,7 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_NULL_response_body_suceeds)
         .CopyOutArgumentBuffer(7, &asGivenByHttpApi, sizeof(asGivenByHttpApi))
         ;
 
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .IgnoreArgument(1);
 
     /// act
@@ -2210,15 +2210,15 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_NULL_fails_when_BUFFER_new_fails)
     umock_c_reset_all_calls();
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, TEST_BUFFER_SIZE))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, TEST_BUFFER_SIZE))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
         .IgnoreArgument(1);
 
     STRICT_EXPECTED_CALL(BUFFER_new())
@@ -2253,38 +2253,38 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_with_non_NULL_response_body_suceeds)
     umock_c_reset_all_calls();
 
     /*this is building the host and content-length for the http request headers*/
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(size_tToString(IGNORED_PTR_ARG, IGNORED_NUM_ARG, TEST_BUFFER_SIZE))
+    STRICT_EXPECTED_CALL(size_tToString(IGNORED_ARG, IGNORED_ARG, TEST_BUFFER_SIZE))
         .IgnoreArgument(1).IgnoreArgument(2);
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Host", TEST_HOSTNAME))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Host", TEST_HOSTNAME))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_PTR_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
+    STRICT_EXPECTED_CALL(HTTPHeaders_ReplaceHeaderNameValuePair(IGNORED_ARG, "Content-Length", MU_TOSTRING(TEST_BUFFER_SIZE)))
         .IgnoreArgument(1);
 
     /*this is getting the buffer content and buffer length to pass to httpapi_executerequest*/
     STRICT_EXPECTED_CALL(HTTPAPI_Init());
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .IgnoreArgument(1);
 
     STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         HTTPAPI_REQUEST_HEAD,
         TEST_RELATIVE_PATH,
         requestHttpHeaders,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         TEST_BUFFER_SIZE,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         responseHttpHeaders,
         responseHttpBody))
         .IgnoreArgument(1)
@@ -2364,30 +2364,30 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_S2) /*refer to httpapiex_retry_m
     prepareHTTPAPIEX_ExecuteRequest(&asGivenByHttpApi, requestHttpHeaders, responseHttpHeaders, responseHttpBody, HTTPAPI_ERROR);
 
     {
-        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG))
         .IgnoreArgument(1);
 
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
             .IgnoreArgument(1);
 
     }
 
     {
-        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             HTTPAPI_REQUEST_HEAD,
             TEST_RELATIVE_PATH,
             requestHttpHeaders,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             TEST_BUFFER_SIZE,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             responseHttpHeaders,
             responseHttpBody))
             .IgnoreArgument(1)
@@ -2430,29 +2430,29 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_S3) /*refer to httpapiex_retry_m
     prepareHTTPAPIEX_ExecuteRequest(&asGivenByHttpApi, requestHttpHeaders, responseHttpHeaders, responseHttpBody, HTTPAPI_ERROR);
 
     {
-        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG))
             .IgnoreArgument(1);
 
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
             .IgnoreArgument(1);
     }
 
     {
-        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             HTTPAPI_REQUEST_HEAD,
             TEST_RELATIVE_PATH,
             requestHttpHeaders,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             TEST_BUFFER_SIZE,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             responseHttpHeaders,
             responseHttpBody))
             .IgnoreArgument(1)
@@ -2466,7 +2466,7 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_S3) /*refer to httpapiex_retry_m
     }
 
     {
-        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_Deinit());
         STRICT_EXPECTED_CALL(HTTPAPI_Init())
@@ -2474,26 +2474,26 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_S3) /*refer to httpapiex_retry_m
     }
 
     {
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
             .IgnoreArgument(1);
     }
 
     {
-        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             HTTPAPI_REQUEST_HEAD,
             TEST_RELATIVE_PATH,
             requestHttpHeaders,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             TEST_BUFFER_SIZE,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             responseHttpHeaders,
             responseHttpBody))
             .IgnoreArgument(1)
@@ -2537,10 +2537,10 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_S4) /*refer to httpapiex_retry_m
     prepareHTTPAPIEX_ExecuteRequest(&asGivenByHttpApi, requestHttpHeaders, responseHttpHeaders, responseHttpBody, HTTPAPI_ERROR);
 
     {
-        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG))
             .IgnoreArgument(1);
 
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
             .IgnoreArgument(1);
         whenShallHTTPAPI_CreateConnection_fail[0] = currentHTTPAPI_CreateConnection_call + 1;
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
@@ -2553,26 +2553,26 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_S4) /*refer to httpapiex_retry_m
     }
 
     {
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
             .IgnoreArgument(1);
     }
 
     {
-        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             HTTPAPI_REQUEST_HEAD,
             TEST_RELATIVE_PATH,
             requestHttpHeaders,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             TEST_BUFFER_SIZE,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             responseHttpHeaders,
             responseHttpBody))
             .IgnoreArgument(1)
@@ -2618,10 +2618,10 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_F1) /*refer to httpapiex_retry_m
     prepareHTTPAPIEX_ExecuteRequest(&asGivenByHttpApi, requestHttpHeaders, responseHttpHeaders, responseHttpBody, HTTPAPI_ERROR);
 
     {
-        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG))
             .IgnoreArgument(1);
 
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
             .IgnoreArgument(1);
         whenShallHTTPAPI_CreateConnection_fail[0] = currentHTTPAPI_CreateConnection_call + 1;
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
@@ -2665,10 +2665,10 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_F2) /*refer to httpapiex_retry_m
     prepareHTTPAPIEX_ExecuteRequest(&asGivenByHttpApi, requestHttpHeaders, responseHttpHeaders, responseHttpBody, HTTPAPI_ERROR);
 
     {
-        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG))
             .IgnoreArgument(1);
 
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
             .IgnoreArgument(1);
         whenShallHTTPAPI_CreateConnection_fail[0] = currentHTTPAPI_CreateConnection_call + 1;
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
@@ -2680,7 +2680,7 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_F2) /*refer to httpapiex_retry_m
     }
 
     {
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
             .IgnoreArgument(1);
         whenShallHTTPAPI_CreateConnection_fail[1] = currentHTTPAPI_CreateConnection_call + 2;
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
@@ -2724,10 +2724,10 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_F3) /*refer to httpapiex_retry_m
     prepareHTTPAPIEX_ExecuteRequest(&asGivenByHttpApi, requestHttpHeaders, responseHttpHeaders, responseHttpBody, HTTPAPI_ERROR);
 
     {
-        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG))
             .IgnoreArgument(1);
 
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
             .IgnoreArgument(1);
         whenShallHTTPAPI_CreateConnection_fail[0] = currentHTTPAPI_CreateConnection_call + 1;
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
@@ -2739,27 +2739,27 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_F3) /*refer to httpapiex_retry_m
     }
 
     {
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
             .IgnoreArgument(1);
 
     }
 
     {
-        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             HTTPAPI_REQUEST_HEAD,
             TEST_RELATIVE_PATH,
             requestHttpHeaders,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             TEST_BUFFER_SIZE,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             responseHttpHeaders,
             responseHttpBody))
             .IgnoreArgument(1)
@@ -2774,7 +2774,7 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_F3) /*refer to httpapiex_retry_m
 
     /*this is post final fail - sequence is reset to a clean start*/
     {
-        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_Deinit());
     }
@@ -2811,30 +2811,30 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_F4) /*refer to httpapiex_retry_m
     prepareHTTPAPIEX_ExecuteRequest(&asGivenByHttpApi, requestHttpHeaders, responseHttpHeaders, responseHttpBody, HTTPAPI_ERROR);
 
     {
-        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG))
             .IgnoreArgument(1);
 
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
             .IgnoreArgument(1);
 
     }
 
     {
-        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             HTTPAPI_REQUEST_HEAD,
             TEST_RELATIVE_PATH,
             requestHttpHeaders,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             TEST_BUFFER_SIZE,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             responseHttpHeaders,
             responseHttpBody))
             .IgnoreArgument(1)
@@ -2848,7 +2848,7 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_F4) /*refer to httpapiex_retry_m
     }
 
     {
-        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_Deinit());
 
@@ -2888,30 +2888,30 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_F5) /*refer to httpapiex_retry_m
     prepareHTTPAPIEX_ExecuteRequest(&asGivenByHttpApi, requestHttpHeaders, responseHttpHeaders, responseHttpBody, HTTPAPI_ERROR);
 
     {
-        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG))
             .IgnoreArgument(1);
 
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
             .IgnoreArgument(1);
 
     }
 
     {
-        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             HTTPAPI_REQUEST_HEAD,
             TEST_RELATIVE_PATH,
             requestHttpHeaders,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             TEST_BUFFER_SIZE,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             responseHttpHeaders,
             responseHttpBody))
             .IgnoreArgument(1)
@@ -2925,14 +2925,14 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_F5) /*refer to httpapiex_retry_m
     }
 
     {
-        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_Deinit());
         STRICT_EXPECTED_CALL(HTTPAPI_Init());
     }
 
     {
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
             .IgnoreArgument(1);
         whenShallHTTPAPI_CreateConnection_fail[1] = currentHTTPAPI_CreateConnection_call + 2;
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
@@ -2974,30 +2974,30 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_F6) /*refer to httpapiex_retry_m
     prepareHTTPAPIEX_ExecuteRequest(&asGivenByHttpApi, requestHttpHeaders, responseHttpHeaders, responseHttpBody, HTTPAPI_ERROR);
 
     {
-        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG))
             .IgnoreArgument(1);
 
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
             .IgnoreArgument(1);
 
     }
 
     {
-        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             HTTPAPI_REQUEST_HEAD,
             TEST_RELATIVE_PATH,
             requestHttpHeaders,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             TEST_BUFFER_SIZE,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             responseHttpHeaders,
             responseHttpBody))
             .IgnoreArgument(1)
@@ -3011,34 +3011,34 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_F6) /*refer to httpapiex_retry_m
     }
 
     {
-        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_Deinit());
         STRICT_EXPECTED_CALL(HTTPAPI_Init());
     }
 
     {
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
             .IgnoreArgument(1);
 
     }
 
     {
-        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             HTTPAPI_REQUEST_HEAD,
             TEST_RELATIVE_PATH,
             requestHttpHeaders,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             TEST_BUFFER_SIZE,
-            IGNORED_PTR_ARG,
+            IGNORED_ARG,
             responseHttpHeaders,
             responseHttpBody))
             .IgnoreArgument(1)
@@ -3052,7 +3052,7 @@ TEST_FUNCTION(HTTPAPIEX_ExecuteRequest_TestCase_F6) /*refer to httpapiex_retry_m
     }
 
     {
-        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(HTTPAPI_CloseConnection(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(HTTPAPI_Deinit());
     }
@@ -3131,14 +3131,14 @@ TEST_FUNCTION(HTTPAPIEX_SetOption_happy_path_without_httpapi_handle_succeeds)
     HTTPAPIEX_HANDLE httpapiexhandle = HTTPAPIEX_Create(TEST_HOSTNAME);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(HTTPAPI_CloneOption("someOption", "333", IGNORED_PTR_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
+    EXPECTED_CALL(HTTPAPI_CloneOption("someOption", "333", IGNORED_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
 
-    EXPECTED_CALL(VECTOR_find_if(IGNORED_PTR_ARG, IGNORED_PTR_ARG, "someOption")); /*this is looking for optionName*/
+    EXPECTED_CALL(VECTOR_find_if(IGNORED_ARG, IGNORED_ARG, "someOption")); /*this is looking for optionName*/
 
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "someOption"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "someOption"))
         .IgnoreArgument(1); /*this is creating a clone of the optionName*/
 
-    STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1)) /*this is adding the optionName, value*/
+    STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1)) /*this is adding the optionName, value*/
         .IgnoreArgument(1)
         .IgnoreArgument(2);
 
@@ -3163,25 +3163,25 @@ TEST_FUNCTION(HTTPAPIEX_SetOption_happy_path_without_httpapi_handle_can_save_2_o
     HTTPAPIEX_HANDLE httpapiexhandle = HTTPAPIEX_Create(TEST_HOSTNAME);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(HTTPAPI_CloneOption("someOption1", (void*)"3", IGNORED_PTR_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
+    EXPECTED_CALL(HTTPAPI_CloneOption("someOption1", (void*)"3", IGNORED_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
 
-    EXPECTED_CALL(VECTOR_find_if(IGNORED_PTR_ARG, IGNORED_PTR_ARG, "someOption1")); /*this is looking for the option to device between update / create*/
+    EXPECTED_CALL(VECTOR_find_if(IGNORED_ARG, IGNORED_ARG, "someOption1")); /*this is looking for the option to device between update / create*/
 
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "someOption1"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "someOption1"))
         .IgnoreArgument(1); /*this is creating a clone of the optionName*/
 
-    STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1)) /*this is increasing the array of options by 1*/
+    STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1)) /*this is increasing the array of options by 1*/
         .IgnoreArgument(1)
         .IgnoreArgument(2);
 
-    EXPECTED_CALL(HTTPAPI_CloneOption("someOption2", (void*)"33", IGNORED_PTR_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
+    EXPECTED_CALL(HTTPAPI_CloneOption("someOption2", (void*)"33", IGNORED_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
 
-    EXPECTED_CALL(VECTOR_find_if(IGNORED_PTR_ARG, IGNORED_PTR_ARG, "someOption2")); /*this is looking for the option to device between update / create*/
+    EXPECTED_CALL(VECTOR_find_if(IGNORED_ARG, IGNORED_ARG, "someOption2")); /*this is looking for the option to device between update / create*/
 
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "someOption2"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "someOption2"))
         .IgnoreArgument(1); /*this is creating a clone of the optionName*/
 
-    STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1)) /*this is increasing the array of options by 1*/
+    STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1)) /*this is increasing the array of options by 1*/
         .IgnoreArgument(1)
         .IgnoreArgument(2);
 
@@ -3222,21 +3222,21 @@ TEST_FUNCTION(HTTPAPIEX_SetOption_passes_saved_options_to_httpapi_succeeds)
     STRICT_EXPECTED_CALL(HTTPAPI_Init());
 
     /*this is getting the hostname for the HTTAPI_connect call)*/
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+    STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPAPI_SetOption(IGNORED_PTR_ARG, "someOption1", (void*)"3"))
+    STRICT_EXPECTED_CALL(HTTPAPI_SetOption(IGNORED_ARG, "someOption1", (void*)"3"))
         .IgnoreArgument(1)
         .IgnoreArgument(3);
 
-    STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 1))
+    STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 1))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPAPI_SetOption(IGNORED_PTR_ARG, "someOption2", (void*)"33"))
+    STRICT_EXPECTED_CALL(HTTPAPI_SetOption(IGNORED_ARG, "someOption2", (void*)"33"))
         .IgnoreArgument(1)
         .IgnoreArgument(3);
 
@@ -3250,13 +3250,13 @@ TEST_FUNCTION(HTTPAPIEX_SetOption_passes_saved_options_to_httpapi_succeeds)
 
     /*this is getting the buffer content and buffer length to pass to httpapi_executerequest*/
     STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         HTTPAPI_REQUEST_HEAD,
         TEST_RELATIVE_PATH,
         requestHttpHeaders,
         requestHttpBodyContent,
         requestHttpBodyLength,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         responseHttpHeaders,
         responseHttpBody))
         .ValidateArgumentBuffer(5, TEST_BUFFER, TEST_BUFFER_SIZE)
@@ -3300,22 +3300,22 @@ TEST_FUNCTION(HTTPAPIEX_SetOption_passes_saved_options_to_httpapi_ignores_errors
     STRICT_EXPECTED_CALL(HTTPAPI_Init());
 
     /*this is getting the hostname for the HTTAPI_connect call)*/
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(HTTPAPI_CreateConnection(TEST_HOSTNAME));
-    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
+    STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*this is passing the options*/ /*there are none saved in the regular sequences*/
         .IgnoreArgument(1);
 
-    STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+    STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPAPI_SetOption(IGNORED_PTR_ARG, "someOption1", (void*)"3"))
+    STRICT_EXPECTED_CALL(HTTPAPI_SetOption(IGNORED_ARG, "someOption1", (void*)"3"))
         .IgnoreArgument(1)
         .IgnoreArgument(3)
         .SetReturn(HTTPAPI_ERROR);
 
-    STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 1))
+    STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 1))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(HTTPAPI_SetOption(IGNORED_PTR_ARG, "someOption2", (void*)"33"))
+    STRICT_EXPECTED_CALL(HTTPAPI_SetOption(IGNORED_ARG, "someOption2", (void*)"33"))
         .IgnoreArgument(1)
         .IgnoreArgument(3)
         .SetReturn(HTTPAPI_ERROR);
@@ -3330,13 +3330,13 @@ TEST_FUNCTION(HTTPAPIEX_SetOption_passes_saved_options_to_httpapi_ignores_errors
 
     /*this is getting the buffer content and buffer length to pass to httpapi_executerequest*/
     STRICT_EXPECTED_CALL(HTTPAPI_ExecuteRequest(
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         HTTPAPI_REQUEST_HEAD,
         TEST_RELATIVE_PATH,
         requestHttpHeaders,
         requestHttpBodyContent,
         requestHttpBodyLength,
-        IGNORED_PTR_ARG,
+        IGNORED_ARG,
         responseHttpHeaders,
         responseHttpBody))
         .ValidateArgumentBuffer(5, TEST_BUFFER, TEST_BUFFER_SIZE)
@@ -3364,21 +3364,21 @@ TEST_FUNCTION(HTTPAPIEX_SetOption_fails_when_VECTOR_push_back_fails)
     HTTPAPIEX_HANDLE httpapiexhandle = HTTPAPIEX_Create(TEST_HOSTNAME);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(HTTPAPI_CloneOption("someOption2", (void*)"33", IGNORED_PTR_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
+    EXPECTED_CALL(HTTPAPI_CloneOption("someOption2", (void*)"33", IGNORED_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
 
-    EXPECTED_CALL(VECTOR_find_if(IGNORED_PTR_ARG, IGNORED_PTR_ARG, "someOption2")); /*this is looking for the option to device between update / create*/
+    EXPECTED_CALL(VECTOR_find_if(IGNORED_ARG, IGNORED_ARG, "someOption2")); /*this is looking for the option to device between update / create*/
 
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "someOption2"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "someOption2"))
         .IgnoreArgument(1); /*this is creating a clone of the optionName*/
 
-    STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1))
+    STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1))
         .IgnoreArgument(1)
         .IgnoreArgument(2)
         .SetReturn(1);
 
-    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
-    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG)) /*this is freeing the clone created by HTTPAPI_CloneOption*/
+    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG)) /*this is freeing the clone created by HTTPAPI_CloneOption*/
         .IgnoreArgument(1);
 
     /// act
@@ -3400,14 +3400,14 @@ TEST_FUNCTION(HTTPAPIEX_SetOption_fails_when_gballoc_fails_1)
     HTTPAPIEX_HANDLE httpapiexhandle = HTTPAPIEX_Create(TEST_HOSTNAME);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(HTTPAPI_CloneOption("someOption2", (void*)"33", IGNORED_PTR_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
+    EXPECTED_CALL(HTTPAPI_CloneOption("someOption2", (void*)"33", IGNORED_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
 
-    EXPECTED_CALL(VECTOR_find_if(IGNORED_PTR_ARG, IGNORED_PTR_ARG, "someOption2")); /*this is looking for the option to device between update / create*/
+    EXPECTED_CALL(VECTOR_find_if(IGNORED_ARG, IGNORED_ARG, "someOption2")); /*this is looking for the option to device between update / create*/
 
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "someOption2"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "someOption2"))
         .IgnoreArgument(1).SetReturn(1); /*this is creating a clone of the optionName*/
 
-    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG)) /*this is freeing the clone created by HTTPAPI_CloneOption*/
+    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG)) /*this is freeing the clone created by HTTPAPI_CloneOption*/
         .IgnoreArgument(1);
 
     /// act
@@ -3431,7 +3431,7 @@ TEST_FUNCTION(HTTPAPIEX_SetOption_fails_when_HTTPAPI_SaveOption_fails_3)
     umock_c_reset_all_calls();
 
     whenShallHTTPAPI_SaveOption_fail = currentHTTPAPI_SaveOption_call + 1;
-    EXPECTED_CALL(HTTPAPI_CloneOption("someOption2", (void*)"33", IGNORED_PTR_ARG))  /*this asks lower HTTPAPI to create a clone of the option*/
+    EXPECTED_CALL(HTTPAPI_CloneOption("someOption2", (void*)"33", IGNORED_ARG))  /*this asks lower HTTPAPI to create a clone of the option*/
         .SetReturn(HTTPAPI_ALREADY_INIT); /*some random error code*/
 
     /// act
@@ -3454,7 +3454,7 @@ TEST_FUNCTION(HTTPAPIEX_SetOption_fails_when_HTTPAPI_SaveOption_fails_4)
     umock_c_reset_all_calls();
 
     whenShallHTTPAPI_SaveOption_fail = currentHTTPAPI_SaveOption_call + 1;
-    EXPECTED_CALL(HTTPAPI_CloneOption("someOption2", (void*)"33", IGNORED_PTR_ARG))  /*this asks lower HTTPAPI to create a clone of the option*/
+    EXPECTED_CALL(HTTPAPI_CloneOption("someOption2", (void*)"33", IGNORED_ARG))  /*this asks lower HTTPAPI to create a clone of the option*/
         .SetReturn(HTTPAPI_INVALID_ARG);
 
     /// act
@@ -3487,18 +3487,18 @@ TEST_FUNCTION(HTTPAPIEX_SetOption_passes_saved_options_to_existing_httpapi_handl
     (void)HTTPAPIEX_ExecuteRequest(httpapiexhandle, HTTPAPI_REQUEST_HEAD, TEST_RELATIVE_PATH, requestHttpHeaders, requestHttpBody, &httpStatusCode, responseHttpHeaders, responseHttpBody);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(HTTPAPI_CloneOption("someOption", "3", IGNORED_PTR_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
+    EXPECTED_CALL(HTTPAPI_CloneOption("someOption", "3", IGNORED_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
 
-    EXPECTED_CALL(VECTOR_find_if(IGNORED_PTR_ARG, IGNORED_PTR_ARG, "someOption")); /*this is looking for the option to device between update / create*/
+    EXPECTED_CALL(VECTOR_find_if(IGNORED_ARG, IGNORED_ARG, "someOption")); /*this is looking for the option to device between update / create*/
 
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "someOption"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "someOption"))
         .IgnoreArgument(1); /*this is creating a clone of the optionName*/
 
-    STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1)) /*this is increasing the array of options by 1*/
+    STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1)) /*this is increasing the array of options by 1*/
         .IgnoreArgument(1)
         .IgnoreArgument(2);
 
-    EXPECTED_CALL(HTTPAPI_SetOption(IGNORED_PTR_ARG, "someOption", "3"));
+    EXPECTED_CALL(HTTPAPI_SetOption(IGNORED_ARG, "someOption", "3"));
 
     /// act
     result = HTTPAPIEX_SetOption(httpapiexhandle, "someOption", "3");
@@ -3531,18 +3531,18 @@ TEST_FUNCTION(HTTPAPIEX_SetOption_passes_saved_options_to_existing_httpapi_handl
     (void)HTTPAPIEX_ExecuteRequest(httpapiexhandle, HTTPAPI_REQUEST_HEAD, TEST_RELATIVE_PATH, requestHttpHeaders, requestHttpBody, &httpStatusCode, responseHttpHeaders, responseHttpBody);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(HTTPAPI_CloneOption("someOption", "3", IGNORED_PTR_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
+    EXPECTED_CALL(HTTPAPI_CloneOption("someOption", "3", IGNORED_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
 
-    EXPECTED_CALL(VECTOR_find_if(IGNORED_PTR_ARG, IGNORED_PTR_ARG, "someOption")); /*this is looking for the option to device between update / create*/
+    EXPECTED_CALL(VECTOR_find_if(IGNORED_ARG, IGNORED_ARG, "someOption")); /*this is looking for the option to device between update / create*/
 
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "someOption"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "someOption"))
         .IgnoreArgument(1); /*this is creating a clone of the optionName*/
 
-    STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1)) /*this is increasing the array of options by 1*/
+    STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1)) /*this is increasing the array of options by 1*/
         .IgnoreArgument(1)
         .IgnoreArgument(2);
 
-    EXPECTED_CALL(HTTPAPI_SetOption(IGNORED_PTR_ARG, "someOption", "3"))
+    EXPECTED_CALL(HTTPAPI_SetOption(IGNORED_ARG, "someOption", "3"))
         .SetReturn(HTTPAPI_INVALID_ARG);
 
     /// act
@@ -3576,18 +3576,18 @@ TEST_FUNCTION(HTTPAPIEX_SetOption_passes_saved_options_to_existing_httpapi_handl
     (void)HTTPAPIEX_ExecuteRequest(httpapiexhandle, HTTPAPI_REQUEST_HEAD, TEST_RELATIVE_PATH, requestHttpHeaders, requestHttpBody, &httpStatusCode, responseHttpHeaders, responseHttpBody);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(HTTPAPI_CloneOption("someOption", "3", IGNORED_PTR_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
+    EXPECTED_CALL(HTTPAPI_CloneOption("someOption", "3", IGNORED_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
 
-    EXPECTED_CALL(VECTOR_find_if(IGNORED_PTR_ARG, IGNORED_PTR_ARG, "someOption")); /*this is looking for the option to device between update / create*/
+    EXPECTED_CALL(VECTOR_find_if(IGNORED_ARG, IGNORED_ARG, "someOption")); /*this is looking for the option to device between update / create*/
 
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "someOption"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "someOption"))
         .IgnoreArgument(1); /*this is creating a clone of the optionName*/
 
-    STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1)) /*this is increasing the array of options by 1*/
+    STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1)) /*this is increasing the array of options by 1*/
         .IgnoreArgument(1)
         .IgnoreArgument(2);
 
-    EXPECTED_CALL(HTTPAPI_SetOption(IGNORED_PTR_ARG, "someOption", "3"))
+    EXPECTED_CALL(HTTPAPI_SetOption(IGNORED_ARG, "someOption", "3"))
         .SetReturn(HTTPAPI_ALLOC_FAILED);
 
     /// act
@@ -3613,11 +3613,11 @@ TEST_FUNCTION(HTTPAPIEX_SetOption_happy_path_on_update_option_value_succeeds)
     HTTPAPIEX_SetOption(httpapiexhandle, OPTION_NAME, "333");
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(HTTPAPI_CloneOption(OPTION_NAME, "4", IGNORED_PTR_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
+    EXPECTED_CALL(HTTPAPI_CloneOption(OPTION_NAME, "4", IGNORED_ARG));  /*this asks lower HTTPAPI to create a clone of the option*/
 
-    EXPECTED_CALL(VECTOR_find_if(IGNORED_PTR_ARG, IGNORED_PTR_ARG, OPTION_NAME)); /*this is looking for the option to device between update / create*/
+    EXPECTED_CALL(VECTOR_find_if(IGNORED_ARG, IGNORED_ARG, OPTION_NAME)); /*this is looking for the option to device between update / create*/
 
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG)); /*this is free-ing the previos value*/
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG)); /*this is free-ing the previos value*/
 
     /// act
     result = HTTPAPIEX_SetOption(httpapiexhandle, OPTION_NAME, "4");

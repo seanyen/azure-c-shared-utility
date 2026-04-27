@@ -374,8 +374,8 @@ TEST_FUNCTION(wsio_create_for_secure_connection_with_valid_args_succeeds)
     // arrange
     CONCRETE_IO_HANDLE wsio;
 
-    EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(uws_client_create_with_io(TEST_UNDERLYING_IO_INTERFACE, TEST_UNDERLYING_IO_PARAMETERS, TEST_HOST_ADDRESS, 443, TEST_RESOURCE_NAME, IGNORED_PTR_ARG, 1));
+    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(uws_client_create_with_io(TEST_UNDERLYING_IO_INTERFACE, TEST_UNDERLYING_IO_PARAMETERS, TEST_HOST_ADDRESS, 443, TEST_RESOURCE_NAME, IGNORED_ARG, 1));
     STRICT_EXPECTED_CALL(singlylinkedlist_create());
 
     // act
@@ -472,7 +472,7 @@ TEST_FUNCTION(when_allocating_memory_fails_wsio_create_fails)
 {
     // arrange
     CONCRETE_IO_HANDLE wsio;
-    EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
         .SetReturn(NULL);
 
     // act
@@ -489,10 +489,10 @@ TEST_FUNCTION(when_uws_create_fails_then_wsio_create_fails)
     // arrange
     CONCRETE_IO_HANDLE wsio;
 
-    EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(uws_client_create_with_io(TEST_UNDERLYING_IO_INTERFACE, TEST_UNDERLYING_IO_PARAMETERS, TEST_HOST_ADDRESS, 443, TEST_RESOURCE_NAME, IGNORED_PTR_ARG, 1))
+    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(uws_client_create_with_io(TEST_UNDERLYING_IO_INTERFACE, TEST_UNDERLYING_IO_PARAMETERS, TEST_HOST_ADDRESS, 443, TEST_RESOURCE_NAME, IGNORED_ARG, 1))
         .SetReturn(NULL);
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     wsio = wsio_get_interface_description()->concrete_io_create(&default_wsio_config);
@@ -508,12 +508,12 @@ TEST_FUNCTION(when_singlylinkedlist_create_fails_then_wsio_create_fails)
     // arrange
     CONCRETE_IO_HANDLE wsio;
 
-    EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(uws_client_create_with_io(TEST_UNDERLYING_IO_INTERFACE, TEST_UNDERLYING_IO_PARAMETERS, TEST_HOST_ADDRESS, 443, TEST_RESOURCE_NAME, IGNORED_PTR_ARG, 1));
+    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(uws_client_create_with_io(TEST_UNDERLYING_IO_INTERFACE, TEST_UNDERLYING_IO_PARAMETERS, TEST_HOST_ADDRESS, 443, TEST_RESOURCE_NAME, IGNORED_ARG, 1));
     STRICT_EXPECTED_CALL(singlylinkedlist_create())
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(uws_client_destroy(TEST_UWS_HANDLE));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     wsio = wsio_get_interface_description()->concrete_io_create(&default_wsio_config);
@@ -543,8 +543,8 @@ TEST_FUNCTION(wsio_create_for_secure_connection_with_valid_args_succeeds_2)
     wsio_config.underlying_io_interface = TEST_UNDERLYING_IO_INTERFACE;
     wsio_config.underlying_io_parameters = NULL;
 
-    EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(uws_client_create_with_io(TEST_UNDERLYING_IO_INTERFACE, NULL, "another.com", 80, "haga", IGNORED_PTR_ARG, 1));
+    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(uws_client_create_with_io(TEST_UNDERLYING_IO_INTERFACE, NULL, "another.com", 80, "haga", IGNORED_ARG, 1));
     STRICT_EXPECTED_CALL(singlylinkedlist_create());
 
     // act
@@ -572,7 +572,7 @@ TEST_FUNCTION(wsio_destroy_frees_all_resources)
 
     STRICT_EXPECTED_CALL(uws_client_destroy(TEST_UWS_HANDLE));
     STRICT_EXPECTED_CALL(singlylinkedlist_destroy(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     wsio_get_interface_description()->concrete_io_destroy(wsio);
@@ -605,7 +605,7 @@ TEST_FUNCTION(wsio_open_opens_the_underlying_uws_instance)
     wsio = wsio_get_interface_description()->concrete_io_create(&default_wsio_config);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(uws_client_open_async(TEST_UWS_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(uws_client_open_async(TEST_UWS_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
     // act
     result = wsio_get_interface_description()->concrete_io_open(wsio, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
@@ -627,7 +627,7 @@ TEST_FUNCTION(when_opening_the_uws_instance_fails_wsio_open_fails)
     wsio = wsio_get_interface_description()->concrete_io_create(&default_wsio_config);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(uws_client_open_async(TEST_UWS_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(uws_client_open_async(TEST_UWS_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .SetReturn(1);
 
     // act
@@ -772,7 +772,7 @@ TEST_FUNCTION(wsio_open_after_close_succeeds)
     g_on_ws_close_complete(g_on_ws_close_complete_context);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(uws_client_open_async(TEST_UWS_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(uws_client_open_async(TEST_UWS_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
     // act
     result = wsio_get_interface_description()->concrete_io_open(wsio, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
@@ -803,7 +803,7 @@ TEST_FUNCTION(wsio_close_when_IO_is_open_closes_the_uws)
     g_on_ws_open_complete(g_on_ws_open_complete_context, WS_OPEN_OK);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(uws_client_close_async(TEST_UWS_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(uws_client_close_async(TEST_UWS_HANDLE, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
 
     // act
@@ -909,7 +909,7 @@ TEST_FUNCTION(when_uws_close_fails_then_wsio_close_fails)
     g_on_ws_open_complete(g_on_ws_open_complete_context, WS_OPEN_OK);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(uws_client_close_async(TEST_UWS_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(uws_client_close_async(TEST_UWS_HANDLE, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
 
     // act
@@ -934,7 +934,7 @@ TEST_FUNCTION(wsio_close_with_NULL_close_complete_callback_succeeds)
     g_on_ws_open_complete(g_on_ws_open_complete_context, WS_OPEN_OK);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(uws_client_close_async(TEST_UWS_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(uws_client_close_async(TEST_UWS_HANDLE, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
 
     // act
@@ -962,12 +962,12 @@ TEST_FUNCTION(wsio_close_indicates_a_pending_send_as_CANCELLED)
     (void)wsio_get_interface_description()->concrete_io_send(wsio, test_buffer, sizeof(test_buffer), test_on_send_complete, (void*)0x4343);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(uws_client_close_async(TEST_UWS_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(uws_client_close_async(TEST_UWS_HANDLE, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
-    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG));
+    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_send_complete((void*)0x4343, IO_SEND_CANCELLED));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
 
     // act
@@ -996,17 +996,17 @@ TEST_FUNCTION(wsio_close_indicates_2_pending_sends_as_CANCELLED)
     (void)wsio_get_interface_description()->concrete_io_send(wsio, test_buffer, sizeof(test_buffer), test_on_send_complete, (void*)0x4343);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(uws_client_close_async(TEST_UWS_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(uws_client_close_async(TEST_UWS_HANDLE, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
-    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG));
+    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_send_complete((void*)0x4343, IO_SEND_CANCELLED));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
-    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG));
+    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_send_complete((void*)0x4343, IO_SEND_CANCELLED));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
 
     // act
@@ -1040,9 +1040,9 @@ TEST_FUNCTION(wsio_send_with_1_byte_calls_uws_send_frame)
     g_on_ws_open_complete(g_on_ws_open_complete_context, WS_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(uws_client_send_frame_async(TEST_UWS_HANDLE, WS_FRAME_TYPE_BINARY, IGNORED_PTR_ARG, sizeof(test_buffer), true, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(uws_client_send_frame_async(TEST_UWS_HANDLE, WS_FRAME_TYPE_BINARY, IGNORED_ARG, sizeof(test_buffer), true, IGNORED_ARG, IGNORED_ARG))
         .ValidateArgumentBuffer(3, test_buffer, sizeof(test_buffer));
 
     // act
@@ -1203,7 +1203,7 @@ TEST_FUNCTION(when_allocating_memory_for_the_pending_send_fails_wsio_send_fails)
     g_on_ws_open_complete(g_on_ws_open_complete_context, WS_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .SetReturn(NULL);
 
     // act
@@ -1230,10 +1230,10 @@ TEST_FUNCTION(when_adding_the_pending_item_to_the_list_fails_wsio_send_fails)
     g_on_ws_open_complete(g_on_ws_open_complete_context, WS_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG))
         .SetReturn(NULL);
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     result = wsio_get_interface_description()->concrete_io_send(wsio, test_buffer, sizeof(test_buffer), test_on_send_complete, (void*)0x4343);
@@ -1259,9 +1259,9 @@ TEST_FUNCTION(wsio_send_with_NULL_send_complete_callback_succeeds)
     g_on_ws_open_complete(g_on_ws_open_complete_context, WS_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(uws_client_send_frame_async(TEST_UWS_HANDLE, WS_FRAME_TYPE_BINARY, IGNORED_PTR_ARG, sizeof(test_buffer), true, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(uws_client_send_frame_async(TEST_UWS_HANDLE, WS_FRAME_TYPE_BINARY, IGNORED_ARG, sizeof(test_buffer), true, IGNORED_ARG, IGNORED_ARG))
         .ValidateArgumentBuffer(3, test_buffer, sizeof(test_buffer));
 
     // act
@@ -1643,7 +1643,7 @@ TEST_FUNCTION(when_on_underlying_ws_frame_received_is_called_the_frame_content_i
     g_on_ws_open_complete(g_on_ws_open_complete_context, WS_OPEN_OK);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(test_on_bytes_received((void*)0x4243, IGNORED_PTR_ARG, sizeof(test_buffer)))
+    STRICT_EXPECTED_CALL(test_on_bytes_received((void*)0x4243, IGNORED_ARG, sizeof(test_buffer)))
         .ValidateArgumentBuffer(2, test_buffer, sizeof(test_buffer));
 
     // act
@@ -1668,7 +1668,7 @@ TEST_FUNCTION(when_on_underlying_ws_frame_received_is_called_the_frame_content_i
     g_on_ws_open_complete(g_on_ws_open_complete_context, WS_OPEN_OK);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(test_on_bytes_received(NULL, IGNORED_PTR_ARG, sizeof(test_buffer)))
+    STRICT_EXPECTED_CALL(test_on_bytes_received(NULL, IGNORED_ARG, sizeof(test_buffer)))
         .ValidateArgumentBuffer(2, test_buffer, sizeof(test_buffer));
 
     // act
@@ -1835,10 +1835,10 @@ TEST_FUNCTION(wsio_send_with_1_byte_completed_indicates_the_completion_up)
     (void)wsio_get_interface_description()->concrete_io_send(wsio, test_buffer, sizeof(test_buffer), test_on_send_complete, (void*)0x4343);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG));
+    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_send_complete((void*)0x4343, IO_SEND_OK));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     g_on_ws_send_frame_complete(g_on_ws_send_frame_complete_context, WS_SEND_FRAME_OK);
@@ -1863,10 +1863,10 @@ TEST_FUNCTION(wsio_send_with_1_byte_completed_with_CANCELLED_indicates_the_compl
     (void)wsio_get_interface_description()->concrete_io_send(wsio, test_buffer, sizeof(test_buffer), test_on_send_complete, (void*)0x4343);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG));
+    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_send_complete((void*)0x4343, IO_SEND_CANCELLED));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     g_on_ws_send_frame_complete(g_on_ws_send_frame_complete_context, WS_SEND_FRAME_CANCELLED);
@@ -1891,10 +1891,10 @@ TEST_FUNCTION(wsio_send_with_1_byte_completed_with_ERROR_indicates_the_completio
     (void)wsio_get_interface_description()->concrete_io_send(wsio, test_buffer, sizeof(test_buffer), test_on_send_complete, (void*)0x4343);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG));
+    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_send_complete((void*)0x4343, IO_SEND_ERROR));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     g_on_ws_send_frame_complete(g_on_ws_send_frame_complete_context, WS_SEND_FRAME_ERROR);
@@ -2091,10 +2091,10 @@ TEST_FUNCTION(wsio_retrieveoptions_creates_an_option_handler_with_the_value_obta
     wsio = wsio_get_interface_description()->concrete_io_create(&default_wsio_config);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_client_retrieve_options(TEST_UWS_HANDLE));
     STRICT_EXPECTED_CALL(OptionHandler_AddOption(TEST_OPTIONHANDLER_HANDLE, "WSIOOptions", TEST_UWS_CLIENT_OPTIONHANDLER_HANDLE));
-    STRICT_EXPECTED_CALL(OptionHandler_Destroy(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(OptionHandler_Destroy(IGNORED_ARG));
 
     // act
     result = wsio_get_interface_description()->concrete_io_retrieveoptions(wsio);
@@ -2117,7 +2117,7 @@ TEST_FUNCTION(when_OptionHandler_Create_fails_then_wsio_retrieveoptions_fails)
     wsio = wsio_get_interface_description()->concrete_io_create(&default_wsio_config);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .SetReturn(NULL);
 
     // act
@@ -2141,7 +2141,7 @@ TEST_FUNCTION(when_uws_client_retrieve_options_fails_then_wsio_retrieveoptions_f
     wsio = wsio_get_interface_description()->concrete_io_create(&default_wsio_config);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_client_retrieve_options(TEST_UWS_HANDLE))
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(OptionHandler_Destroy(TEST_OPTIONHANDLER_HANDLE));
@@ -2167,7 +2167,7 @@ TEST_FUNCTION(when_OptionHandler_AddOption_fails_then_wsio_retrieveoptions_fails
     wsio = wsio_get_interface_description()->concrete_io_create(&default_wsio_config);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_client_retrieve_options(TEST_UWS_HANDLE));
     STRICT_EXPECTED_CALL(OptionHandler_AddOption(TEST_OPTIONHANDLER_HANDLE, "WSIOOptions", TEST_UWS_CLIENT_OPTIONHANDLER_HANDLE))
         .SetReturn(OPTIONHANDLER_ERROR);
@@ -2241,7 +2241,7 @@ TEST_FUNCTION(wsio_clone_option_with_WSIOOptions_clones_the_option_handler)
     wsio = wsio_get_interface_description()->concrete_io_create(&default_wsio_config);
     (void)wsio_get_interface_description()->concrete_io_retrieveoptions(wsio);
     umock_c_reset_all_calls();
-    STRICT_EXPECTED_CALL(OptionHandler_Clone(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(OptionHandler_Clone(IGNORED_ARG));
 
     // act
     result = g_clone_option("WSIOOptions", (void*)0x4243);

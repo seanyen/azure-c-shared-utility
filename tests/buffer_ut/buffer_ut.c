@@ -170,7 +170,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
     {
         ///arrange
         BUFFER_HANDLE g_hBuffer;
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
             .IgnoreAllArguments();
 
         ///act
@@ -193,7 +193,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         g_hBuffer = BUFFER_new();
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument(1);
 
         ///act
@@ -215,8 +215,8 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         BUFFER_build(g_hBuffer, BUFFER_TEST_VALUE, ALLOCATION_SIZE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         ///act
         BUFFER_delete(g_hBuffer);
@@ -343,10 +343,10 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         int nResult;
         BUFFER_HANDLE g_hBuffer;
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
             .IgnoreAllArguments();
 
-        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, ALLOCATION_SIZE))
+        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, ALLOCATION_SIZE))
             .IgnoreArgument(1);
 
         ///act
@@ -406,7 +406,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         g_hBuffer = BUFFER_new();
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument(1);
 
         ///act
@@ -429,7 +429,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         g_hBuffer = BUFFER_new();
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument(1);
 
         ///act
@@ -514,7 +514,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         hBuffer = BUFFER_new();
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
 
         //act
         nResult = BUFFER_append_build(hBuffer, BUFFER_Test1, BUFFER_TEST1_SIZE);
@@ -537,7 +537,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         hBuffer = BUFFER_new();
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG)).SetReturn(NULL);
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).SetReturn(NULL);
 
         //act
         nResult = BUFFER_append_build(hBuffer, BUFFER_Test1, BUFFER_TEST1_SIZE);
@@ -562,7 +562,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
 
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
 
         //act
         nResult = BUFFER_append_build(hBuffer, ADDITIONAL_BUFFER, ALLOCATION_SIZE);
@@ -588,7 +588,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
 
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG)).SetReturn(NULL);
+        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG)).SetReturn(NULL);
 
         //act
         nResult = BUFFER_append_build(hBuffer, ADDITIONAL_BUFFER, ALLOCATION_SIZE);
@@ -611,7 +611,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         nResult = BUFFER_build(g_hBuffer, BUFFER_TEST_VALUE, ALLOCATION_SIZE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, ALLOCATION_SIZE))
+        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, ALLOCATION_SIZE))
             .IgnoreArgument(1);
 
         ///act
@@ -635,7 +635,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         nResult = BUFFER_build(g_hBuffer, BUFFER_TEST_VALUE, ALLOCATION_SIZE - 1);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, ALLOCATION_SIZE))
+        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, ALLOCATION_SIZE))
             .IgnoreArgument(1);
 
         ///act
@@ -659,7 +659,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         nResult = BUFFER_build(g_hBuffer, BUFFER_TEST_VALUE, ALLOCATION_SIZE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, ALLOCATION_SIZE - 1))
+        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, ALLOCATION_SIZE - 1))
             .IgnoreArgument(1);
 
         ///act
@@ -684,7 +684,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         nResult = BUFFER_build(g_hBuffer, BUFFER_TEST_VALUE, ALLOCATION_SIZE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument(1);
 
         ///act
@@ -744,7 +744,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         nResult = BUFFER_build(g_hBuffer, BUFFER_TEST_VALUE, ALLOCATION_SIZE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, 2 * ALLOCATION_SIZE))
+        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, 2 * ALLOCATION_SIZE))
             .IgnoreArgument(1);
 
         ///act
@@ -871,7 +871,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         umock_c_reset_all_calls();
 
         STRICT_EXPECTED_CALL(gballoc_malloc(TOTAL_ALLOCATION_SIZE-ALLOCATION_SIZE));
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         //act
         nResult = BUFFER_shrink(hBuffer, ALLOCATION_SIZE, true);
@@ -898,7 +898,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         nResult = BUFFER_build(hBuffer, TOTAL_BUFFER, TOTAL_ALLOCATION_SIZE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         //act
         nResult = BUFFER_shrink(hBuffer, TOTAL_ALLOCATION_SIZE, true);
@@ -927,7 +927,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         umock_c_reset_all_calls();
 
         STRICT_EXPECTED_CALL(gballoc_malloc(TOTAL_ALLOCATION_SIZE-ALLOCATION_SIZE));
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         //act
         nResult = BUFFER_shrink(hBuffer, ALLOCATION_SIZE, false);
@@ -1104,7 +1104,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         nResult = BUFFER_build(hAppend, ADDITIONAL_BUFFER, ALLOCATION_SIZE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, ALLOCATION_SIZE + ALLOCATION_SIZE))
+        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, ALLOCATION_SIZE + ALLOCATION_SIZE))
             .IgnoreArgument(1);
 
         ///act
@@ -1322,7 +1322,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         umock_c_reset_all_calls();
 
         STRICT_EXPECTED_CALL(gballoc_malloc(ALLOCATION_SIZE + ALLOCATION_SIZE));
-        EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         ///act
         nResult = BUFFER_prepend(g_hBuffer, hAppend);
@@ -1438,7 +1438,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         (void)BUFFER_build(g_hBuffer, BUFFER_TEST_VALUE, ALLOCATION_SIZE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG)).IgnoreAllArguments();
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG)).IgnoreAllArguments();
         STRICT_EXPECTED_CALL(gballoc_malloc(ALLOCATION_SIZE));
 
         ///act
@@ -1490,7 +1490,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         size_t howBig;
         char c = '3';
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
             .IgnoreAllArguments();
 
         STRICT_EXPECTED_CALL(gballoc_malloc(1));
@@ -1521,7 +1521,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         const unsigned char* data;
         char c = '3';
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
             .IgnoreAllArguments();
 
         STRICT_EXPECTED_CALL(gballoc_malloc(1));
@@ -1549,9 +1549,9 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         BUFFER_HANDLE res;
 
         whenShallmalloc_fail = 1;
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
         STRICT_EXPECTED_CALL(gballoc_malloc(1));
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         ///act
         res = BUFFER_create((const unsigned char*)&c, 1);
@@ -1572,7 +1572,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         BUFFER_HANDLE res;
 
         whenShallcalloc_fail = 1;
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
             .IgnoreAllArguments();
 
         ///act
@@ -1595,7 +1595,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         BUFFER_HANDLE res;
         size_t alloc_size = 32;
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
             .IgnoreAllArguments();
         STRICT_EXPECTED_CALL(gballoc_malloc(alloc_size));
 
@@ -1618,7 +1618,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         BUFFER_HANDLE res;
         size_t alloc_size = 0;
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
             .IgnoreAllArguments();
 
         //act
@@ -1640,7 +1640,7 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         BUFFER_HANDLE res;
         size_t alloc_size = 32;
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
             .IgnoreAllArguments()
             .SetReturn(NULL);
 
@@ -1661,10 +1661,10 @@ BEGIN_TEST_SUITE(Buffer_UnitTests)
         BUFFER_HANDLE res;
         size_t alloc_size = 32;
 
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
             .IgnoreAllArguments();
         STRICT_EXPECTED_CALL(gballoc_malloc(alloc_size)).SetReturn(NULL);
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         //act
         res = BUFFER_create_with_size(alloc_size);

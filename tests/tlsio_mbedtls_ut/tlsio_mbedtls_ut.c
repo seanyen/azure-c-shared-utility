@@ -469,33 +469,33 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
 
     static void setup_tlsio_mbedtls_create_mocks(bool call_iface_desc)
     {
-        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
         if (call_iface_desc)
         {
             STRICT_EXPECTED_CALL(socketio_get_interface_description());
         }
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(xio_create(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_x509_crt_init(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_x509_crt_init(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_pk_init(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_entropy_init(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_entropy_add_source(IGNORED_PTR_ARG, IGNORED_PTR_ARG, NULL, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_ctr_drbg_init(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_ctr_drbg_seed(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_ssl_config_init(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_ssl_config_defaults(IGNORED_PTR_ARG, MBEDTLS_SSL_IS_CLIENT, MBEDTLS_SSL_TRANSPORT_STREAM, MBEDTLS_SSL_PRESET_DEFAULT));
-        STRICT_EXPECTED_CALL(mbedtls_ssl_conf_rng(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_ssl_conf_authmode(IGNORED_PTR_ARG, MBEDTLS_SSL_VERIFY_REQUIRED));
-        STRICT_EXPECTED_CALL(mbedtls_ssl_conf_min_version(IGNORED_PTR_ARG, MBEDTLS_SSL_MAJOR_VERSION_3, MBEDTLS_SSL_MINOR_VERSION_3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(xio_create(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_x509_crt_init(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_x509_crt_init(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_pk_init(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_entropy_init(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_entropy_add_source(IGNORED_ARG, IGNORED_ARG, NULL, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ctr_drbg_init(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ctr_drbg_seed(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_config_init(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_config_defaults(IGNORED_ARG, MBEDTLS_SSL_IS_CLIENT, MBEDTLS_SSL_TRANSPORT_STREAM, MBEDTLS_SSL_PRESET_DEFAULT));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_conf_rng(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_conf_authmode(IGNORED_ARG, MBEDTLS_SSL_VERIFY_REQUIRED));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_conf_min_version(IGNORED_ARG, MBEDTLS_SSL_MAJOR_VERSION_3, MBEDTLS_SSL_MINOR_VERSION_3));
 
-        STRICT_EXPECTED_CALL(mbedtls_ssl_init(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_ssl_set_bio(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, NULL));
-        STRICT_EXPECTED_CALL(mbedtls_ssl_set_hostname(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_ssl_session_init(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_init(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_set_bio(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, NULL));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_set_hostname(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_session_init(IGNORED_ARG));
 
-        STRICT_EXPECTED_CALL(mbedtls_ssl_set_session(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_ssl_setup(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_set_session(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_setup(IGNORED_ARG, IGNORED_ARG));
     }
 
     TEST_FUNCTION(tlsio_mbedtls_create_config_NULL_fail)
@@ -579,17 +579,17 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
         CONCRETE_IO_HANDLE handle = tlsio_mbedtls_create(&tls_io_config);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(mbedtls_ssl_free(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_ssl_session_free(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_ssl_config_free(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_x509_crt_free(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_x509_crt_free(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_pk_free(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_ctr_drbg_free(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_entropy_free(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(xio_destroy(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_free(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_session_free(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_config_free(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_x509_crt_free(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_x509_crt_free(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_pk_free(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ctr_drbg_free(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_entropy_free(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(xio_destroy(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         //act
         tlsio_mbedtls_destroy(handle);
@@ -638,8 +638,8 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
         CONCRETE_IO_HANDLE handle = tlsio_mbedtls_create(&tls_io_config);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(mbedtls_ssl_session_reset(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(xio_open(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_session_reset(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(xio_open(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
         //act
         int result = tlsio_mbedtls_open(handle, on_io_open_complete, NULL, on_bytes_received, NULL, on_io_error, NULL);
@@ -688,8 +688,8 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
         CONCRETE_IO_HANDLE handle = tlsio_mbedtls_create(&tls_io_config);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(mbedtls_ssl_session_reset(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(xio_open(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG)).SetReturn(__LINE__);
+        STRICT_EXPECTED_CALL(mbedtls_ssl_session_reset(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(xio_open(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG)).SetReturn(__LINE__);
 
         //act
         int result = tlsio_mbedtls_open(handle, on_io_open_complete, NULL, on_bytes_received, NULL, on_io_error, NULL);
@@ -754,8 +754,8 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
         int result = tlsio_mbedtls_open(handle, on_io_open_complete, NULL, on_bytes_received, NULL, on_io_error, NULL);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(mbedtls_ssl_close_notify(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(xio_close(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_close_notify(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
         //act
         result = tlsio_mbedtls_close(handle, on_io_close_complete, NULL);
@@ -842,11 +842,11 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
         umock_c_reset_all_calls();
 
 #if !defined(MBEDTLS_VERSION_NUMBER) || MBEDTLS_VERSION_NUMBER < TLSIO_MBEDTLS_VERSION_2_16_0
-        STRICT_EXPECTED_CALL(mbedtls_ssl_get_max_frag_len(IGNORED_PTR_ARG)).SetReturn(TEST_DATA_SIZE);
+        STRICT_EXPECTED_CALL(mbedtls_ssl_get_max_frag_len(IGNORED_ARG)).SetReturn(TEST_DATA_SIZE);
 #else
-        STRICT_EXPECTED_CALL(mbedtls_ssl_get_max_out_record_payload(IGNORED_PTR_ARG)).SetReturn(TEST_DATA_SIZE);
+        STRICT_EXPECTED_CALL(mbedtls_ssl_get_max_out_record_payload(IGNORED_ARG)).SetReturn(TEST_DATA_SIZE);
 #endif
-        STRICT_EXPECTED_CALL(mbedtls_ssl_write(IGNORED_PTR_ARG, TEST_DATA_VALUE, TEST_DATA_SIZE)).SetReturn(TEST_DATA_SIZE);
+        STRICT_EXPECTED_CALL(mbedtls_ssl_write(IGNORED_ARG, TEST_DATA_VALUE, TEST_DATA_SIZE)).SetReturn(TEST_DATA_SIZE);
 
         //act
         int result = tlsio_mbedtls_send(handle, TEST_DATA_VALUE, TEST_DATA_SIZE, on_send_complete, NULL);
@@ -874,11 +874,11 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
         umock_c_reset_all_calls();
 
 #if !defined(MBEDTLS_VERSION_NUMBER) || MBEDTLS_VERSION_NUMBER < TLSIO_MBEDTLS_VERSION_2_16_0
-        STRICT_EXPECTED_CALL(mbedtls_ssl_get_max_frag_len(IGNORED_PTR_ARG)).SetReturn(TEST_DATA_SIZE);
+        STRICT_EXPECTED_CALL(mbedtls_ssl_get_max_frag_len(IGNORED_ARG)).SetReturn(TEST_DATA_SIZE);
 #else
-        STRICT_EXPECTED_CALL(mbedtls_ssl_get_max_out_record_payload(IGNORED_PTR_ARG)).SetReturn(TEST_DATA_SIZE);
+        STRICT_EXPECTED_CALL(mbedtls_ssl_get_max_out_record_payload(IGNORED_ARG)).SetReturn(TEST_DATA_SIZE);
 #endif
-        STRICT_EXPECTED_CALL(mbedtls_ssl_write(IGNORED_PTR_ARG, TEST_DATA_VALUE, TEST_DATA_SIZE)).SetReturn(-1);
+        STRICT_EXPECTED_CALL(mbedtls_ssl_write(IGNORED_ARG, TEST_DATA_VALUE, TEST_DATA_SIZE)).SetReturn(-1);
 
         //act
         int result = tlsio_mbedtls_send(handle, TEST_DATA_VALUE, TEST_DATA_SIZE, on_send_complete, NULL);
@@ -918,15 +918,15 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
             size_t data_processed = data_left > MAX_FRAGMENT_SIZE ? MAX_FRAGMENT_SIZE : data_left;
             const unsigned char* data_ptr = dummy_data + index * MAX_FRAGMENT_SIZE;
 #if !defined(MBEDTLS_VERSION_NUMBER) || MBEDTLS_VERSION_NUMBER < TLSIO_MBEDTLS_VERSION_2_16_0
-            STRICT_EXPECTED_CALL(mbedtls_ssl_get_max_frag_len(IGNORED_PTR_ARG)).SetReturn(MAX_FRAGMENT_SIZE);
+            STRICT_EXPECTED_CALL(mbedtls_ssl_get_max_frag_len(IGNORED_ARG)).SetReturn(MAX_FRAGMENT_SIZE);
 #else
-            STRICT_EXPECTED_CALL(mbedtls_ssl_get_max_out_record_payload(IGNORED_PTR_ARG)).SetReturn(MAX_FRAGMENT_SIZE);
+            STRICT_EXPECTED_CALL(mbedtls_ssl_get_max_out_record_payload(IGNORED_ARG)).SetReturn(MAX_FRAGMENT_SIZE);
 #endif
-            STRICT_EXPECTED_CALL(mbedtls_ssl_write(IGNORED_PTR_ARG, data_ptr, data_left));
-            STRICT_EXPECTED_CALL(xio_send(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+            STRICT_EXPECTED_CALL(mbedtls_ssl_write(IGNORED_ARG, data_ptr, data_left));
+            STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
         }
 
-        STRICT_EXPECTED_CALL(on_send_complete(IGNORED_PTR_ARG, IO_SEND_OK));
+        STRICT_EXPECTED_CALL(on_send_complete(IGNORED_ARG, IO_SEND_OK));
 
         //act
         int result = tlsio_mbedtls_send(handle, dummy_data, total_data, on_send_complete, NULL);
@@ -967,15 +967,15 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
             size_t data_processed = data_left > MAX_FRAGMENT_SIZE ? MAX_FRAGMENT_SIZE : data_left;
             const unsigned char* data_ptr = dummy_data + index * MAX_FRAGMENT_SIZE;
 #if !defined(MBEDTLS_VERSION_NUMBER) || MBEDTLS_VERSION_NUMBER < TLSIO_MBEDTLS_VERSION_2_16_0
-            STRICT_EXPECTED_CALL(mbedtls_ssl_get_max_frag_len(IGNORED_PTR_ARG)).SetReturn(MAX_FRAGMENT_SIZE);
+            STRICT_EXPECTED_CALL(mbedtls_ssl_get_max_frag_len(IGNORED_ARG)).SetReturn(MAX_FRAGMENT_SIZE);
 #else
-            STRICT_EXPECTED_CALL(mbedtls_ssl_get_max_out_record_payload(IGNORED_PTR_ARG)).SetReturn(MAX_FRAGMENT_SIZE);
+            STRICT_EXPECTED_CALL(mbedtls_ssl_get_max_out_record_payload(IGNORED_ARG)).SetReturn(MAX_FRAGMENT_SIZE);
 #endif
-            STRICT_EXPECTED_CALL(mbedtls_ssl_write(IGNORED_PTR_ARG, data_ptr, data_left));
-            STRICT_EXPECTED_CALL(xio_send(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+            STRICT_EXPECTED_CALL(mbedtls_ssl_write(IGNORED_ARG, data_ptr, data_left));
+            STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
         }
 
-        STRICT_EXPECTED_CALL(on_send_complete(IGNORED_PTR_ARG, IO_SEND_ERROR));
+        STRICT_EXPECTED_CALL(on_send_complete(IGNORED_ARG, IO_SEND_ERROR));
 
         //act
         int result = tlsio_mbedtls_send(handle, dummy_data, total_data, on_send_complete, NULL);
@@ -1015,8 +1015,8 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
         g_open_complete(g_open_complete_ctx, IO_OPEN_OK);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(mbedtls_ssl_read(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(xio_dowork(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_read(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG));
 
         //act
         tlsio_mbedtls_dowork(handle);
@@ -1042,12 +1042,12 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
         g_open_complete(g_open_complete_ctx, IO_OPEN_OK);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(mbedtls_ssl_read(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(mbedtls_ssl_read(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
             .CopyOutArgumentBuffer_buf(TEST_DATA_VALUE, sizeof(unsigned char**) )
             .SetReturn(TEST_DATA_SIZE);
-        STRICT_EXPECTED_CALL(on_bytes_received(IGNORED_PTR_ARG, IGNORED_PTR_ARG, TEST_DATA_SIZE));
-        STRICT_EXPECTED_CALL(mbedtls_ssl_read(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(xio_dowork(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(on_bytes_received(IGNORED_ARG, IGNORED_ARG, TEST_DATA_SIZE));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_read(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG));
 
         //act
         tlsio_mbedtls_dowork(handle);
@@ -1073,7 +1073,7 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
         g_open_complete(g_open_complete_ctx, IO_OPEN_OK);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
 
         //act
         g_on_bytes_received(g_on_bytes_received_ctx, TEST_DATA_VALUE, TEST_DATA_SIZE);
@@ -1103,7 +1103,7 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
 
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(xio_dowork(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG));
 
         //act
         mbed_f_recv(g_mbedtls_ctx, (unsigned char*)read_buff, buff_len);
@@ -1132,7 +1132,7 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
         g_on_bytes_received(g_on_bytes_received_ctx, TEST_DATA_VALUE, TEST_DATA_SIZE);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         //act
         mbed_f_recv(g_mbedtls_ctx, (unsigned char*)read_buff, buff_len);
@@ -1185,9 +1185,9 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
         g_open_complete(g_open_complete_ctx, IO_OPEN_OK);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, TEST_X509_CERTIFICATE));
-        STRICT_EXPECTED_CALL(mbedtls_x509_crt_parse(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(mbedtls_pk_get_type(IGNORED_PTR_ARG)).SetReturn(MBEDTLS_PK_NONE);
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, TEST_X509_CERTIFICATE));
+        STRICT_EXPECTED_CALL(mbedtls_x509_crt_parse(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(mbedtls_pk_get_type(IGNORED_ARG)).SetReturn(MBEDTLS_PK_NONE);
 
         //act
         tlsio_mbedtls_setoption(handle, SU_OPTION_X509_CERT, TEST_X509_CERTIFICATE);
@@ -1215,13 +1215,13 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
         g_open_complete(g_open_complete_ctx, IO_OPEN_OK);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, TEST_X509_KEY));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, TEST_X509_KEY));
 
 #if defined(MBEDTLS_VERSION_NUMBER) && MBEDTLS_VERSION_NUMBER >= TLSIO_MBEDTLS_VERSION_3_0_0
-        STRICT_EXPECTED_CALL(mbedtls_pk_parse_key(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, NULL, 0, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(mbedtls_pk_parse_key(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, NULL, 0, IGNORED_ARG, IGNORED_ARG))
             .CopyOutArgumentBuffer_ctx(&pk_info, sizeof(pk_info));
 #else
-        STRICT_EXPECTED_CALL(mbedtls_pk_parse_key(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, NULL, 0))
+        STRICT_EXPECTED_CALL(mbedtls_pk_parse_key(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, NULL, 0))
             .CopyOutArgumentBuffer_ctx(&pk_info, sizeof(pk_info));
 #endif
 
@@ -1250,7 +1250,7 @@ BEGIN_TEST_SUITE(tlsio_mbedtls_ut)
         g_open_complete(g_open_complete_ctx, IO_OPEN_OK);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(mbedtls_ssl_conf_renegotiation(IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(mbedtls_ssl_conf_renegotiation(IGNORED_ARG, 1));
 
         //act
         bool set_renegotiation = true;

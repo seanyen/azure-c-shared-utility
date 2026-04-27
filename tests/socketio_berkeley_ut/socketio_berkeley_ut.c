@@ -246,9 +246,9 @@ TEST_FUNCTION(socketio_create_list_create_fails)
     // arrange
     socketio_mocks mocks;
 
-    EXPECTED_CALL(mocks, gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(mocks, gballoc_malloc(IGNORED_ARG));
     EXPECTED_CALL(mocks, singlylinkedlist_create()).SetReturn((SINGLYLINKEDLIST_HANDLE)NULL);
-    EXPECTED_CALL(mocks, gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(mocks, gballoc_free(IGNORED_ARG));
 
     SOCKETIO_CONFIG socketConfig = { HOSTNAME_ARG, PORT_NUM, NULL };
 
@@ -264,9 +264,9 @@ TEST_FUNCTION(socketio_create_succeeds)
     // arrange
     socketio_mocks mocks;
 
-    EXPECTED_CALL(mocks, gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(mocks, gballoc_malloc(IGNORED_ARG));
     EXPECTED_CALL(mocks, singlylinkedlist_create());
-    EXPECTED_CALL(mocks, gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(mocks, gballoc_malloc(IGNORED_ARG));
 
     SOCKETIO_CONFIG socketConfig = { HOSTNAME_ARG, PORT_NUM, NULL };
 
@@ -302,14 +302,14 @@ TEST_FUNCTION(socketio_destroy_socket_succeeds)
 
     mocks.ResetAllCalls();
 
-    EXPECTED_CALL(mocks, close(IGNORED_NUM_ARG));
-    EXPECTED_CALL(mocks, singlylinkedlist_get_head_item(IGNORED_PTR_ARG))
+    EXPECTED_CALL(mocks, close(IGNORED_ARG));
+    EXPECTED_CALL(mocks, singlylinkedlist_get_head_item(IGNORED_ARG))
         .ExpectedAtLeastTimes(2);
-    EXPECTED_CALL(mocks, singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    EXPECTED_CALL(mocks, singlylinkedlist_remove(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-    EXPECTED_CALL(mocks, singlylinkedlist_destroy(IGNORED_PTR_ARG));
-    EXPECTED_CALL(mocks, gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(mocks, gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(mocks, singlylinkedlist_item_get_value(IGNORED_ARG));
+    EXPECTED_CALL(mocks, singlylinkedlist_remove(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(mocks, singlylinkedlist_destroy(IGNORED_ARG));
+    EXPECTED_CALL(mocks, gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(mocks, gballoc_free(IGNORED_ARG));
 
     list_head_count = 1;
 
@@ -345,7 +345,7 @@ TEST_FUNCTION(socketio_open_socket_fails)
 
     mocks.ResetAllCalls();
 
-    EXPECTED_CALL(mocks, socket(IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+    EXPECTED_CALL(mocks, socket(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .SetReturn(-1);
 
     // act
@@ -370,9 +370,9 @@ TEST_FUNCTION(socketio_open_getaddrinfo_fails)
     mocks.ResetAllCalls();
 
     g_addrinfo_call_fail = true;
-    EXPECTED_CALL(mocks, socket(IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(mocks, getaddrinfo(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-    EXPECTED_CALL(mocks, close(IGNORED_NUM_ARG));
+    EXPECTED_CALL(mocks, socket(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(mocks, getaddrinfo(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(mocks, close(IGNORED_ARG));
 
     // act
     int result = socketio_open(ioHandle, OnBytesReceived, OnIoStateChanged, &callbackContext);
@@ -394,12 +394,12 @@ TEST_FUNCTION(socketio_open_connect_fails)
 
     mocks.ResetAllCalls();
 
-    EXPECTED_CALL(mocks, socket(IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(mocks, getaddrinfo(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-    EXPECTED_CALL(mocks, connect(IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG))
+    EXPECTED_CALL(mocks, socket(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(mocks, getaddrinfo(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(mocks, connect(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .SetReturn(-1);
-    EXPECTED_CALL(mocks, close(IGNORED_NUM_ARG));
-    EXPECTED_CALL(mocks, freeaddrinfo(IGNORED_PTR_ARG));
+    EXPECTED_CALL(mocks, close(IGNORED_ARG));
+    EXPECTED_CALL(mocks, freeaddrinfo(IGNORED_ARG));
 
     // act
     int result = socketio_open(ioHandle, OnBytesReceived, OnIoStateChanged, &callbackContext);
@@ -421,13 +421,13 @@ TEST_FUNCTION(socketio_open_ioctlsocket_fails)
 
     mocks.ResetAllCalls();
 
-    EXPECTED_CALL(mocks, socket(IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(mocks, getaddrinfo(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-    EXPECTED_CALL(mocks, connect(IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    //EXPECTED_CALL(mocks, fcntl(IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG))
+    EXPECTED_CALL(mocks, socket(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(mocks, getaddrinfo(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(mocks, connect(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    //EXPECTED_CALL(mocks, fcntl(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
     //    .SetReturn(-1);
-    EXPECTED_CALL(mocks, freeaddrinfo(IGNORED_PTR_ARG));
-    EXPECTED_CALL(mocks, close(IGNORED_NUM_ARG));
+    EXPECTED_CALL(mocks, freeaddrinfo(IGNORED_ARG));
+    EXPECTED_CALL(mocks, close(IGNORED_ARG));
 
     // act
     int result = socketio_open(ioHandle, OnBytesReceived, OnIoStateChanged, &callbackContext);
@@ -449,10 +449,10 @@ TEST_FUNCTION(socketio_open_ioctlsocket_fails)
 //
 //    mocks.ResetAllCalls();
 //
-//    EXPECTED_CALL(mocks, socket(IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-//    EXPECTED_CALL(mocks, getaddrinfo(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-//    EXPECTED_CALL(mocks, connect(IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-//    EXPECTED_CALL(mocks, freeaddrinfo(IGNORED_PTR_ARG));
+//    EXPECTED_CALL(mocks, socket(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+//    EXPECTED_CALL(mocks, getaddrinfo(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+//    EXPECTED_CALL(mocks, connect(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+//    EXPECTED_CALL(mocks, freeaddrinfo(IGNORED_ARG));
 //
 //    // act
 //    int result = socketio_open(ioHandle, OnBytesReceived, OnIoStateChanged, &callbackContext);
@@ -487,7 +487,7 @@ TEST_FUNCTION(socketio_close_Succeeds)
 
     mocks.ResetAllCalls();
 
-    EXPECTED_CALL(mocks, close(IGNORED_NUM_ARG));
+    EXPECTED_CALL(mocks, close(IGNORED_ARG));
 
     // act
     result = socketio_close(ioHandle);
@@ -556,8 +556,8 @@ TEST_FUNCTION(socketio_send_size_zero_fails)
 //
 //    mocks.ResetAllCalls();
 //
-//    EXPECTED_CALL(mocks, singlylinkedlist_get_head_item(IGNORED_PTR_ARG));
-//    EXPECTED_CALL(mocks, send(IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
+//    EXPECTED_CALL(mocks, singlylinkedlist_get_head_item(IGNORED_ARG));
+//    EXPECTED_CALL(mocks, send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 //
 //    // act
 //    result = socketio_send(ioHandle, (const void*)TEST_BUFFER_VALUE, TEST_BUFFER_SIZE, OnSendComplete, (void*)TEST_CALLBACK_CONTEXT);
@@ -582,11 +582,11 @@ TEST_FUNCTION(socketio_send_size_zero_fails)
 //
 //    mocks.ResetAllCalls();
 //
-//    EXPECTED_CALL(mocks, singlylinkedlist_get_head_item(IGNORED_PTR_ARG));
-//    EXPECTED_CALL(mocks, send(IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG)).SetReturn(1);
-//    EXPECTED_CALL(mocks, gballoc_malloc(IGNORED_NUM_ARG));
-//    EXPECTED_CALL(mocks, gballoc_malloc(IGNORED_NUM_ARG));
-//    EXPECTED_CALL(mocks, singlylinkedlist_add(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+//    EXPECTED_CALL(mocks, singlylinkedlist_get_head_item(IGNORED_ARG));
+//    EXPECTED_CALL(mocks, send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG)).SetReturn(1);
+//    EXPECTED_CALL(mocks, gballoc_malloc(IGNORED_ARG));
+//    EXPECTED_CALL(mocks, gballoc_malloc(IGNORED_ARG));
+//    EXPECTED_CALL(mocks, singlylinkedlist_add(IGNORED_ARG, IGNORED_ARG));
 //
 //    // act
 //    result = socketio_send(ioHandle, (const void*)TEST_BUFFER_VALUE, TEST_BUFFER_SIZE, OnSendComplete, (void*)TEST_CALLBACK_CONTEXT);
@@ -621,8 +621,8 @@ TEST_FUNCTION(socketio_dowork_socket_io_NULL_fails)
 //
 //    mocks.ResetAllCalls();
 //
-//    EXPECTED_CALL(mocks, singlylinkedlist_get_head_item(IGNORED_PTR_ARG));
-//    EXPECTED_CALL(mocks, recv(IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
+//    EXPECTED_CALL(mocks, singlylinkedlist_get_head_item(IGNORED_ARG));
+//    EXPECTED_CALL(mocks, recv(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 //
 //    // act
 //    socketio_dowork(ioHandle);
@@ -645,11 +645,11 @@ TEST_FUNCTION(socketio_dowork_socket_io_NULL_fails)
 //
 //    mocks.ResetAllCalls();
 //
-//    EXPECTED_CALL(mocks, singlylinkedlist_get_head_item(IGNORED_PTR_ARG));
-//    EXPECTED_CALL(mocks, recv(IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+//    EXPECTED_CALL(mocks, singlylinkedlist_get_head_item(IGNORED_ARG));
+//    EXPECTED_CALL(mocks, recv(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
 //        .CopyOutArgumentBuffer(2, "t", 1)
 //        .SetReturn(1);
-//    EXPECTED_CALL(mocks, recv(IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
+//    EXPECTED_CALL(mocks, recv(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 //
 //    // act
 //    socketio_dowork(ioHandle);

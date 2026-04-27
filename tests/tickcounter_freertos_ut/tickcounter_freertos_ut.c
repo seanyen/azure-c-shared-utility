@@ -105,7 +105,7 @@ TEST_FUNCTION(tickcounter_freertos_create_fails)
 {
     ///arrange
     TICK_COUNTER_HANDLE tickHandle;
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .IgnoreArgument(1)
         .SetReturn((void*)NULL);
 
@@ -124,7 +124,7 @@ TEST_FUNCTION(tickcounter_freertos_create_succeed)
 {
     ///arrange
     TICK_COUNTER_HANDLE tickHandle;
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(xTaskGetTickCount())
         .SetReturn(FAKE_TICK_NO_OVERFLOW);
@@ -159,7 +159,7 @@ TEST_FUNCTION(tickcounter_freertos_destroy_succeed)
     TICK_COUNTER_HANDLE tickHandle = tickcounter_create();
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
 
     ///act
@@ -210,7 +210,7 @@ TEST_FUNCTION(tickcounter_freertos_get_current_ms_succeed)
     tickcounter_ms_t current_ms = 0;
     int result;
     TICK_COUNTER_HANDLE tickHandle;
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(xTaskGetTickCount())
         .SetReturn(FAKE_TICK_NO_OVERFLOW);
@@ -238,7 +238,7 @@ TEST_FUNCTION(tickcounter_freertos_get_current_ms_succeed_despite_overflow)
     tickcounter_ms_t current_ms = 0;
     int result;
 
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(xTaskGetTickCount())
         .SetReturn(FAKE_TICK_BEFORE_OVERFLOW);

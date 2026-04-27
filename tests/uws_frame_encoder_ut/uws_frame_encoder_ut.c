@@ -157,9 +157,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_encodes_a_zero_length_binary_frame)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -202,10 +202,10 @@ TEST_FUNCTION(when_BUFFER_enlarge_fails_then_uws_frame_encoder_encode_fails)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer)
         .SetReturn(1);
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -225,12 +225,12 @@ TEST_FUNCTION(when_BUFFER_u_char_fails_then_uws_frame_encoder_encode_fails)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer)
         .SetReturn(NULL);
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -252,9 +252,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_encodes_a_zero_length_binary_frame_that_i
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -281,9 +281,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_encodes_a_zero_length_binary_frame_with_r
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -324,9 +324,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_encodes_a_zero_length_binary_frame_with_R
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -353,9 +353,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_encodes_a_zero_length_binary_frame_with_R
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -382,9 +382,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_encodes_a_zero_length_binary_frame_with_R
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -425,9 +425,9 @@ TEST_FUNCTION(uws_frame_encoder_encodes_a_continuation_frame)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -454,9 +454,9 @@ TEST_FUNCTION(uws_frame_encoder_encodes_a_text_frame)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -483,9 +483,9 @@ TEST_FUNCTION(uws_frame_encoder_encodes_a_binary_frame)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -512,9 +512,9 @@ TEST_FUNCTION(uws_frame_encoder_encodes_a_reserved_non_control_frame_3)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -541,9 +541,9 @@ TEST_FUNCTION(uws_frame_encoder_encodes_a_reserved_non_control_frame_4)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -570,9 +570,9 @@ TEST_FUNCTION(uws_frame_encoder_encodes_a_reserved_non_control_frame_5)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -599,9 +599,9 @@ TEST_FUNCTION(uws_frame_encoder_encodes_a_reserved_non_control_frame_6)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -628,9 +628,9 @@ TEST_FUNCTION(uws_frame_encoder_encodes_a_reserved_non_control_frame_7)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -657,9 +657,9 @@ TEST_FUNCTION(uws_frame_encoder_encodes_a_close_frame)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -686,9 +686,9 @@ TEST_FUNCTION(uws_frame_encoder_encodes_a_ping_frame)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -715,9 +715,9 @@ TEST_FUNCTION(uws_frame_encoder_encodes_a_pong_frame)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -744,9 +744,9 @@ TEST_FUNCTION(uws_frame_encoder_encodes_a_reserved_control_frame_B)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -773,9 +773,9 @@ TEST_FUNCTION(uws_frame_encoder_encodes_a_reserved_control_frame_C)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -802,9 +802,9 @@ TEST_FUNCTION(uws_frame_encoder_encodes_a_reserved_control_frame_D)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -831,9 +831,9 @@ TEST_FUNCTION(uws_frame_encoder_encodes_a_reserved_control_frame_E)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -860,9 +860,9 @@ TEST_FUNCTION(uws_frame_encoder_encodes_a_reserved_control_frame_F)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -893,9 +893,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_encodes_a_masked_zero_length_binary_frame
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, sizeof(expected_bytes)))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, sizeof(expected_bytes)))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
     STRICT_EXPECTED_CALL(RANDOM_generate())
         .SetReturn(0xFF);
@@ -934,9 +934,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_encodes_a_masked_zero_length_binary_frame
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, sizeof(expected_bytes)))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, sizeof(expected_bytes)))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
     STRICT_EXPECTED_CALL(RANDOM_generate())
         .SetReturn(0x42);
@@ -973,9 +973,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_encodes_a_1_byte_long_binary_frame)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, sizeof(expected_bytes)))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, sizeof(expected_bytes)))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -1017,9 +1017,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_encodes_a_125_byte_long_binary_frame)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 125 + 2))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 125 + 2))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -1066,9 +1066,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_encodes_a_126_byte_long_binary_frame)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 126 + 4))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 126 + 4))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -1115,9 +1115,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_encodes_a_65535_byte_long_binary_frame)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 65535 + 4))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 65535 + 4))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -1166,9 +1166,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_encodes_a_65536_byte_long_binary_frame)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, 65536 + 10))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, 65536 + 10))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
 
     // act
@@ -1205,9 +1205,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_masks_a_1_byte_frame_with_0_as_mask)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, sizeof(expected_bytes)))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, sizeof(expected_bytes)))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
     STRICT_EXPECTED_CALL(RANDOM_generate())
         .SetReturn(0x00);
@@ -1251,9 +1251,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_masks_a_1_byte_frame_with_0xFF_as_mask)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, sizeof(expected_bytes)))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, sizeof(expected_bytes)))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
     STRICT_EXPECTED_CALL(RANDOM_generate())
         .SetReturn(0xFF);
@@ -1297,9 +1297,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_masks_a_4_byte_frame_with_0xFF_as_mask)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, sizeof(expected_bytes)))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, sizeof(expected_bytes)))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
     STRICT_EXPECTED_CALL(RANDOM_generate())
         .SetReturn(0xFF);
@@ -1343,9 +1343,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_masks_a_5_byte_frame_with_0xFF_as_mask)
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, sizeof(expected_bytes)))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, sizeof(expected_bytes)))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
     STRICT_EXPECTED_CALL(RANDOM_generate())
         .SetReturn(0xFF);
@@ -1389,9 +1389,9 @@ TEST_FUNCTION(uws_frame_encoder_encode_masks_a_8_byte_frame_with_different_mask_
 
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_PTR_ARG, sizeof(expected_bytes)))
+    STRICT_EXPECTED_CALL(BUFFER_enlarge(IGNORED_ARG, sizeof(expected_bytes)))
         .ValidateArgumentValue_handle(&newly_created_buffer);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&newly_created_buffer);
     STRICT_EXPECTED_CALL(RANDOM_generate())
         .SetReturn(0x00);

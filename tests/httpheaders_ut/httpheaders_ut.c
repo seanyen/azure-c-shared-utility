@@ -195,10 +195,10 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
     {
         ///arrange
         HTTP_HEADERS_HANDLE handle;
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument(1);
 
-        STRICT_EXPECTED_CALL(Map_Create(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(Map_Create(IGNORED_ARG));
 
         ///act
         handle = HTTPHeaders_Alloc();
@@ -218,7 +218,7 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         ///arrange
         HTTP_HEADERS_HANDLE httpHandle;
         whenShallmalloc_fail = currentmalloc_call + 1;
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument(1);
 
         ///act
@@ -249,9 +249,9 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         HTTP_HEADERS_HANDLE handle = HTTPHeaders_Alloc();
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_Destroy(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_Destroy(IGNORED_ARG))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument(1);
 
         ///act
@@ -267,12 +267,12 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
     {
         ///arrange
         HTTP_HEADERS_HANDLE httpHandle;
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(Map_Create(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_Create(IGNORED_ARG))
             .SetReturn(NULL);
 
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument(1);
 
         ///act
@@ -293,7 +293,7 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         size_t zero = 0;
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
             .IgnoreAllArguments()
             .CopyOutArgumentBuffer(4, &zero, sizeof(zero));
 
@@ -318,11 +318,11 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist*/
 
-        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_PTR_ARG, NAME1, VALUE1))
+        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_ARG, NAME1, VALUE1))
             .IgnoreArgument(1);
 
         ///act
@@ -346,12 +346,12 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist*/
 
 
-        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_PTR_ARG, NAME1, VALUE1))
+        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_ARG, NAME1, VALUE1))
             .IgnoreArgument(1)
             .SetReturn(MAP_ERROR);
 
@@ -376,11 +376,11 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist*/
 
-        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_PTR_ARG, NAME1, VALUE1))
+        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_ARG, NAME1, VALUE1))
             .IgnoreArgument(1);
 
         ///act
@@ -455,23 +455,23 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         ///arrange
         HTTP_HEADERS_RESULT res;
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME1, VALUE1);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn(VALUE1);
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument(1);
 
-        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_PTR_ARG, NAME1, VALUE1 ", " VALUE1))
+        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_ARG, NAME1, VALUE1 ", " VALUE1))
             .IgnoreArgument(1);
 
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument(1);
 
         ///act
@@ -491,24 +491,24 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         ///arrange
         HTTP_HEADERS_RESULT res;
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME1, VALUE1);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn(VALUE1);
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument(1);
 
-        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_PTR_ARG, NAME1, VALUE1 ", " VALUE1))
+        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_ARG, NAME1, VALUE1 ", " VALUE1))
             .IgnoreArgument(1)
             .SetReturn(MAP_ERROR);
 
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument(1);
 
         ///act
@@ -528,18 +528,18 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         ///arrange
         HTTP_HEADERS_RESULT res;
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME1, VALUE1);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn(VALUE1);
 
         whenShallmalloc_fail = currentmalloc_call + 1;
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument(1);
 
         ///act
@@ -559,17 +559,17 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         ///arrange
         HTTP_HEADERS_RESULT res;
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME1, VALUE1);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME2))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME2))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
 
-        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_PTR_ARG, NAME2, VALUE2))
+        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_ARG, NAME2, VALUE2))
             .IgnoreArgument(1);
 
         ///act
@@ -589,17 +589,17 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         ///arrange
         HTTP_HEADERS_RESULT result;
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, "ab"))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, "ab"))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, "ab", VALUE1);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, "a"))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, "a"))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
 
-        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_PTR_ARG, "a", VALUE1))
+        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_ARG, "a", VALUE1))
             .IgnoreArgument(1);
 
         ///act
@@ -652,13 +652,13 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         ///arrange
         const char* res1;
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME1, VALUE1);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1);
 
         ///act
@@ -680,20 +680,20 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         const char* res1;
         const char* res2;
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME1, VALUE1);
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME2))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME2))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME2, VALUE2);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn(VALUE1);
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME2))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME2))
             .IgnoreArgument(1)
             .SetReturn(VALUE2);
 
@@ -716,17 +716,17 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
     {
         const char* res;
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME1, VALUE1);
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn(VALUE1); /*this key exists, was added above*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME1, VALUE2);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn(VALUE1 ", " VALUE2);
 
@@ -748,13 +748,13 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         ///arrange
         const char* res2;
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME1, VALUE1);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME2))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME2))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL);
 
@@ -778,19 +778,19 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         const char* res2;
         const char* res3;
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME1, VALUE1);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1_TRICK1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1_TRICK1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL);
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1_TRICK2))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1_TRICK2))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL);
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1_TRICK3))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1_TRICK3))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL);
 
@@ -815,17 +815,17 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         ///arrange
         HTTP_HEADERS_RESULT res;
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME1, VALUE1);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn(VALUE1); /*this key does not exist, the line below is adding it*/
 
-        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_PTR_ARG, NAME1, VALUE2))
+        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_ARG, NAME1, VALUE2))
             .IgnoreArgument(1);
 
         ///act
@@ -847,11 +847,11 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL);
 
-        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_PTR_ARG, NAME1, VALUE2))
+        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_ARG, NAME1, VALUE2))
             .IgnoreArgument(1);
 
         ///act
@@ -913,13 +913,13 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         const char* const ** pValues = (const char* const **)&values;
         const size_t one = 1;
         HTTP_HEADERS_RESULT res;
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME1, VALUE1);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
             .IgnoreArgument(1)
             .CopyOutArgumentBuffer(2, &pKeys, sizeof(pKeys))
             .CopyOutArgumentBuffer(3, &pValues, sizeof(pValues))
@@ -947,7 +947,7 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         size_t nHeaders;
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
             .IgnoreAllArguments()
             .SetReturn(MAP_ERROR);
 
@@ -977,18 +977,18 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         const char* const ** pValues = (const char* const **)&values;
 
         const size_t two = 2;
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME1, VALUE1);
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME2))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME2))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME2, VALUE2);
         umock_c_reset_all_calls();
 
 
-        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
             .IgnoreArgument(1)
             .CopyOutArgumentBuffer(2, &pKeys, sizeof(pKeys))
             .CopyOutArgumentBuffer(3, &pValues, sizeof(pValues))
@@ -1026,7 +1026,7 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         ///arrange
         HTTP_HEADERS_RESULT res;
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME1, VALUE1);
@@ -1055,7 +1055,7 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         const char* zero = 0;
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
             .IgnoreArgument(1)
             .CopyOutArgumentBuffer(2, &thisIsNULL, sizeof(thisIsNULL))
             .CopyOutArgumentBuffer(3, &thisIsNULL, sizeof(thisIsNULL))
@@ -1085,13 +1085,13 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         const char* const ** pValues = (const char* const **)&values;
         const size_t one = 1;
         char* headerValue;
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, NAME1, VALUE1);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
             .IgnoreArgument(1)
             .CopyOutArgumentBuffer(2, pKeys, sizeof(pKeys))
             .CopyOutArgumentBuffer(3, pValues, sizeof(pValues))
@@ -1121,19 +1121,19 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         const char* values[1] = { "b" };
         const char** pValues = &values[0];
         const size_t one = 1;
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, "a"))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, "a"))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, "a", "b");
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
             .IgnoreArgument(1)
             .CopyOutArgumentBuffer(2, &pKeys, sizeof(pKeys))
             .CopyOutArgumentBuffer(3, &pValues, sizeof(pValues))
             .CopyOutArgumentBuffer(4, &one, sizeof(one));
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument(1);
 
         ///act
@@ -1161,13 +1161,13 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         const char** pValues = &values[0];
         const size_t one = 1;
         HTTP_HEADERS_RESULT res1;
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, "a"))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, "a"))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, "a", "b");
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
             .IgnoreArgument(1)
             .CopyOutArgumentBuffer(2, &pKeys, sizeof(pKeys))
             .CopyOutArgumentBuffer(3, &pValues, sizeof(pValues))
@@ -1197,20 +1197,20 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         const char** pValues = &values[0];
         const size_t one = 1;
         HTTP_HEADERS_RESULT res1;
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, "a"))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, "a"))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, "a", "b");
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
             .IgnoreArgument(1)
             .CopyOutArgumentBuffer(2, &pKeys, sizeof(pKeys))
             .CopyOutArgumentBuffer(3, &pValues, sizeof(pValues))
             .CopyOutArgumentBuffer(4, &one, sizeof(one));
 
         whenShallmalloc_fail = currentmalloc_call + 1;
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument(1);
 
         ///act
@@ -1256,19 +1256,19 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
         char* headerValue;
         HTTP_HEADERS_RESULT res1;
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, "a"))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, "a"))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist, the line below is adding it*/
         (void)HTTPHeaders_AddHeaderNameValuePair(httpHandle, "a", ":");
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
             .IgnoreArgument(1)
             .CopyOutArgumentBuffer(2, &pKeys, sizeof(pKeys))
             .CopyOutArgumentBuffer(3, &pValues, sizeof(pValues))
             .CopyOutArgumentBuffer(4, &one, sizeof(one));
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument(1);
 
         ///act
@@ -1324,11 +1324,11 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         HTTP_HEADERS_HANDLE httpHandle = HTTPHeaders_Alloc();
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, NAME1))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, NAME1))
             .IgnoreArgument(1)
             .SetReturn((const char*)NULL); /*this key does not exist*/
 
-        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_PTR_ARG, NAME1, VALUE1))
+        STRICT_EXPECTED_CALL(Map_AddOrUpdate(IGNORED_ARG, NAME1, VALUE1))
             .IgnoreArgument(1);
 
         ///act
@@ -1365,9 +1365,9 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         HTTP_HEADERS_HANDLE source = HTTPHeaders_Alloc();
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(Map_Clone(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_Clone(IGNORED_ARG))
             .IgnoreArgument(1);
 
         ///act
@@ -1390,12 +1390,12 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         HTTP_HEADERS_HANDLE source = HTTPHeaders_Alloc();
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(Map_Clone(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_Clone(IGNORED_ARG))
             .IgnoreArgument(1).SetReturn(NULL);
 
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument(1);
 
         ///act
@@ -1418,7 +1418,7 @@ BEGIN_TEST_SUITE(HTTPHeaders_UnitTests)
         HTTP_HEADERS_HANDLE source = HTTPHeaders_Alloc();
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument(1).SetReturn(NULL);
 
         ///act

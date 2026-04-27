@@ -388,15 +388,15 @@ TEST_FUNCTION(http_proxy_io_create_succeeds)
     http_proxy_io_config.username = "test_user";
     http_proxy_io_config.password = "shhhh";
 
-    EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
         .IgnoreAllArguments();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "a_proxy"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "a_proxy"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_user"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_user"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "shhhh"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "shhhh"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(socketio_get_interface_description());
     STRICT_EXPECTED_CALL(xio_create(TEST_SOCKETIO_INTERFACE_DESCRIPTION, &socketio_config))
@@ -427,11 +427,11 @@ TEST_FUNCTION(http_proxy_io_create_with_NULL_username_and_password_succeeds)
     http_proxy_io_config.username = NULL;
     http_proxy_io_config.password = NULL;
 
-    EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
         .IgnoreAllArguments();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "a_proxy"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "a_proxy"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(socketio_get_interface_description());
     STRICT_EXPECTED_CALL(xio_create(TEST_SOCKETIO_INTERFACE_DESCRIPTION, &socketio_config))
@@ -562,19 +562,19 @@ TEST_FUNCTION(when_a_call_made_by_http_proxy_io_create_fails_then_http_proxy_io_
     int negativeTestsInitResult = umock_c_negative_tests_init();
     ASSERT_ARE_EQUAL(int, 0, negativeTestsInitResult);
 
-    EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG))
         .IgnoreAllArguments()
         .SetFailReturn(NULL);
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination()
         .SetFailReturn(1);
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "a_proxy"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "a_proxy"))
         .IgnoreArgument_destination()
         .SetFailReturn(1);
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_user"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_user"))
         .IgnoreArgument_destination()
         .SetFailReturn(1);
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "shhhh"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "shhhh"))
         .IgnoreArgument_destination()
         .SetFailReturn(1);
     STRICT_EXPECTED_CALL(socketio_get_interface_description())
@@ -616,11 +616,11 @@ TEST_FUNCTION(http_proxy_io_destroy_frees_the_resources)
     umock_c_reset_all_calls();
 
     STRICT_EXPECTED_CALL(xio_destroy(TEST_IO_HANDLE));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     http_proxy_io_get_interface_description()->concrete_io_destroy(http_io);
@@ -654,7 +654,7 @@ TEST_FUNCTION(http_proxy_io_open_opens_the_underlying_IO)
     http_io = http_proxy_io_get_interface_description()->concrete_io_create((void*)&default_http_proxy_io_config);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -683,7 +683,7 @@ TEST_FUNCTION(when_the_underlying_xio_open_fails_http_proxy_io_open_fails)
     http_io = http_proxy_io_get_interface_description()->concrete_io_create((void*)&default_http_proxy_io_config);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -812,7 +812,7 @@ TEST_FUNCTION(http_proxy_io_open_with_NULL_contexts_is_allowed)
     http_io = http_proxy_io_get_interface_description()->concrete_io_create((void*)&default_http_proxy_io_config);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -848,7 +848,7 @@ TEST_FUNCTION(http_proxy_io_close_closes_the_IO)
     g_on_bytes_received(g_on_io_open_complete_context, (const unsigned char*)connect_response, sizeof(connect_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_close_complete()
         .IgnoreArgument_callback_context();
 
@@ -890,7 +890,7 @@ TEST_FUNCTION(when_xio_close_fails_http_proxy_io_close_also_fails)
     g_on_bytes_received(g_on_io_open_complete_context, (const unsigned char*)connect_response, sizeof(connect_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_close_complete()
         .IgnoreArgument_callback_context()
         .SetReturn(1);
@@ -966,7 +966,7 @@ TEST_FUNCTION(http_proxy_io_close_with_NULL_close_complete_callback_is_allowed)
     g_on_bytes_received(g_on_io_open_complete_context, (const unsigned char*)connect_response, sizeof(connect_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_close_complete()
         .IgnoreArgument_callback_context();
 
@@ -994,7 +994,7 @@ TEST_FUNCTION(http_proxy_io_close_with_NULL_close_complete_callback_context_is_a
     g_on_bytes_received(g_on_io_open_complete_context, (const unsigned char*)connect_response, sizeof(connect_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_close_complete()
         .IgnoreArgument_callback_context();
 
@@ -1101,7 +1101,7 @@ TEST_FUNCTION(http_proxy_io_send_calls_send_on_the_underlying_IO)
     g_on_bytes_received(g_on_io_open_complete_context, (const unsigned char*)connect_response, sizeof(connect_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_PTR_ARG, sizeof(test_buffer), test_on_send_complete, (void*)0x4247))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_ARG, sizeof(test_buffer), test_on_send_complete, (void*)0x4247))
         .ValidateArgumentBuffer(2, test_buffer, sizeof(test_buffer));
 
     // act
@@ -1193,7 +1193,7 @@ TEST_FUNCTION(http_proxy_io_send_with_NULL_send_complete_callback_succeeds)
     g_on_bytes_received(g_on_io_open_complete_context, (const unsigned char*)connect_response, sizeof(connect_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_PTR_ARG, sizeof(test_buffer), NULL, (void*)0x4247))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_ARG, sizeof(test_buffer), NULL, (void*)0x4247))
         .ValidateArgumentBuffer(2, test_buffer, sizeof(test_buffer));
 
     // act
@@ -1342,7 +1342,7 @@ TEST_FUNCTION(when_xio_send_fails_http_proxy_io_send_also_fails)
     g_on_bytes_received(g_on_io_open_complete_context, (const unsigned char*)connect_response, sizeof(connect_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_PTR_ARG, sizeof(test_buffer), NULL, (void*)0x4247))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_ARG, sizeof(test_buffer), NULL, (void*)0x4247))
         .ValidateArgumentBuffer(2, test_buffer, sizeof(test_buffer))
         .SetReturn(1);
 
@@ -1561,10 +1561,10 @@ TEST_FUNCTION(http_proxy_io_retrieve_options_calls_the_underlying_retrieve_optio
     http_io = http_proxy_io_get_interface_description()->concrete_io_create((void*)&default_http_proxy_io_config);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_retrieveoptions(TEST_IO_HANDLE));
-    STRICT_EXPECTED_CALL(OptionHandler_AddOption(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(OptionHandler_Destroy(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(OptionHandler_AddOption(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(OptionHandler_Destroy(IGNORED_ARG));
 
     // act
     result = http_proxy_io_get_interface_description()->concrete_io_retrieveoptions(http_io);
@@ -1586,9 +1586,9 @@ TEST_FUNCTION(http_proxy_io_clone_option_succeeds)
     http_io = http_proxy_io_get_interface_description()->concrete_io_create((void*)&default_http_proxy_io_config);
 
     umock_c_reset_all_calls();
-    STRICT_EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_retrieveoptions(TEST_IO_HANDLE));
-    STRICT_EXPECTED_CALL(OptionHandler_AddOption(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(OptionHandler_AddOption(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     http_proxy_io_get_interface_description()->concrete_io_retrieveoptions(http_io);
 
     ASSERT_IS_NOT_NULL(tlsio_clone_option);
@@ -1617,9 +1617,9 @@ TEST_FUNCTION(http_proxy_io_destroy_option_succeeds)
     http_io = http_proxy_io_get_interface_description()->concrete_io_create((void*)&default_http_proxy_io_config);
 
     umock_c_reset_all_calls();
-    STRICT_EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_retrieveoptions(TEST_IO_HANDLE));
-    STRICT_EXPECTED_CALL(OptionHandler_AddOption(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(OptionHandler_AddOption(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     http_proxy_io_get_interface_description()->concrete_io_retrieveoptions(http_io);
 
     ASSERT_IS_NOT_NULL(tlsio_destroy_option);
@@ -1661,10 +1661,10 @@ TEST_FUNCTION(when_xio_retrieveoptions_fails_then_http_proxy_io_retrieve_options
     http_io = http_proxy_io_get_interface_description()->concrete_io_create((void*)&default_http_proxy_io_config);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_retrieveoptions(TEST_IO_HANDLE))
         .SetReturn(NULL);
-    STRICT_EXPECTED_CALL(OptionHandler_Destroy(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(OptionHandler_Destroy(IGNORED_ARG));
 
     // act
     result = http_proxy_io_get_interface_description()->concrete_io_retrieveoptions(http_io);
@@ -1734,10 +1734,10 @@ TEST_FUNCTION(when_the_underlying_io_open_complete_is_called_the_CONNECT_request
     (void)http_proxy_io_get_interface_description()->concrete_io_open(http_io, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_PTR_ARG, sizeof(connect_request) - 1, IGNORED_PTR_ARG, NULL))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_ARG, sizeof(connect_request) - 1, IGNORED_ARG, NULL))
         .ValidateArgumentBuffer(2, connect_request, sizeof(connect_request) - 1);
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
@@ -1760,13 +1760,13 @@ TEST_FUNCTION(when_xio_send_fails_on_open_complete_is_triggered_with_IO_OPEN_ERR
     (void)http_proxy_io_get_interface_description()->concrete_io_open(http_io, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_PTR_ARG, sizeof(connect_request) - 1, IGNORED_PTR_ARG, NULL))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_ARG, sizeof(connect_request) - 1, IGNORED_ARG, NULL))
         .ValidateArgumentBuffer(2, connect_request, sizeof(connect_request) - 1)
         .SetReturn(1);
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_ERROR));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
@@ -1790,18 +1790,18 @@ TEST_FUNCTION(http_proxy_io_open_after_CONNECT_request_send_error_succeeds)
     (void)http_proxy_io_get_interface_description()->concrete_io_open(http_io, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_PTR_ARG, sizeof(connect_request) - 1, IGNORED_PTR_ARG, NULL))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_ARG, sizeof(connect_request) - 1, IGNORED_ARG, NULL))
         .ValidateArgumentBuffer(2, connect_request, sizeof(connect_request) - 1)
         .SetReturn(1);
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_ERROR));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -1830,7 +1830,7 @@ TEST_FUNCTION(when_allocating_memory_for_the_connect_request_fails_on_open_compl
     (void)http_proxy_io_get_interface_description()->concrete_io_open(http_io, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_ERROR));
@@ -1856,13 +1856,13 @@ TEST_FUNCTION(http_proxy_io_open_after_CONNECT_request_allocation_error_error_su
     (void)http_proxy_io_get_interface_description()->concrete_io_open(http_io, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .SetReturn(NULL);
 
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -1899,16 +1899,16 @@ TEST_FUNCTION(when_the_underlying_io_open_complete_is_called_the_CONNECT_request
     (void)http_proxy_io_get_interface_description()->concrete_io_open(http_io, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG)); // auth
-    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_NUM_ARG, sizeof(plain_auth_string) - 1))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)); // auth
+    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_ARG, sizeof(plain_auth_string) - 1))
         .ValidateArgumentBuffer(1, plain_auth_string, sizeof(plain_auth_string) - 1);
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG)); // auth
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG)); // auth
     STRICT_EXPECTED_CALL(STRING_c_str(TEST_STRING_HANDLE))
         .SetReturn(base64encoded);
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_PTR_ARG, sizeof(connect_request) - 1, IGNORED_PTR_ARG, NULL))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_ARG, sizeof(connect_request) - 1, IGNORED_ARG, NULL))
         .ValidateArgumentBuffer(2, connect_request, sizeof(connect_request) - 1);
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
     STRICT_EXPECTED_CALL(STRING_delete(TEST_STRING_HANDLE));
 
     // act
@@ -1939,16 +1939,16 @@ TEST_FUNCTION(when_the_underlying_io_open_complete_is_called_the_CONNECT_request
     (void)http_proxy_io_get_interface_description()->concrete_io_open(http_io, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG)); // auth
-    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_NUM_ARG, sizeof(plain_auth_string) - 1))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)); // auth
+    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_ARG, sizeof(plain_auth_string) - 1))
         .ValidateArgumentBuffer(1, plain_auth_string, sizeof(plain_auth_string) - 1);
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG)); // auth
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG)); // auth
     STRICT_EXPECTED_CALL(STRING_c_str(TEST_STRING_HANDLE))
         .SetReturn(base64encoded);
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_PTR_ARG, sizeof(connect_request) - 1, IGNORED_PTR_ARG, NULL))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_ARG, sizeof(connect_request) - 1, IGNORED_ARG, NULL))
         .ValidateArgumentBuffer(2, connect_request, sizeof(connect_request) - 1);
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
     STRICT_EXPECTED_CALL(STRING_delete(TEST_STRING_HANDLE));
 
     // act
@@ -1972,13 +1972,13 @@ TEST_FUNCTION(when_Base64_Encode_Bytes_fails_on_open_complete_is_triggered_with_
     (void)http_proxy_io_get_interface_description()->concrete_io_open(http_io, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG)); // auth
-    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_NUM_ARG, sizeof(plain_auth_string) - 1))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)); // auth
+    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_ARG, sizeof(plain_auth_string) - 1))
         .ValidateArgumentBuffer(1, plain_auth_string, sizeof(plain_auth_string) - 1)
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_ERROR));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG)); // auth
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG)); // auth
 
     // act
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
@@ -2002,15 +2002,15 @@ TEST_FUNCTION(after_Base64_Encode_Bytes_fails_http_proxy_io_open_succeeds)
     (void)http_proxy_io_get_interface_description()->concrete_io_open(http_io, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG)); // auth
-    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_NUM_ARG, sizeof(plain_auth_string) - 1))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)); // auth
+    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_ARG, sizeof(plain_auth_string) - 1))
         .ValidateArgumentBuffer(1, plain_auth_string, sizeof(plain_auth_string) - 1)
         .SetReturn(NULL);
 
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -2039,7 +2039,7 @@ TEST_FUNCTION(when_allocating_memory_for_the_plain_auth_string_fails_on_open_com
     (void)http_proxy_io_get_interface_description()->concrete_io_open(http_io, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .SetReturn(NULL); // auth
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_ERROR));
@@ -2065,13 +2065,13 @@ TEST_FUNCTION(after_allocating_memory_for_the_plain_auth_string_fails_http_proxy
     (void)http_proxy_io_get_interface_description()->concrete_io_open(http_io, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .SetReturn(NULL); // auth
 
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -2125,7 +2125,7 @@ TEST_FUNCTION(after_on_underlying_io_open_complete_with_error_http_proxy_io_open
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_ERROR);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -2179,7 +2179,7 @@ TEST_FUNCTION(after_on_underlying_io_open_complete_with_cancelled_http_proxy_io_
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_CANCELLED);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -2235,7 +2235,7 @@ TEST_FUNCTION(after_on_underlying_io_open_complete_is_called_when_waiting_for_co
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -2316,7 +2316,7 @@ TEST_FUNCTION(on_underlying_io_bytes_received_with_1_byte_buffers_the_received_b
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
 
     // act
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)connect_response, 1);
@@ -2340,7 +2340,7 @@ TEST_FUNCTION(on_underlying_io_bytes_received_with_2_times_1_byte_buffers_the_re
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)connect_response, 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
 
     // act
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)connect_response + 1, 1);
@@ -2366,7 +2366,7 @@ TEST_FUNCTION(on_underlying_io_bytes_received_with_a_good_reply_indicates_OPEN_O
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_OK));
 
     // act
@@ -2391,7 +2391,7 @@ TEST_FUNCTION(on_underlying_io_bytes_received_with_a_good_reply_in_2_chunks_indi
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)connect_response, sizeof(connect_response) - 2);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_OK));
 
     // act
@@ -2415,7 +2415,7 @@ TEST_FUNCTION(when_allocating_memory_for_cached_data_in_on_underlying_io_bytes_a
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG))
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_ERROR));
@@ -2445,7 +2445,7 @@ TEST_FUNCTION(on_underlying_io_bytes_received_with_a_good_reply_status_code_201_
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_OK));
 
     // act
@@ -2473,7 +2473,7 @@ TEST_FUNCTION(on_underlying_io_bytes_received_with_a_good_reply_status_code_299_
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_OK));
 
     // act
@@ -2502,7 +2502,7 @@ TEST_FUNCTION(on_underlying_io_bytes_received_with_a_good_reply_status_code_200_
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_OK));
 
     // act
@@ -2527,7 +2527,7 @@ TEST_FUNCTION(on_underlying_io_bytes_received_with_a_199_code_indicates_an_error
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_ERROR));
 
@@ -2553,7 +2553,7 @@ TEST_FUNCTION(on_underlying_io_bytes_received_with_a_300_code_indicates_an_error
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_ERROR));
 
@@ -2581,7 +2581,7 @@ TEST_FUNCTION(after_a_bad_status_code_http_proxy_io_open_succeeds)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)connect_response_300, sizeof(connect_response_300) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -2613,9 +2613,9 @@ TEST_FUNCTION(one_extra_byte_gets_indicated_as_received)
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_OK));
-    STRICT_EXPECTED_CALL(test_on_bytes_received((void*)0x4243, IGNORED_PTR_ARG, sizeof(expected_bytes)))
+    STRICT_EXPECTED_CALL(test_on_bytes_received((void*)0x4243, IGNORED_ARG, sizeof(expected_bytes)))
         .ValidateArgumentBuffer(2, expected_bytes, sizeof(expected_bytes));
 
     // act
@@ -2641,9 +2641,9 @@ TEST_FUNCTION(three_extra_byte_get_indicated_as_received)
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_OK));
-    STRICT_EXPECTED_CALL(test_on_bytes_received((void*)0x4243, IGNORED_PTR_ARG, sizeof(expected_bytes)))
+    STRICT_EXPECTED_CALL(test_on_bytes_received((void*)0x4243, IGNORED_ARG, sizeof(expected_bytes)))
         .ValidateArgumentBuffer(2, expected_bytes, sizeof(expected_bytes));
 
     // act
@@ -2669,7 +2669,7 @@ TEST_FUNCTION(bytes_indicated_as_received_in_OPEN_get_bubbled_up)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)connect_response, sizeof(connect_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(test_on_bytes_received((void*)0x4243, IGNORED_PTR_ARG, sizeof(expected_bytes)))
+    STRICT_EXPECTED_CALL(test_on_bytes_received((void*)0x4243, IGNORED_ARG, sizeof(expected_bytes)))
         .ValidateArgumentBuffer(2, expected_bytes, sizeof(expected_bytes));
 
     // act
@@ -2717,7 +2717,7 @@ TEST_FUNCTION(a_bad_reply_triggers_an_error_in_open_complete_callback)
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_ERROR));
 
@@ -2743,7 +2743,7 @@ TEST_FUNCTION(a_bad_reply_malformed_char_triggers_an_error_in_open_complete_call
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_ERROR));
 
@@ -2769,7 +2769,7 @@ TEST_FUNCTION(a_bad_reply_only_one_char_triggers_an_error_in_open_complete_callb
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_io_open_complete((void*)0x4242, IO_OPEN_ERROR));
 

@@ -202,12 +202,12 @@ BEGIN_TEST_SUITE(constmap_unittests)
         // Arrange
         MAP_HANDLE sourceMap;
         CONSTMAP_HANDLE aHandle;
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(Map_Clone(VALID_MAP_HANDLE));
 
         STRICT_EXPECTED_CALL(Map_Destroy(VALID_MAP_CLONE1));
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument(1);
 
         sourceMap = VALID_MAP_HANDLE;
@@ -232,7 +232,7 @@ BEGIN_TEST_SUITE(constmap_unittests)
         // Arrange
         MAP_HANDLE sourceMap;
         CONSTMAP_HANDLE aHandle;
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument(1);
         whenShallmalloc_fail = 1;
 
@@ -256,10 +256,10 @@ BEGIN_TEST_SUITE(constmap_unittests)
         // Arrange
         MAP_HANDLE sourceMap;
         CONSTMAP_HANDLE aHandle;
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument(1);
         STRICT_EXPECTED_CALL(Map_Clone(INVALID_MAP_HANDLE));
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument(1);
 
         sourceMap = INVALID_MAP_HANDLE;
@@ -435,7 +435,7 @@ BEGIN_TEST_SUITE(constmap_unittests)
         umock_c_reset_all_calls();
 
         // Call to Map
-        STRICT_EXPECTED_CALL(Map_ContainsKey(IGNORED_PTR_ARG, key, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_ContainsKey(IGNORED_ARG, key, IGNORED_ARG))
             .IgnoreArgument(1).IgnoreArgument(3);
 
         ///Act
@@ -504,15 +504,15 @@ BEGIN_TEST_SUITE(constmap_unittests)
         umock_c_reset_all_calls();
 
         // Call to Map_ContainsKey (match with mapErrorList size)
-        STRICT_EXPECTED_CALL(Map_ContainsKey(IGNORED_PTR_ARG, key, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_ContainsKey(IGNORED_ARG, key, IGNORED_ARG))
             .IgnoreArgument(1).IgnoreArgument(3);
-        STRICT_EXPECTED_CALL(Map_ContainsKey(IGNORED_PTR_ARG, key, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_ContainsKey(IGNORED_ARG, key, IGNORED_ARG))
             .IgnoreArgument(1).IgnoreArgument(3);
-        STRICT_EXPECTED_CALL(Map_ContainsKey(IGNORED_PTR_ARG, key, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_ContainsKey(IGNORED_ARG, key, IGNORED_ARG))
             .IgnoreArgument(1).IgnoreArgument(3);
-        STRICT_EXPECTED_CALL(Map_ContainsKey(IGNORED_PTR_ARG, key, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_ContainsKey(IGNORED_ARG, key, IGNORED_ARG))
             .IgnoreArgument(1).IgnoreArgument(3);
-        STRICT_EXPECTED_CALL(Map_ContainsKey(IGNORED_PTR_ARG, key, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_ContainsKey(IGNORED_ARG, key, IGNORED_ARG))
             .IgnoreArgument(1).IgnoreArgument(3);
 
 
@@ -545,7 +545,7 @@ BEGIN_TEST_SUITE(constmap_unittests)
         umock_c_reset_all_calls();
 
         // Call to Map
-        STRICT_EXPECTED_CALL(Map_ContainsValue(IGNORED_PTR_ARG, value, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_ContainsValue(IGNORED_ARG, value, IGNORED_ARG))
             .IgnoreArgument(1).IgnoreArgument(3);
 
         ///Act
@@ -612,15 +612,15 @@ BEGIN_TEST_SUITE(constmap_unittests)
         umock_c_reset_all_calls();
 
         // Call to Map_ContainsValue (match with mapErrorList size)
-        STRICT_EXPECTED_CALL(Map_ContainsValue(IGNORED_PTR_ARG, value, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_ContainsValue(IGNORED_ARG, value, IGNORED_ARG))
             .IgnoreArgument(1).IgnoreArgument(3);
-        STRICT_EXPECTED_CALL(Map_ContainsValue(IGNORED_PTR_ARG, value, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_ContainsValue(IGNORED_ARG, value, IGNORED_ARG))
             .IgnoreArgument(1).IgnoreArgument(3);
-        STRICT_EXPECTED_CALL(Map_ContainsValue(IGNORED_PTR_ARG, value, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_ContainsValue(IGNORED_ARG, value, IGNORED_ARG))
             .IgnoreArgument(1).IgnoreArgument(3);
-        STRICT_EXPECTED_CALL(Map_ContainsValue(IGNORED_PTR_ARG, value, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_ContainsValue(IGNORED_ARG, value, IGNORED_ARG))
             .IgnoreArgument(1).IgnoreArgument(3);
-        STRICT_EXPECTED_CALL(Map_ContainsValue(IGNORED_PTR_ARG, value, IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(Map_ContainsValue(IGNORED_ARG, value, IGNORED_ARG))
             .IgnoreArgument(1).IgnoreArgument(3);
 
         ///Act
@@ -651,7 +651,7 @@ BEGIN_TEST_SUITE(constmap_unittests)
         umock_c_reset_all_calls();
 
         // Call to Map
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, key))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, key))
             .IgnoreArgument(1);
 
         ///Act
@@ -718,15 +718,15 @@ BEGIN_TEST_SUITE(constmap_unittests)
         umock_c_reset_all_calls();
 
         // Call to Map_ContainsKey (match with mapErrorList size)
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, key))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, key))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, key))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, key))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, key))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, key))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, key))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, key))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_PTR_ARG, key))
+        STRICT_EXPECTED_CALL(Map_GetValueFromKey(IGNORED_ARG, key))
             .IgnoreArgument(1);
 
 
@@ -763,7 +763,7 @@ BEGIN_TEST_SUITE(constmap_unittests)
         umock_c_reset_all_calls();
 
         // Call to Map
-        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, &keys, &values, &count))
+        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, &keys, &values, &count))
             .IgnoreArgument(1);
 
         ///Act
@@ -831,15 +831,15 @@ BEGIN_TEST_SUITE(constmap_unittests)
         umock_c_reset_all_calls();
 
         // Call to Map_GetInternals (match with mapErrorList size)
-        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, &keys, &values, &count))
+        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, &keys, &values, &count))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, &keys, &values, &count))
+        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, &keys, &values, &count))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, &keys, &values, &count))
+        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, &keys, &values, &count))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, &keys, &values, &count))
+        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, &keys, &values, &count))
             .IgnoreArgument(1);
-        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, &keys, &values, &count))
+        STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, &keys, &values, &count))
             .IgnoreArgument(1);
 
         ///Act

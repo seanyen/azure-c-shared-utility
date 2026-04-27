@@ -220,7 +220,7 @@ TEST_FUNCTION(xio_create_with_all_args_except_interface_description_NULL_succeed
 {
     // arrange
     XIO_HANDLE result;
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_xio_create(NULL));
 
     // act
@@ -239,7 +239,7 @@ TEST_FUNCTION(xio_create_passes_the_args_to_the_concrete_io_implementation)
 {
     // arrange
     XIO_HANDLE result;
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_xio_create((void*)0x4243));
 
     // act
@@ -260,8 +260,8 @@ TEST_FUNCTION(when_concrete_xio_create_fails_then_xio_create_fails)
     XIO_HANDLE result;
     STRICT_EXPECTED_CALL(test_xio_create(NULL))
         .SetReturn((CONCRETE_IO_HANDLE)NULL);
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     result = xio_create(&test_io_description, NULL);
@@ -482,7 +482,7 @@ TEST_FUNCTION(when_allocating_memory_Fails_then_xio_create_fails)
     XIO_HANDLE result;
     g_fail_alloc_calls = 1;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .SetReturn((void*)NULL);
 
     // act
@@ -504,7 +504,7 @@ TEST_FUNCTION(xio_destroy_calls_concrete_xio_destroy_and_frees_memory)
     umock_c_reset_all_calls();
 
     STRICT_EXPECTED_CALL(test_xio_destroy(TEST_CONCRETE_IO_HANDLE));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     xio_destroy(handle);
@@ -909,13 +909,13 @@ TEST_FUNCTION(xio_retrieveoptions_with_NULL_xio_fails)
 /*this function exists for the purpose of sharing code between happy and unhappy paths*/
 static void xio_retrieveoptions_inert_path(void)
 {
-    STRICT_EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, (pfSetOption)xio_setoption));
+    STRICT_EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, (pfSetOption)xio_setoption));
 
-    STRICT_EXPECTED_CALL(test_xio_retrieveoptions(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(test_xio_retrieveoptions(IGNORED_ARG));
 
-    STRICT_EXPECTED_CALL(OptionHandler_AddOption(IGNORED_PTR_ARG, "concreteOptions", IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(OptionHandler_AddOption(IGNORED_ARG, "concreteOptions", IGNORED_ARG));
 
-    STRICT_EXPECTED_CALL(OptionHandler_Destroy(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(OptionHandler_Destroy(IGNORED_ARG));
 
 }
 
