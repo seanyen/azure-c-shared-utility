@@ -231,6 +231,11 @@ if(MSVC)
 elseif(LINUX) #LINUX OR APPLE
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wformat=2 -Wformat-security")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wformat=2 -Wformat-security")
+    if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+        # Clang in C99 mode errors on typedef redefinition (allowed in C11+).
+        # umock_c MOCKABLE_FUNCTION macros produce duplicate typedefs when headers are included multiple times.
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-typedef-redefinition")
+    endif()
     if(${use_openssl})
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_OPENSSL")
         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DUSE_OPENSSL")
