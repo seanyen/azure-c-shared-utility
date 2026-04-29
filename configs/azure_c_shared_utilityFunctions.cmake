@@ -178,7 +178,7 @@ function(linux_unittests_add_exe whatIsBuilding)
 
     endforeach()
 
-    target_link_libraries(${whatIsBuilding}_exe micromock_ctest umock_c ctest)
+    target_link_libraries(${whatIsBuilding}_exe micromock_ctest umock_c ctest testrunnerswitcher)
 
     add_test(NAME ${whatIsBuilding} COMMAND $<TARGET_FILE:${whatIsBuilding}_exe>)
 
@@ -461,7 +461,7 @@ function(c_linux_unittests_add_exe whatIsBuilding folder)
 
     endforeach()
 
-    target_link_libraries(${whatIsBuilding}_exe umock_c ctest c_logging_v2 m)
+    target_link_libraries(${whatIsBuilding}_exe umock_c ctest testrunnerswitcher c_logging_v2 m)
 
     add_test(NAME ${whatIsBuilding} COMMAND $<TARGET_FILE:${whatIsBuilding}_exe>)
 
