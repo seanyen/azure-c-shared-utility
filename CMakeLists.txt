@@ -712,7 +712,10 @@ endif()
 
 target_link_libraries(aziotsharedutil PUBLIC ${aziotsharedutil_target_libs})
 if(${build_as_dynamic})
-    target_link_libraries(aziotsharedutil_dll PUBLIC ${aziotsharedutil_target_libs})
+    target_link_libraries(aziotsharedutil_dll PUBLIC ${aziotsharedutil_target_libs} macro_utils_c)
+    target_include_directories(aziotsharedutil_dll PUBLIC $<BUILD_INTERFACE:${SHARED_UTIL_INC_FOLDER}>)
+    target_include_directories(aziotsharedutil_dll PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/deps/c-logging/v2/inc>)
+    target_include_directories(aziotsharedutil_dll PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/deps/umock-c/inc>)
 endif()
 
 # Dependencies are already loaded in the preamble via deps/c-build-tools etc.
