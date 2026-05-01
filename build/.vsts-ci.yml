@@ -18,10 +18,6 @@ jobs:
   pool:
     vmImage: 'ubuntu-24.04'
   displayName: 'Check Submodules'
-  # Disabled during c-build-tools migration: nested submodule refs (e.g. in
-  # c-testrunnerswitcher/ctest) still point to pre-migration SHAs. Will be
-  # re-enabled once the migration lands on master across all repos.
-  condition: false
   steps:
   - checkout: self
     submodules: recursive
