@@ -45,21 +45,6 @@ if ((NOT TARGET c_logging) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-logging/
     if (NOT TARGET c_logging)
         add_library(c_logging ALIAS c_logging_v2)
     endif()
-    # Workaround: pinned c-logging predates Apple support in get_thread_stack.{c,h}
-    # (which uses #if defined(_MSC_VER) / #elif defined(__linux__) / #else #error).
-    # Defining __linux__=1 only for these targets on Apple is safe: the only files
-    # in c_logging_v2 that branch on __linux__ are the get_thread_stack source/header,
-    # both of which provide a no-op stub for the Linux branch and use only pthread.h
-    # which is available on macOS. This avoids bumping the submodule (which would
-    # trip recursive submodule consistency checks against nested deps).
-    if (APPLE)
-        if (TARGET c_logging_v2)
-            target_compile_definitions(c_logging_v2 PRIVATE __linux__=1)
-        endif()
-        if (TARGET c_logging_v2_core)
-            target_compile_definitions(c_logging_v2_core PRIVATE __linux__=1)
-        endif()
-    endif()
 endif()
 
 if ((NOT TARGET ctest) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/ctest/CMakeLists.txt))
