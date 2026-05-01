@@ -9,7 +9,7 @@
 #include <stddef.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 
 static void* my_gballoc_malloc(size_t size)
 {
@@ -97,7 +97,7 @@ BEGIN_TEST_SUITE(Vector_UnitTests)
     {
         ///arrange
         VECTOR_HANDLE handle;
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument_size();
 
         ///act
@@ -130,7 +130,7 @@ BEGIN_TEST_SUITE(Vector_UnitTests)
         ///arrange
         VECTOR_HANDLE handle;
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument_size()
             .SetReturn(NULL);
 
@@ -154,7 +154,7 @@ BEGIN_TEST_SUITE(Vector_UnitTests)
         (void)VECTOR_push_back(handle, &sItem1, 1);
         (void)VECTOR_push_back(handle, &sItem2, 1);
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument_size();
 
         ///act
@@ -200,7 +200,7 @@ BEGIN_TEST_SUITE(Vector_UnitTests)
         (void)VECTOR_push_back(handle, &sItem1, 1);
         (void)VECTOR_push_back(handle, &sItem2, 1);
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument_size()
             .SetReturn(NULL);
 
@@ -227,7 +227,7 @@ BEGIN_TEST_SUITE(Vector_UnitTests)
         ///arrange
         VECTOR_HANDLE handle = VECTOR_create(sizeof(VECTOR_UNITTEST));
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument_ptr();
         STRICT_EXPECTED_CALL(gballoc_free(handle));
 
@@ -523,7 +523,7 @@ BEGIN_TEST_SUITE(Vector_UnitTests)
         umock_c_reset_all_calls();
 
         ///act
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument_ptr();
         VECTOR_clear(handle);
 
@@ -784,7 +784,7 @@ BEGIN_TEST_SUITE(Vector_UnitTests)
         (void)VECTOR_push_back(handle, &sItem2, 1);
         pfindItem = (VECTOR_UNITTEST*)VECTOR_find_if(handle, VECTOR_UNITTEST_isEqual, &sItem1);
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, sizeof(VECTOR_UNITTEST)))
+        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, sizeof(VECTOR_UNITTEST)))
             .IgnoreArgument_ptr();
 
         ///act
@@ -814,7 +814,7 @@ BEGIN_TEST_SUITE(Vector_UnitTests)
         (void)VECTOR_push_back(handle, &sItem2, 1);
         pfindItem = (VECTOR_UNITTEST*)VECTOR_find_if(handle, VECTOR_UNITTEST_isEqual, &sItem1);
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument_ptr();
 
         ///act
@@ -844,7 +844,7 @@ BEGIN_TEST_SUITE(Vector_UnitTests)
         (void)VECTOR_push_back(handle, &sItem2, 1);
         pfindItem = (VECTOR_UNITTEST*)VECTOR_find_if(handle, VECTOR_UNITTEST_isEqual, &sItem1);
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG))
             .IgnoreArgument_ptr()
             .IgnoreArgument_size()
             .SetReturn(NULL);
@@ -1004,7 +1004,7 @@ BEGIN_TEST_SUITE(Vector_UnitTests)
         umock_c_reset_all_calls();
         for (nIndex = 0; nIndex < NUM_ITEM_PUSH_BACK; nIndex++)
         {
-            STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, (nIndex + 1) * sizeof(VECTOR_UNITTEST)))
+            STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, (nIndex + 1) * sizeof(VECTOR_UNITTEST)))
                 .IgnoreArgument_ptr();
         }
 

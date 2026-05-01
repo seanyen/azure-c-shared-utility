@@ -8,7 +8,7 @@
 #include <inttypes.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 
 void* real_malloc(size_t size)
 {
@@ -156,18 +156,18 @@ TEST_FUNCTION(constbuffer_array_batcher_batch_succeeds)
     umock_c_reset_all_calls();
 
     STRICT_EXPECTED_CALL(malloc(sizeof(uint32_t) * 2));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 1));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_array, IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 0));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 1));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_array, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 0));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_HANDLE) * 1));
-    STRICT_EXPECTED_CALL(CONSTBUFFER_CreateWithMoveMemory(IGNORED_PTR_ARG, sizeof(uint32_t) * 2))
+    STRICT_EXPECTED_CALL(CONSTBUFFER_CreateWithMoveMemory(IGNORED_ARG, sizeof(uint32_t) * 2))
         .ValidateArgumentBuffer(1, expected_header_memory, sizeof(expected_header_memory))
         .CaptureReturn(&header_buffer);
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_array, IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_PTR_ARG, 1));
-    STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_array, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_ARG, 1));
+    STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(IGNORED_ARG))
         .ValidateArgumentValue_constbufferHandle(&header_buffer);
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
     // act
     result = constbuffer_array_batcher_batch(&test_array, 1);
@@ -203,21 +203,21 @@ TEST_FUNCTION(constbuffer_array_batcher_batch_with_2_empty_arrays_succeeds)
     umock_c_reset_all_calls();
 
     STRICT_EXPECTED_CALL(malloc(sizeof(uint32_t) * 3));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 2));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 0));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 0));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 2));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_ARG));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 0));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_ARG));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 0));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_HANDLE) * 1));
-    STRICT_EXPECTED_CALL(CONSTBUFFER_CreateWithMoveMemory(IGNORED_PTR_ARG, sizeof(uint32_t) * 3))
+    STRICT_EXPECTED_CALL(CONSTBUFFER_CreateWithMoveMemory(IGNORED_ARG, sizeof(uint32_t) * 3))
         .ValidateArgumentBuffer(1, expected_header_memory, sizeof(expected_header_memory))
         .CaptureReturn(&header_buffer);
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_PTR_ARG, 1));
-    STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_ARG, 1));
+    STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(IGNORED_ARG))
         .ValidateArgumentValue_constbufferHandle(&header_buffer);
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
     // act
     result = constbuffer_array_batcher_batch(test_arrays, 2);
@@ -250,20 +250,20 @@ TEST_FUNCTION(constbuffer_array_batcher_batch_with_an_array_with_1_buffer_succee
     umock_c_reset_all_calls();
 
     STRICT_EXPECTED_CALL(malloc(sizeof(uint32_t) * 2));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 1));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 1));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 1));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_ARG));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 1));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_HANDLE) * 2));
-    STRICT_EXPECTED_CALL(CONSTBUFFER_CreateWithMoveMemory(IGNORED_PTR_ARG, sizeof(uint32_t) * 2))
+    STRICT_EXPECTED_CALL(CONSTBUFFER_CreateWithMoveMemory(IGNORED_ARG, sizeof(uint32_t) * 2))
         .ValidateArgumentBuffer(1, expected_header_memory, sizeof(expected_header_memory))
         .CaptureReturn(&header_buffer);
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(test_arrays[0], 0));
-    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_PTR_ARG, 2));
-    STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_ARG, 2));
+    STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(IGNORED_ARG))
         .ValidateArgumentValue_constbufferHandle(&header_buffer);
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffer));
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
     // act
     result = constbuffer_array_batcher_batch(test_arrays, 1);
@@ -301,25 +301,25 @@ TEST_FUNCTION(constbuffer_array_batcher_batch_with_2_arrays_each_with_1_buffer_s
     umock_c_reset_all_calls();
 
     STRICT_EXPECTED_CALL(malloc(sizeof(uint32_t) * 3));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 2));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 1));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 1));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 2));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_ARG));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 1));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_ARG));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 1));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_HANDLE) * 3));
-    STRICT_EXPECTED_CALL(CONSTBUFFER_CreateWithMoveMemory(IGNORED_PTR_ARG, sizeof(uint32_t) * 3))
+    STRICT_EXPECTED_CALL(CONSTBUFFER_CreateWithMoveMemory(IGNORED_ARG, sizeof(uint32_t) * 3))
         .ValidateArgumentBuffer(1, expected_header_memory, sizeof(expected_header_memory))
         .CaptureReturn(&header_buffer);
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(test_arrays[0], 0));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(test_arrays[1], 0));
-    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_PTR_ARG, 3));
-    STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_ARG, 3));
+    STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(IGNORED_ARG))
         .ValidateArgumentValue_constbufferHandle(&header_buffer);
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffer_1));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffer_2));
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
     // act
     result = constbuffer_array_batcher_batch(test_arrays, 2);
@@ -362,22 +362,22 @@ TEST_FUNCTION(constbuffer_array_batcher_batch_with_an_array_with_2_buffers_succe
     umock_c_reset_all_calls();
 
     STRICT_EXPECTED_CALL(malloc(sizeof(uint32_t) * 2));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 1));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 2));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 1));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_ARG));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 2));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_HANDLE) * 3));
-    STRICT_EXPECTED_CALL(CONSTBUFFER_CreateWithMoveMemory(IGNORED_PTR_ARG, sizeof(uint32_t) * 2))
+    STRICT_EXPECTED_CALL(CONSTBUFFER_CreateWithMoveMemory(IGNORED_ARG, sizeof(uint32_t) * 2))
         .ValidateArgumentBuffer(1, expected_header_memory, sizeof(expected_header_memory))
         .CaptureReturn(&header_buffer);
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(test_arrays[0], 0));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(test_arrays[0], 1));
-    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_PTR_ARG, 3));
-    STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_ARG, 3));
+    STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(IGNORED_ARG))
         .ValidateArgumentValue_constbufferHandle(&header_buffer);
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[0]));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[1]));
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
     // act
     result = constbuffer_array_batcher_batch(test_arrays, 1);
@@ -423,29 +423,29 @@ TEST_FUNCTION(constbuffer_array_batcher_batch_with_2_arrays_with_1_and_3_buffers
     umock_c_reset_all_calls();
 
     STRICT_EXPECTED_CALL(malloc(sizeof(uint32_t) * 3));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 2));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 1));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 3));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 2));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_ARG));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 1));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_ARG));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 3));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_HANDLE) * 5));
-    STRICT_EXPECTED_CALL(CONSTBUFFER_CreateWithMoveMemory(IGNORED_PTR_ARG, sizeof(uint32_t) * 3))
+    STRICT_EXPECTED_CALL(CONSTBUFFER_CreateWithMoveMemory(IGNORED_ARG, sizeof(uint32_t) * 3))
         .ValidateArgumentBuffer(1, expected_header_memory, sizeof(expected_header_memory))
         .CaptureReturn(&header_buffer);
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(test_arrays[0], 0));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(test_arrays[1], 0));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(test_arrays[1], 1));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(test_arrays[1], 2));
-    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_PTR_ARG, 5));
-    STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_ARG, 5));
+    STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(IGNORED_ARG))
         .ValidateArgumentValue_constbufferHandle(&header_buffer);
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[0]));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[1]));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[2]));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[3]));
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
     // act
     result = constbuffer_array_batcher_batch(test_arrays, 2);
@@ -500,32 +500,32 @@ TEST_FUNCTION(constbuffer_array_batcher_batch_with_3_arrays_with_1_and_0_and_3_b
     umock_c_reset_all_calls();
 
     STRICT_EXPECTED_CALL(malloc(sizeof(uint32_t) * 4));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 3));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 1));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 0));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[2], IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 3));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 3));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_ARG));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 1));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_ARG));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 0));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[2], IGNORED_ARG));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 3));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_HANDLE) * 5));
-    STRICT_EXPECTED_CALL(CONSTBUFFER_CreateWithMoveMemory(IGNORED_PTR_ARG, sizeof(uint32_t) * 4))
+    STRICT_EXPECTED_CALL(CONSTBUFFER_CreateWithMoveMemory(IGNORED_ARG, sizeof(uint32_t) * 4))
         .ValidateArgumentBuffer(1, expected_header_memory, sizeof(expected_header_memory))
         .CaptureReturn(&header_buffer);
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(test_arrays[0], 0));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[2], IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[2], IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(test_arrays[2], 0));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(test_arrays[2], 1));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(test_arrays[2], 2));
-    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_PTR_ARG, 5));
-    STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_ARG, 5));
+    STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(IGNORED_ARG))
         .ValidateArgumentValue_constbufferHandle(&header_buffer);
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[0]));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[1]));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[2]));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[3]));
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
     // act
     result = constbuffer_array_batcher_batch(test_arrays, 3);
@@ -579,21 +579,21 @@ TEST_FUNCTION(when_underlying_calls_fail_constbuffer_array_batcher_batch_fails)
     umock_c_reset_all_calls();
 
     STRICT_EXPECTED_CALL(malloc(sizeof(uint32_t) * 3));
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 2));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 2));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_ARG))
         .CallCannotFail();
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 1));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 1));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_ARG))
         .CallCannotFail();
-    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_PTR_ARG, 3));
+    STRICT_EXPECTED_CALL(write_uint32_t(IGNORED_ARG, 3));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_HANDLE) * 5));
-    STRICT_EXPECTED_CALL(CONSTBUFFER_CreateWithMoveMemory(IGNORED_PTR_ARG, sizeof(uint32_t) * 3))
+    STRICT_EXPECTED_CALL(CONSTBUFFER_CreateWithMoveMemory(IGNORED_ARG, sizeof(uint32_t) * 3))
         .ValidateArgumentBuffer(1, expected_header_memory, sizeof(expected_header_memory));
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[0], IGNORED_ARG))
         .CallCannotFail();
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(test_arrays[0], 0))
         .CallCannotFail();
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(test_arrays[1], IGNORED_ARG))
         .CallCannotFail();
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(test_arrays[1], 0))
         .CallCannotFail();
@@ -601,13 +601,13 @@ TEST_FUNCTION(when_underlying_calls_fail_constbuffer_array_batcher_batch_fails)
         .CallCannotFail();
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(test_arrays[1], 2))
         .CallCannotFail();
-    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_PTR_ARG, 5));
-    STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_ARG, 5));
+    STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(IGNORED_ARG));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[0]));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[1]));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[2]));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[3]));
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
     umock_c_negative_tests_snapshot();
 
@@ -747,11 +747,11 @@ TEST_FUNCTION(constbuffer_array_batcher_unbatch_with_1_payload_with_0_buffers_su
     batch = real_constbuffer_array_create(test_buffers, 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_content(batch, 0));
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_ARRAY_HANDLE) * 1));
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_create_empty());
 
     // act
@@ -792,13 +792,13 @@ TEST_FUNCTION(constbuffer_array_batcher_unbatch_with_2_payload_with_0_buffers_su
     batch = real_constbuffer_array_create(test_buffers, 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_content(batch, 0));
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_ARRAY_HANDLE) * 2));
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_create_empty());
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_create_empty());
 
     // act
@@ -845,16 +845,16 @@ TEST_FUNCTION(constbuffer_array_batcher_unbatch_with_1_payload_with_1_buffers_su
     batch = real_constbuffer_array_create(test_buffers, 2);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_content(batch, 0));
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_ARRAY_HANDLE) * 1));
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_HANDLE) * 1));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(batch, 1));
-    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_PTR_ARG, 1));
+    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_ARG, 1));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[1]));
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
     // act
     result = constbuffer_array_batcher_unbatch(batch, &payload_count);
@@ -902,18 +902,18 @@ TEST_FUNCTION(constbuffer_array_batcher_unbatch_with_1_payload_with_2_buffers_su
     batch = real_constbuffer_array_create(test_buffers, 3);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_content(batch, 0));
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_ARRAY_HANDLE) * 1));
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_HANDLE) * 2));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(batch, 1));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(batch, 2));
-    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_PTR_ARG, 2));
+    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_ARG, 2));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[1]));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[2]));
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
     // act
     result = constbuffer_array_batcher_unbatch(batch, &payload_count);
@@ -967,28 +967,28 @@ TEST_FUNCTION(constbuffer_array_batcher_unbatch_with_2_payloads_each_with_differ
     batch = real_constbuffer_array_create(test_buffers, 5);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_content(batch, 0));
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_ARRAY_HANDLE) * 2));
 
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_HANDLE) * 1)); // 1st payload with 1 buffer
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(batch, 1));
-    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_PTR_ARG, 1));
+    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_ARG, 1));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[1]));
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_HANDLE) * 3)); // 2nd payload with 3 buffer
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(batch, 2));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(batch, 3));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(batch, 4));
-    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_PTR_ARG, 3));
+    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_ARG, 3));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[2]));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[3]));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[4]));
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
     // act
     result = constbuffer_array_batcher_unbatch(batch, &payload_count);
@@ -1049,22 +1049,22 @@ TEST_FUNCTION(when_underlying_calls_fail_constbuffer_array_batcher_unbatch_fails
     batch = real_constbuffer_array_create(test_buffers, 5);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_ARG))
         .CallCannotFail();
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_content(batch, 0))
         .CallCannotFail();
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_ARRAY_HANDLE) * 2));
 
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_HANDLE) * 1)); // 1st payload with 1 buffer
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(batch, 1))
         .CallCannotFail();
-    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_PTR_ARG, 1));
+    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_ARG, 1));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[1]));
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_HANDLE) * 3)); // 2nd payload with 3 buffer
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(batch, 2))
         .CallCannotFail();
@@ -1072,11 +1072,11 @@ TEST_FUNCTION(when_underlying_calls_fail_constbuffer_array_batcher_unbatch_fails
         .CallCannotFail();
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(batch, 4))
         .CallCannotFail();
-    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_PTR_ARG, 3));
+    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_ARG, 3));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[2]));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[3]));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[4]));
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
     umock_c_negative_tests_snapshot();
 
@@ -1118,17 +1118,17 @@ TEST_FUNCTION(when_underlying_calls_fail_constbuffer_array_batcher_unbatch_of_2_
     batch = real_constbuffer_array_create(test_buffers, 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_ARG))
         .CallCannotFail();
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_content(batch, 0))
         .CallCannotFail();
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_ARRAY_HANDLE) * 2));
 
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_create_empty());
 
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_create_empty());
 
     umock_c_negative_tests_snapshot();
@@ -1163,7 +1163,7 @@ TEST_FUNCTION(constbuffer_array_batcher_unbatch_with_0_buffers_fails)
     batch = real_constbuffer_array_create_empty();
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_ARG));
 
     // act
     result = constbuffer_array_batcher_unbatch(batch, &payload_count);
@@ -1189,7 +1189,7 @@ TEST_FUNCTION(constbuffer_array_batcher_unbatch_with_header_buffer_size_3_fails)
     batch = real_constbuffer_array_create(test_buffers, 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_content(batch, 0));
 
     // act
@@ -1217,7 +1217,7 @@ TEST_FUNCTION(constbuffer_array_batcher_unbatch_with_header_buffer_size_5_fails)
     batch = real_constbuffer_array_create(test_buffers, 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_content(batch, 0));
 
     // act
@@ -1245,12 +1245,12 @@ TEST_FUNCTION(constbuffer_array_batcher_unbatch_with_1_payload_with_1_buffer_but
     batch = real_constbuffer_array_create(test_buffers, 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_content(batch, 0));
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_ARRAY_HANDLE) * 1));
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
     // act
     result = constbuffer_array_batcher_unbatch(batch, &payload_count);
@@ -1277,12 +1277,12 @@ TEST_FUNCTION(constbuffer_array_batcher_unbatch_with_2_payloads_with_1_buffer_bu
     batch = real_constbuffer_array_create(test_buffers, 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_content(batch, 0));
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_ARRAY_HANDLE) * 2));
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
     // act
     result = constbuffer_array_batcher_unbatch(batch, &payload_count);
@@ -1311,23 +1311,23 @@ TEST_FUNCTION(constbuffer_array_batcher_unbatch_with_2_payloads_with_1_buffer_bu
     batch = real_constbuffer_array_create(test_buffers, 2);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_content(batch, 0));
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_ARRAY_HANDLE) * 2));
 
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(sizeof(CONSTBUFFER_HANDLE) * 1)); // 1st payload with 1 buffer
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer(batch, 1));
-    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_PTR_ARG, 1));
+    STRICT_EXPECTED_CALL(constbuffer_array_create(IGNORED_ARG, 1));
     STRICT_EXPECTED_CALL(CONSTBUFFER_DecRef(test_buffers[1]));
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
 
-    STRICT_EXPECTED_CALL(constbuffer_array_dec_ref(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_dec_ref(IGNORED_ARG));
 
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
     // act
     result = constbuffer_array_batcher_unbatch(batch, &payload_count);
@@ -1355,9 +1355,9 @@ TEST_FUNCTION(constbuffer_array_batcher_unbatch_with_size_of_header_buffer_not_m
     batch = real_constbuffer_array_create(test_buffers, 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_content(batch, 0));
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
 
     // act
     result = constbuffer_array_batcher_unbatch(batch, &payload_count);
@@ -1384,9 +1384,9 @@ TEST_FUNCTION(constbuffer_array_batcher_unbatch_with_payload_count_0_fails)
     batch = real_constbuffer_array_create(test_buffers, 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_count(batch, IGNORED_ARG));
     STRICT_EXPECTED_CALL(constbuffer_array_get_buffer_content(batch, 0));
-    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(read_uint32_t(IGNORED_ARG, IGNORED_ARG));
 
     // act
     result = constbuffer_array_batcher_unbatch(batch, &payload_count);

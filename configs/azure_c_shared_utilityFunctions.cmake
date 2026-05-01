@@ -178,7 +178,7 @@ function(linux_unittests_add_exe whatIsBuilding)
 
     endforeach()
 
-    target_link_libraries(${whatIsBuilding}_exe micromock_ctest umock_c ctest)
+    target_link_libraries(${whatIsBuilding}_exe micromock_ctest umock_c ctest testrunnerswitcher)
 
     add_test(NAME ${whatIsBuilding} COMMAND $<TARGET_FILE:${whatIsBuilding}_exe>)
 
@@ -283,6 +283,7 @@ function(c_windows_unittests_add_dll whatIsBuilding folder)
     target_include_directories(${whatIsBuilding}_testsonly_lib PUBLIC ${sharedutil_include_directories} $ENV{VCInstallDir}UnitTest/include)
     target_compile_definitions(${whatIsBuilding}_testsonly_lib PUBLIC -DCPP_UNITTEST)
     target_compile_options(${whatIsBuilding}_testsonly_lib PUBLIC /TP /EHsc)
+    target_link_libraries(${whatIsBuilding}_testsonly_lib umock_c ctest testrunnerswitcher c_logging_v2 macro_utils_c)
 
     add_library(${whatIsBuilding}_dll SHARED
         ${${whatIsBuilding}_cpp_files}
@@ -303,7 +304,7 @@ function(c_windows_unittests_add_dll whatIsBuilding folder)
                PROPERTIES
                COMPILE_FLAGS /TP)
 
-    target_link_libraries(${whatIsBuilding}_dll umock_c ctest testrunnerswitcher ${whatIsBuilding}_testsonly_lib )
+    target_link_libraries(${whatIsBuilding}_dll umock_c ctest testrunnerswitcher c_logging_v2 ${whatIsBuilding}_testsonly_lib )
 
     set(PARSING_ADDITIONAL_LIBS OFF)
     set(PARSING_VALGRIND_SUPPRESSIONS_FILE OFF)
@@ -365,7 +366,7 @@ function(c_windows_unittests_add_exe whatIsBuilding folder)
 
     target_compile_definitions(${whatIsBuilding}_exe PUBLIC -DUSE_CTEST)
     target_include_directories(${whatIsBuilding}_exe PUBLIC ${sharedutil_include_directories})
-    target_link_libraries(${whatIsBuilding}_exe umock_c ctest testrunnerswitcher)
+    target_link_libraries(${whatIsBuilding}_exe umock_c ctest testrunnerswitcher c_logging_v2)
 
     set(PARSING_ADDITIONAL_LIBS OFF)
     set(PARSING_VALGRIND_SUPPRESSIONS_FILE OFF)
@@ -460,7 +461,7 @@ function(c_linux_unittests_add_exe whatIsBuilding folder)
 
     endforeach()
 
-    target_link_libraries(${whatIsBuilding}_exe umock_c ctest m)
+    target_link_libraries(${whatIsBuilding}_exe umock_c ctest testrunnerswitcher c_logging_v2 m)
 
     add_test(NAME ${whatIsBuilding} COMMAND $<TARGET_FILE:${whatIsBuilding}_exe>)
 
@@ -498,7 +499,7 @@ function(build_c_test_artifacts whatIsBuilding use_gballoc folder)
 
     #setting includes
     set(sharedutil_include_directories ${sharedutil_include_directories} ${TESTRUNNERSWITCHER_INCLUDES} ${CTEST_INCLUDES} ${UMOCK_C_INCLUDES} ${AZURE_C_SHARED_UTILITY_INCLUDES})
-    set(sharedutil_include_directories ${sharedutil_include_directories} ${MICROMOCK_INC_FOLDER} ${UMOCK_C_INC_FOLDER} ${TESTRUNNERSWITCHER_INC_FOLDER} ${CTEST_INC_FOLDER} ${SAL_INC_FOLDER} ${SHARED_UTIL_INC_FOLDER} ${SHARED_UTIL_SRC_FOLDER})
+    set(sharedutil_include_directories ${sharedutil_include_directories} ${MICROMOCK_INC_FOLDER} ${SAL_INC_FOLDER} ${SHARED_UTIL_INC_FOLDER} ${SHARED_UTIL_SRC_FOLDER})
     if(WIN32)
     else()
         include_directories(${sharedutil_include_directories})

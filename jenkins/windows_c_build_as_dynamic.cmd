@@ -17,7 +17,7 @@ if errorlevel 1 goto :eof
 
 cd %build-root%\cmake\%cmake_dir%
 
-cmake -Dskip_samples=ON -Dbuild_as_dynamic=ON ..\..
+cmake -Dskip_samples=ON -Dbuild_as_dynamic=ON -Dbuild_csharp_projects:BOOL=OFF -Dbuild_sarif_results_checker:BOOL=OFF ..\..
 if errorlevel 1 goto :eof
 
 cmake --build . -- /m

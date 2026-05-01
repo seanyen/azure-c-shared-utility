@@ -28,7 +28,7 @@ static void my_gballoc_free(void* ptr)
 #include "umock_c/umocktypes_charptr.h"
 #include "umock_c/umocktypes_stdint.h"
 #include "umock_c/umock_c_negative_tests.h"
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 
 #include "wolfssl/options.h"
 #include "wolfssl/ssl.h"
@@ -265,11 +265,11 @@ TEST_FUNCTION(tlsio_wolfssl_create_succeeds)
     memset(&tls_io_config, 0, sizeof(tls_io_config));
     tls_io_config.hostname = TEST_HOSTNAME;
 
-    /*STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    /*STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(wolfTLSv1_2_client_method());
-    STRICT_EXPECTED_CALL(wolfSSL_CTX_new(IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(wolfSSL_CTX_new(IGNORED_ARG));
     STRICT_EXPECTED_CALL(socketio_get_interface_description());
-    STRICT_EXPECTED_CALL(xio_create(IGNORED_NUM_ARG, IGNORED_NUM_ARG));*/
+    STRICT_EXPECTED_CALL(xio_create(IGNORED_ARG, IGNORED_ARG));*/
 
     //act
     CONCRETE_IO_HANDLE io_handle = tlsio_wolfssl_create(&tls_io_config);
@@ -304,11 +304,11 @@ TEST_FUNCTION(tlsio_wolfssl_destroy_succeeds)
     CONCRETE_IO_HANDLE io_handle = tlsio_wolfssl_create(&tls_io_config);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(wolfSSL_free(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(wolfSSL_CTX_free(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(xio_destroy(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG)); // hostname
-    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG)); // tlsio
+    STRICT_EXPECTED_CALL(wolfSSL_free(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(wolfSSL_CTX_free(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_destroy(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG)); // hostname
+    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG)); // tlsio
 
     //act
     tlsio_wolfssl_destroy(io_handle);
@@ -398,8 +398,8 @@ TEST_FUNCTION(tlsio_wolfssl_open_set_dev_id_succeeds)
     umock_c_reset_all_calls();
 
     STRICT_EXPECTED_CALL(wolfSSL_SetDevId(TEST_WOLFSSL, 11));
-    STRICT_EXPECTED_CALL(wolfSSL_check_domain_name(TEST_WOLFSSL, IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(wolfSSL_check_domain_name(TEST_WOLFSSL, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(wolfSSL_connect(TEST_WOLFSSL));
 
     //act
@@ -427,8 +427,8 @@ TEST_FUNCTION(tlsio_wolfssl_open_set_dev_id_2_succeeds)
     CONCRETE_IO_HANDLE io_handle = tlsio_wolfssl_create(&tls_io_config);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(wolfSSL_check_domain_name(TEST_WOLFSSL, IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(wolfSSL_check_domain_name(TEST_WOLFSSL, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(wolfSSL_connect(TEST_WOLFSSL));
     STRICT_EXPECTED_CALL(wolfSSL_SetDevId(TEST_WOLFSSL, 11));
 
@@ -661,10 +661,10 @@ TEST_FUNCTION(tlsio_wolfssl_dowork_succeeds)
     (void)tlsio_wolfssl_open(io_handle, on_io_open_complete, NULL, on_bytes_recv, NULL, on_error, NULL);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(wolfSSL_read(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG)).CopyOutArgumentBuffer_buff(&TEST_BUFFER, BUFFER_LEN).SetReturn(BUFFER_LEN);
-    STRICT_EXPECTED_CALL(on_bytes_recv(NULL, IGNORED_PTR_ARG, BUFFER_LEN));
-    STRICT_EXPECTED_CALL(wolfSSL_read(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(xio_dowork(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(wolfSSL_read(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG)).CopyOutArgumentBuffer_buff(&TEST_BUFFER, BUFFER_LEN).SetReturn(BUFFER_LEN);
+    STRICT_EXPECTED_CALL(on_bytes_recv(NULL, IGNORED_ARG, BUFFER_LEN));
+    STRICT_EXPECTED_CALL(wolfSSL_read(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG));
 
     //act
     tlsio_wolfssl_dowork(io_handle);
@@ -827,7 +827,7 @@ TEST_FUNCTION(tlsio_wolfssl_setoption_debug_log_succeed)
     umock_c_reset_all_calls();
 
     STRICT_EXPECTED_CALL(wolfSSL_Debugging_ON()).SetReturn(1);
-    STRICT_EXPECTED_CALL(wolfSSL_SetLoggingCb(IGNORED_PTR_ARG)).SetReturn(1);
+    STRICT_EXPECTED_CALL(wolfSSL_SetLoggingCb(IGNORED_ARG)).SetReturn(1);
 
     //act
     int debugLogEnable = true;
@@ -892,7 +892,7 @@ TEST_FUNCTION(tlsio_wolfssl_on_underlying_io_bytes_received_realloc_NULL_success
     (void)tlsio_wolfssl_open(io_handle, on_io_open_complete, NULL, on_bytes_recv, NULL, on_error, NULL);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG)).SetReturn(NULL);
+    STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG)).SetReturn(NULL);
 
     //act
     g_on_bytes_received(g_on_bytes_received_context, TEST_BUFFER, TEST_BUFFER_LEN);
@@ -914,7 +914,7 @@ TEST_FUNCTION(tlsio_wolfssl_on_underlying_io_bytes_received_success)
     (void)tlsio_wolfssl_open(io_handle, on_io_open_complete, NULL, on_bytes_recv, NULL, on_error, NULL);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
 
     //act
     g_on_bytes_received(g_on_bytes_received_context, TEST_BUFFER, TEST_BUFFER_LEN);
@@ -1003,7 +1003,7 @@ TEST_FUNCTION(tlsio_wolfssl_on_io_recv_timeout_success)
 
     for (size_t index = 0; index < WOLFSSL_READ_LIMIT; index++)
     {
-        STRICT_EXPECTED_CALL(xio_dowork(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG));
     }
 
     //act

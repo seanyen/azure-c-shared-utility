@@ -18,7 +18,7 @@
 #include "azure_c_shared_utility/crt_abstractions.h"
 #include "azure_c_shared_utility/optimize_size.h"
 #include "azure_c_shared_utility/xlogging.h"
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 
 #ifndef BCRYPT_SUCCESS
 #define BCRYPT_SUCCESS(s) ((s) >= 0)

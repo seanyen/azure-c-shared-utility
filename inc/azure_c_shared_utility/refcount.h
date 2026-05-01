@@ -23,7 +23,7 @@ will interact with deallocated memory / resources resulting in an undefined beha
 #endif
 
 #include "azure_c_shared_utility/gballoc.h"
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 
 // Include the platform-specific file that defines atomic functionality
 #include "refcount_os.h"

@@ -25,17 +25,13 @@ EXPORTS
     Azure_Base32_Encode
     Azure_Base32_Encode_Bytes
 
-    COND_RESULTStringStorage
-    COND_RESULTStrings
-    COND_RESULT_FromString
+    MU_COND_RESULT_ToString
     CONSTBUFFER_Create
     CONSTBUFFER_CreateFromBuffer
     CONSTBUFFER_DecRef
     CONSTBUFFER_GetContent
     CONSTBUFFER_IncRef
-    CONSTMAP_RESULTStringStorage
-    CONSTMAP_RESULTStrings
-    CONSTMAP_RESULT_FromString
+    MU_CONSTMAP_RESULT_ToString
     Condition_Deinit
     Condition_Init
     Condition_Post
@@ -62,9 +58,7 @@ EXPORTS
     Lock
     Lock_Deinit
     Lock_Init
-    MAP_RESULTStringStorage
-    MAP_RESULTStrings
-    MAP_RESULT_FromString
+    MU_MAP_RESULT_ToString
     Map_Add
     Map_AddOrUpdate
     Map_Clone
@@ -131,18 +125,13 @@ EXPORTS
     STRING_replace
     RANDOM_seed
     RANDOM_generate
-    THREADAPI_RESULTStringStorage
-    THREADAPI_RESULTStrings
-    THREADAPI_RESULT_FromString
-    TLSIO_STATE_FromString
-    TLSIO_STATEStrings
+    MU_THREADAPI_RESULT_ToString
+    MU_TLSIO_STATE_ToString
     ThreadAPI_Create
     ThreadAPI_Exit
     ThreadAPI_Join
     ThreadAPI_Sleep
-    UNIQUEID_RESULTStringStorage
-    UNIQUEID_RESULTStrings
-    UNIQUEID_RESULT_FromString
+    MU_UNIQUEID_RESULT_ToString
     URL_Encode
     URL_EncodeString
     URL_Decode
@@ -191,7 +180,6 @@ EXPORTS
     get_gmtime
     get_mktime
     get_time
-    global_log_function
     hmac
     hmacFinalBits
     hmacInput

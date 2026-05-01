@@ -1,13 +1,15 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+// winsock2.h must come before windows.h (which c-logging may include transitively)
+#include "winsock2.h"
+
 #include "azure_c_shared_utility/platform.h"
 #include "azure_c_shared_utility/optimize_size.h"
 #include "azure_c_shared_utility/xio.h"
 #include "azure_c_shared_utility/strings.h"
 #include "azure_c_shared_utility/xlogging.h"
 #include "azure_c_shared_utility/httpapiex.h"
-#include "winsock2.h"
 #include "minwindef.h"
 #include "winnt.h"
 

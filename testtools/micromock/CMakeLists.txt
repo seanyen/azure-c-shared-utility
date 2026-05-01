@@ -72,6 +72,8 @@ IF(WIN32)
         set_target_properties(micromock_cpp_unittest
            PROPERTIES
            FOLDER "test_tools")
+        target_link_libraries(micromock_cpp_unittest testrunnerswitcher ctest macro_utils_c)
+        target_compile_options(micromock_cpp_unittest PUBLIC /wd5104)
     endif()
 
     add_library(micromock_ctest ${micromock_cpp_files} ${micromock_h_files})
@@ -85,6 +87,8 @@ ENDIF()
 set_target_properties(micromock_ctest
                PROPERTIES
                FOLDER "test_tools")
+
+target_link_libraries(micromock_ctest testrunnerswitcher ctest macro_utils_c)
 
 #these are the include folders
 #the following "set" statetement exports across the project a global variable called MICROMOCK_INC_FOLDER that expands to whatever needs to included when using micromock library

@@ -18,7 +18,7 @@
 #include <stddef.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 #include "testrunnerswitcher.h"
 #include "umock_c/umock_c.h"
 #include "umock_c/umocktypes_charptr.h"
@@ -235,15 +235,15 @@ TEST_FUNCTION(tlsio_cyclonessl_create_succeeds)
     tlsio_config.hostname = "test";
     tlsio_config.port = 4242;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test"))
         .IgnoreArgument_destination();
-    EXPECTED_CALL(yarrowInit(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(yarrowSeed(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 32))
+    EXPECTED_CALL(yarrowInit(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(yarrowSeed(IGNORED_ARG, IGNORED_ARG, 32))
         .IgnoreArgument_context().IgnoreArgument_input();
     STRICT_EXPECTED_CALL(tlsInit());
     STRICT_EXPECTED_CALL(tlsSetConnectionEnd(TEST_TLS_CONTEXT, TLS_CONNECTION_END_CLIENT));
-    STRICT_EXPECTED_CALL(tlsSetPrng(TEST_TLS_CONTEXT, YARROW_PRNG_ALGO, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(tlsSetPrng(TEST_TLS_CONTEXT, YARROW_PRNG_ALGO, IGNORED_ARG))
         .IgnoreArgument_prngContext();
 
     ///act
@@ -301,16 +301,16 @@ TEST_FUNCTION(when_a_failure_occurs_for_tlsio_cyclonessl_create_then_create_fail
     int negativeTestsInitResult = umock_c_negative_tests_init();
     ASSERT_ARE_EQUAL(int, 0, negativeTestsInitResult);
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .SetFailReturn(NULL);
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test"))
         .IgnoreArgument_destination().SetFailReturn(1);
-    EXPECTED_CALL(yarrowInit(IGNORED_PTR_ARG)).SetFailReturn(ERROR_INVALID_PARAMETER);
-    STRICT_EXPECTED_CALL(yarrowSeed(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 32))
+    EXPECTED_CALL(yarrowInit(IGNORED_ARG)).SetFailReturn(ERROR_INVALID_PARAMETER);
+    STRICT_EXPECTED_CALL(yarrowSeed(IGNORED_ARG, IGNORED_ARG, 32))
         .IgnoreArgument_context().IgnoreArgument_input().SetFailReturn(ERROR_INVALID_PARAMETER);
     STRICT_EXPECTED_CALL(tlsInit()).SetFailReturn(NULL);
     STRICT_EXPECTED_CALL(tlsSetConnectionEnd(TEST_TLS_CONTEXT, TLS_CONNECTION_END_CLIENT)).SetFailReturn(ERROR_INVALID_PARAMETER);
-    STRICT_EXPECTED_CALL(tlsSetPrng(TEST_TLS_CONTEXT, YARROW_PRNG_ALGO, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(tlsSetPrng(TEST_TLS_CONTEXT, YARROW_PRNG_ALGO, IGNORED_ARG))
         .IgnoreArgument_prngContext().SetFailReturn(ERROR_INVALID_PARAMETER);
 
     umock_c_negative_tests_snapshot();
@@ -354,9 +354,9 @@ TEST_FUNCTION(tlsio_cyclonessl_destroy_frees_the_resources_allocated_by_create)
     umock_c_reset_all_calls();
 
     EXPECTED_CALL(tlsFree(TEST_TLS_CONTEXT));
-    EXPECTED_CALL(yarrowRelease(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(yarrowRelease(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     ///act
     tlsio_cyclonessl_get_interface_description()->concrete_io_destroy(tlsio_handle);
@@ -390,10 +390,10 @@ TEST_FUNCTION(when_TrustedCerts_was_set_tlsio_cyclonessl_destroy_shall_free_it)
     umock_c_reset_all_calls();
 
     EXPECTED_CALL(tlsFree(TEST_TLS_CONTEXT));
-    EXPECTED_CALL(yarrowRelease(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(yarrowRelease(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     ///act
     tlsio_cyclonessl_get_interface_description()->concrete_io_destroy(tlsio_handle);
@@ -414,7 +414,7 @@ TEST_FUNCTION(when_IO_is_open_tlsio_cyclonessl_destroy_also_closes_it)
     CONCRETE_IO_HANDLE tlsio_handle = tlsio_cyclonessl_get_interface_description()->concrete_io_create(&tlsio_config);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(tlsio_cyclonessl_socket_create("test", 4242, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(tlsio_cyclonessl_socket_create("test", 4242, IGNORED_ARG))
         .CopyOutArgumentBuffer_new_socket(&tls_socket, sizeof(tls_socket));
     STRICT_EXPECTED_CALL(tlsSetSocket(TEST_TLS_CONTEXT, TEST_TLS_SOCKET));
     STRICT_EXPECTED_CALL(tlsConnect(TEST_TLS_CONTEXT));
@@ -428,9 +428,9 @@ TEST_FUNCTION(when_IO_is_open_tlsio_cyclonessl_destroy_also_closes_it)
     STRICT_EXPECTED_CALL(tlsio_cyclonessl_socket_destroy(TEST_TLS_SOCKET));
 
     EXPECTED_CALL(tlsFree(TEST_TLS_CONTEXT));
-    EXPECTED_CALL(yarrowRelease(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(yarrowRelease(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     ///act
     tlsio_cyclonessl_get_interface_description()->concrete_io_destroy(tlsio_handle);
@@ -457,7 +457,7 @@ TEST_FUNCTION(tlsio_cyclonessl_open_succeeds)
     CONCRETE_IO_HANDLE tlsio_handle = tlsio_cyclonessl_get_interface_description()->concrete_io_create(&tlsio_config);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(tlsio_cyclonessl_socket_create("test", 4242, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(tlsio_cyclonessl_socket_create("test", 4242, IGNORED_ARG))
         .CopyOutArgumentBuffer_new_socket(&tls_socket, sizeof(tls_socket));
     STRICT_EXPECTED_CALL(tlsSetSocket(TEST_TLS_CONTEXT, TEST_TLS_SOCKET));
     STRICT_EXPECTED_CALL(tlsConnect(TEST_TLS_CONTEXT));
@@ -487,7 +487,7 @@ TEST_FUNCTION(tlsio_cyclonessl_open_passes_certs_to_CycloneSSL)
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_setoption(tlsio_handle, "TrustedCerts", "my_certs");
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(tlsio_cyclonessl_socket_create("test", 4242, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(tlsio_cyclonessl_socket_create("test", 4242, IGNORED_ARG))
         .CopyOutArgumentBuffer_new_socket(&tls_socket, sizeof(tls_socket));
     STRICT_EXPECTED_CALL(tlsSetSocket(TEST_TLS_CONTEXT, TEST_TLS_SOCKET));
     STRICT_EXPECTED_CALL(tlsSetTrustedCaList(TEST_TLS_CONTEXT, "my_certs", 8))
@@ -608,7 +608,7 @@ TEST_FUNCTION(when_a_failure_occurs_for_tlsio_cyclonessl_open_then_create_fails)
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_setoption(tlsio_handle, "TrustedCerts", "certs");
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(tlsio_cyclonessl_socket_create("test", 4242, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(tlsio_cyclonessl_socket_create("test", 4242, IGNORED_ARG))
         .CopyOutArgumentBuffer_new_socket(&tls_socket, sizeof(tls_socket))
         .SetFailReturn(1);
     STRICT_EXPECTED_CALL(tlsSetSocket(TEST_TLS_CONTEXT, TEST_TLS_SOCKET))
@@ -676,7 +676,7 @@ TEST_FUNCTION(tlsio_cyclonessl_open_after_io_is_in_error_fails)
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_open(tlsio_handle, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(tlsRead(TEST_TLS_CONTEXT, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG, 0))
+    STRICT_EXPECTED_CALL(tlsRead(TEST_TLS_CONTEXT, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, 0))
         .IgnoreArgument_data().IgnoreArgument_size().IgnoreArgument_received()
         .SetReturn(ERROR_INVALID_PARAMETER);
 
@@ -711,7 +711,7 @@ TEST_FUNCTION(tlsio_cyclonessl_close_succeeds)
     CONCRETE_IO_HANDLE tlsio_handle = tlsio_cyclonessl_get_interface_description()->concrete_io_create(&tlsio_config);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(tlsio_cyclonessl_socket_create("test", 4242, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(tlsio_cyclonessl_socket_create("test", 4242, IGNORED_ARG))
         .CopyOutArgumentBuffer_new_socket(&tls_socket, sizeof(tls_socket));
 
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_open(tlsio_handle, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
@@ -844,7 +844,7 @@ TEST_FUNCTION(tlsio_cyclonessl_send_succeeds)
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_open(tlsio_handle, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(tlsWrite(TEST_TLS_CONTEXT, IGNORED_PTR_ARG, sizeof(test_buffer), 0))
+    STRICT_EXPECTED_CALL(tlsWrite(TEST_TLS_CONTEXT, IGNORED_ARG, sizeof(test_buffer), 0))
         .ValidateArgumentBuffer(2, test_buffer, sizeof(test_buffer));
     STRICT_EXPECTED_CALL(test_on_send_complete((void*)0x4242, IO_SEND_OK));
 
@@ -872,7 +872,7 @@ TEST_FUNCTION(tlsio_cyclonessl_send_with_NULL_complete_callback_does_not_trigger
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_open(tlsio_handle, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(tlsWrite(TEST_TLS_CONTEXT, IGNORED_PTR_ARG, sizeof(test_buffer), 0))
+    STRICT_EXPECTED_CALL(tlsWrite(TEST_TLS_CONTEXT, IGNORED_ARG, sizeof(test_buffer), 0))
         .ValidateArgumentBuffer(2, test_buffer, sizeof(test_buffer));
 
     ///act
@@ -1009,7 +1009,7 @@ TEST_FUNCTION(tlsio_cyclonessl_send_when_IO_is_in_error_fails)
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_open(tlsio_handle, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(tlsRead(TEST_TLS_CONTEXT, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG, 0))
+    STRICT_EXPECTED_CALL(tlsRead(TEST_TLS_CONTEXT, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, 0))
         .IgnoreArgument_data().IgnoreArgument_size().IgnoreArgument_received()
         .SetReturn(ERROR_INVALID_PARAMETER);
 
@@ -1043,7 +1043,7 @@ TEST_FUNCTION(tlsio_cyclonessl_dowork_when_no_bytes_are_available_does_not_trigg
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_open(tlsio_handle, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(tlsRead(TEST_TLS_CONTEXT, IGNORED_PTR_ARG, 64, IGNORED_PTR_ARG, 0))
+    STRICT_EXPECTED_CALL(tlsRead(TEST_TLS_CONTEXT, IGNORED_ARG, 64, IGNORED_ARG, 0))
         .IgnoreArgument_data()
         .CopyOutArgumentBuffer_received(&received, sizeof(received));
 
@@ -1072,10 +1072,10 @@ TEST_FUNCTION(tlsio_cyclonessl_dowork_when_2_bytes_are_available_they_are_indica
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_open(tlsio_handle, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(tlsRead(TEST_TLS_CONTEXT, IGNORED_PTR_ARG, 64, IGNORED_PTR_ARG, 0))
+    STRICT_EXPECTED_CALL(tlsRead(TEST_TLS_CONTEXT, IGNORED_ARG, 64, IGNORED_ARG, 0))
         .CopyOutArgumentBuffer_data(test_buffer, sizeof(test_buffer))
         .CopyOutArgumentBuffer_received(&received, sizeof(received));
-    STRICT_EXPECTED_CALL(test_on_bytes_received((void*)0x4243, IGNORED_PTR_ARG, sizeof(test_buffer)))
+    STRICT_EXPECTED_CALL(test_on_bytes_received((void*)0x4243, IGNORED_ARG, sizeof(test_buffer)))
         .ValidateArgumentBuffer(2, test_buffer, sizeof(test_buffer));
 
     ///act
@@ -1158,7 +1158,7 @@ TEST_FUNCTION(when_tlsRead_fails_then_tlsio_cyclonessl_dowork_indicates_an_error
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_open(tlsio_handle, test_on_io_open_complete, (void*)0x4242, test_on_bytes_received, (void*)0x4243, test_on_io_error, (void*)0x4244);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(tlsRead(TEST_TLS_CONTEXT, IGNORED_PTR_ARG, 64, IGNORED_PTR_ARG, 0))
+    STRICT_EXPECTED_CALL(tlsRead(TEST_TLS_CONTEXT, IGNORED_ARG, 64, IGNORED_ARG, 0))
         .IgnoreArgument_data()
         .IgnoreArgument_received()
         .SetReturn(ERROR_INVALID_PARAMETER);
@@ -1249,7 +1249,7 @@ TEST_FUNCTION(tlsio_cyclonessl_setoption_with_trustedCerts_clones_the_certs)
     CONCRETE_IO_HANDLE tlsio_handle = tlsio_cyclonessl_get_interface_description()->concrete_io_create(&tlsio_config);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "xx"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "xx"))
         .IgnoreArgument_destination();
 
     ///act
@@ -1274,7 +1274,7 @@ TEST_FUNCTION(when_copying_the_tustedCerts_fails_tlsio_cyclonessl_setoption_fail
     CONCRETE_IO_HANDLE tlsio_handle = tlsio_cyclonessl_get_interface_description()->concrete_io_create(&tlsio_config);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "xx"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "xx"))
         .IgnoreArgument_destination()
         .SetReturn(1);
 
@@ -1301,8 +1301,8 @@ TEST_FUNCTION(when_copying_the_tustedCerts_the_previous_option_value_is_freed_an
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_setoption(tlsio_handle, "TrustedCerts", "xx");
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "yy"))
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "yy"))
         .IgnoreArgument_destination()
         .SetReturn(1);
 
@@ -1329,8 +1329,8 @@ TEST_FUNCTION(when_copying_the_tustedCerts_the_previous_option_value_is_freed)
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_setoption(tlsio_handle, "TrustedCerts", "xx");
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "yy"))
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "yy"))
         .IgnoreArgument_destination();
 
     ///act
@@ -1356,7 +1356,7 @@ TEST_FUNCTION(tlsio_cyclonessl_setoption_with_NULL_TrustedCerts_frees_the_previo
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_setoption(tlsio_handle, "TrustedCerts", "xx");
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     ///act
     int result = tlsio_cyclonessl_get_interface_description()->concrete_io_setoption(tlsio_handle, "TrustedCerts", NULL);
@@ -1395,7 +1395,7 @@ TEST_FUNCTION(tlsio_cyclonessl_retrieveoptions_when_no_option_was_set_gives_back
     CONCRETE_IO_HANDLE tlsio_handle = tlsio_cyclonessl_get_interface_description()->concrete_io_create(&tlsio_config);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
     ///act
     OPTIONHANDLER_HANDLE result = tlsio_cyclonessl_get_interface_description()->concrete_io_retrieveoptions(tlsio_handle);
@@ -1421,8 +1421,8 @@ TEST_FUNCTION(tlsio_cyclonessl_retrieveoptions_when_TrustedCerts_is_set_populate
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_setoption(tlsio_handle, "TrustedCerts", "xx");
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-    EXPECTED_CALL(OptionHandler_AddOption(TEST_OPTION_HANDLER, "TrustedCerts", IGNORED_PTR_ARG))
+    EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(OptionHandler_AddOption(TEST_OPTION_HANDLER, "TrustedCerts", IGNORED_ARG))
         .ValidateArgumentBuffer(3, "xx", 2);
 
     ///act
@@ -1449,7 +1449,7 @@ TEST_FUNCTION(tlsio_cyclonessl_retrieveoptions_when_TrustedCerts_was_set_and_cle
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_setoption(tlsio_handle, "TrustedCerts", NULL);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
     ///act
     OPTIONHANDLER_HANDLE result = tlsio_cyclonessl_get_interface_description()->concrete_io_retrieveoptions(tlsio_handle);
@@ -1473,7 +1473,7 @@ TEST_FUNCTION(when_OptionHandler_Create_fails_then_tlsio_cyclonessl_retrieveopti
     CONCRETE_IO_HANDLE tlsio_handle = tlsio_cyclonessl_get_interface_description()->concrete_io_create(&tlsio_config);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .SetReturn(NULL);
 
     ///act
@@ -1571,7 +1571,7 @@ TEST_FUNCTION(tlsio_cyclonessl_clone_option_clones_TrustedCerts)
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_retrieveoptions(tlsio_handle);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "xx"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "xx"))
         .IgnoreArgument_destination();
 
     ///act
@@ -1598,7 +1598,7 @@ TEST_FUNCTION(when_copying_the_TrustedCerts_option_fails_tlsio_cyclonessl_clone_
     (void)tlsio_cyclonessl_get_interface_description()->concrete_io_retrieveoptions(tlsio_handle);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "xx"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "xx"))
         .IgnoreArgument_destination()
         .SetReturn(1);
 
@@ -1670,7 +1670,7 @@ TEST_FUNCTION(tlsio_cyclonessl_destroy_option_frees_the_TrustedCerts_option)
     void* result = tlsio_cyclonessl_clone_option("TrustedCerts", "xx");
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     ///act
     tlsio_cyclonessl_destroy_option("TrustedCerts", result);

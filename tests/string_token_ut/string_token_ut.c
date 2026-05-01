@@ -24,7 +24,7 @@ void real_free(void* ptr)
     free(ptr);
 }
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 #include "testrunnerswitcher.h"
 #include "umock_c/umock_c.h"
 #include "umock_c/umock_c_negative_tests.h"
@@ -81,20 +81,20 @@ static void register_global_mock_hooks()
 // Set Expected Call Helpers
 static void set_expected_calls_for_get_delimiters_lengths()
 {
-    STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
 }
 
 static void set_expected_calls_for_StringToken_GetFirst()
 {
-    STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
     set_expected_calls_for_get_delimiters_lengths();
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 }
 
 static void set_expected_calls_for_StringToken_GetNext()
 {
     set_expected_calls_for_get_delimiters_lengths();
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG)); // delimiters lengths
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG)); // delimiters lengths
 }
 
 BEGIN_TEST_SUITE(string_token_ut)
@@ -222,10 +222,10 @@ BEGIN_TEST_SUITE(string_token_ut)
         delimiters[3] = "?";
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
         set_expected_calls_for_get_delimiters_lengths();
-        STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(free(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
         // act
         handle = StringToken_GetFirst(string, length, delimiters, 4);
@@ -251,7 +251,7 @@ BEGIN_TEST_SUITE(string_token_ut)
         delimiters[0] = "?";
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
         set_expected_calls_for_get_delimiters_lengths();
         umock_c_negative_tests_snapshot();
 
@@ -289,9 +289,9 @@ BEGIN_TEST_SUITE(string_token_ut)
         delimiters[0] = "?";
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
         set_expected_calls_for_get_delimiters_lengths();
-        STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
         // act
         handle = StringToken_GetFirst(string, length, delimiters, 1);
@@ -315,9 +315,9 @@ BEGIN_TEST_SUITE(string_token_ut)
         delimiters[0] = "?";
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
         set_expected_calls_for_get_delimiters_lengths();
-        STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
         // act
         handle = StringToken_GetFirst(string, length, delimiters, 1);
@@ -346,9 +346,9 @@ BEGIN_TEST_SUITE(string_token_ut)
         delimiters[0] = "#";
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
         set_expected_calls_for_get_delimiters_lengths();
-        STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG)); // delimiters lengths
+        STRICT_EXPECTED_CALL(free(IGNORED_ARG)); // delimiters lengths
 
         // act
         handle = StringToken_GetFirst(string, length, delimiters, 1);
@@ -468,7 +468,7 @@ BEGIN_TEST_SUITE(string_token_ut)
 
         umock_c_reset_all_calls();
         set_expected_calls_for_get_delimiters_lengths();
-        STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG)); // delimiters lengths
+        STRICT_EXPECTED_CALL(free(IGNORED_ARG)); // delimiters lengths
 
         // act
         result = StringToken_GetNext(handle, delimiters, 2);
@@ -503,7 +503,7 @@ BEGIN_TEST_SUITE(string_token_ut)
         handle = StringToken_GetFirst(string, length, delimiters, 2);
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG)); // delimiters lengths
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG)); // delimiters lengths
         umock_c_negative_tests_snapshot();
 
         umock_c_negative_tests_reset();
@@ -573,7 +573,7 @@ BEGIN_TEST_SUITE(string_token_ut)
 
         umock_c_reset_all_calls();
         set_expected_calls_for_get_delimiters_lengths();
-        STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG)); // delimiters lengths
+        STRICT_EXPECTED_CALL(free(IGNORED_ARG)); // delimiters lengths
 
         // act
         result = StringToken_GetNext(handle, delimiters, 1);
@@ -673,7 +673,7 @@ BEGIN_TEST_SUITE(string_token_ut)
         handle = StringToken_GetFirst(string, length, delimiters, 1);
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG)); // STRING_TOKEN
+        STRICT_EXPECTED_CALL(free(IGNORED_ARG)); // STRING_TOKEN
 
         // act
         StringToken_Destroy(handle);
@@ -904,22 +904,22 @@ BEGIN_TEST_SUITE(string_token_ut)
 
         umock_c_reset_all_calls();
         set_expected_calls_for_StringToken_GetFirst();
-        STRICT_EXPECTED_CALL(realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(realloc(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
 
         set_expected_calls_for_StringToken_GetNext();
-        STRICT_EXPECTED_CALL(realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(realloc(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
 
         set_expected_calls_for_StringToken_GetNext();
-        STRICT_EXPECTED_CALL(realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(realloc(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
 
         set_expected_calls_for_StringToken_GetNext();
-        STRICT_EXPECTED_CALL(realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(realloc(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
 
-        STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
         // act
         result = StringToken_Split(string, length, delimiters, 2, false, &tokens, &token_count);
@@ -956,7 +956,7 @@ BEGIN_TEST_SUITE(string_token_ut)
 
         umock_c_reset_all_calls();
         set_expected_calls_for_StringToken_GetFirst();
-        STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
         // act
         result = StringToken_Split(string, length, delimiters, 2, false, &tokens, &token_count);
@@ -987,34 +987,34 @@ BEGIN_TEST_SUITE(string_token_ut)
 
         umock_c_reset_all_calls();
         set_expected_calls_for_StringToken_GetFirst();
-        STRICT_EXPECTED_CALL(realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(realloc(IGNORED_ARG, IGNORED_ARG));
 
         set_expected_calls_for_StringToken_GetNext();
-        STRICT_EXPECTED_CALL(realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(realloc(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
 
         set_expected_calls_for_StringToken_GetNext();
-        STRICT_EXPECTED_CALL(realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(realloc(IGNORED_ARG, IGNORED_ARG));
 
         set_expected_calls_for_StringToken_GetNext();
-        STRICT_EXPECTED_CALL(realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(realloc(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
 
         set_expected_calls_for_StringToken_GetNext();
-        STRICT_EXPECTED_CALL(realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(realloc(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
 
         set_expected_calls_for_StringToken_GetNext();
-        STRICT_EXPECTED_CALL(realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(realloc(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
 
         set_expected_calls_for_StringToken_GetNext();
-        STRICT_EXPECTED_CALL(realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(realloc(IGNORED_ARG, IGNORED_ARG));
 
         set_expected_calls_for_StringToken_GetNext();
-        STRICT_EXPECTED_CALL(realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(realloc(IGNORED_ARG, IGNORED_ARG));
 
-        STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
         // act
         result = StringToken_Split(string, length, delimiters, 2, true, &tokens, &token_count);
@@ -1061,22 +1061,22 @@ BEGIN_TEST_SUITE(string_token_ut)
 
         umock_c_reset_all_calls();
         set_expected_calls_for_StringToken_GetFirst(); // 0, 1, 2
-        STRICT_EXPECTED_CALL(realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(realloc(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
 
         set_expected_calls_for_StringToken_GetNext(); // 5, 6
-        STRICT_EXPECTED_CALL(realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(realloc(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
 
         set_expected_calls_for_StringToken_GetNext(); // 9, 10
-        STRICT_EXPECTED_CALL(realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(realloc(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
 
         set_expected_calls_for_StringToken_GetNext(); // 13, 14
-        STRICT_EXPECTED_CALL(realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(realloc(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
 
-        STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG)); // 17
+        STRICT_EXPECTED_CALL(free(IGNORED_ARG)); // 17
         umock_c_negative_tests_snapshot();
 
         for (i = 0; i < umock_c_negative_tests_call_count(); i++)

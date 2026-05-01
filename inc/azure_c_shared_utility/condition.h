@@ -4,7 +4,7 @@
 #ifndef CONDITION_H
 #define CONDITION_H
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 #include "azure_c_shared_utility/lock.h"
 #include "umock_c/umock_c_prod.h"
 

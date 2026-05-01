@@ -3,10 +3,13 @@
 
 #include <stddef.h>
 #include "testrunnerswitcher.h"
+#include "c_logging/logger.h"
 
 int main(void)
 {
     size_t failedTestCount = 0;
+    (void)logger_init();
     RUN_TEST_SUITE(memory_data_ut, failedTestCount);
+    logger_deinit();
     return (int)failedTestCount;
 }

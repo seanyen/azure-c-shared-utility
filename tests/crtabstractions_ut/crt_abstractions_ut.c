@@ -13,7 +13,7 @@
 #include <math.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 #include "testrunnerswitcher.h"
 
 // VS 2008 does not have INFINITY and all the nice goodies...

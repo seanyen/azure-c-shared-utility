@@ -3,7 +3,7 @@
 
 #define _DEFAULT_SOURCE
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 #include "azure_c_shared_utility/threadapi.h"
 
 #include <stdint.h>

@@ -47,7 +47,7 @@ static void my_gballoc_free(void* ptr)
 #include "umock_c/umock_c.h"
 #include "umock_c/umocktypes_charptr.h"
 #include "umock_c/umock_c_negative_tests.h"
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 
 #include "bearssl.h"
 
@@ -419,9 +419,9 @@ BEGIN_TEST_SUITE(tlsio_bearssl_ut)
         tls_io_config.underlying_io_parameters = NULL;
 
         //setup_tlsio_bearssl_create_mocks(false);
-		STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(xio_create(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+		STRICT_EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(xio_create(IGNORED_ARG, IGNORED_ARG));
 		STRICT_EXPECTED_CALL(singlylinkedlist_create());
 		STRICT_EXPECTED_CALL(singlylinkedlist_create());
 
@@ -447,13 +447,13 @@ BEGIN_TEST_SUITE(tlsio_bearssl_ut)
         CONCRETE_IO_HANDLE handle = tlsio_bearssl_create(&tls_io_config);
         umock_c_reset_all_calls();
 
-		STRICT_EXPECTED_CALL(xio_destroy(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(singlylinkedlist_destroy(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(singlylinkedlist_destroy(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+		STRICT_EXPECTED_CALL(xio_destroy(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(singlylinkedlist_destroy(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(singlylinkedlist_destroy(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         //act
         tlsio_bearssl_destroy(handle);
@@ -503,10 +503,10 @@ BEGIN_TEST_SUITE(tlsio_bearssl_ut)
 		FakeoutCertOptions(handle);
 		umock_c_reset_all_calls();
 
-		STRICT_EXPECTED_CALL(br_ssl_client_init_full(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_set_buffer(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_client_reset(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(xio_open(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_client_init_full(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_set_buffer(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_client_reset(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(xio_open(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
         //act
         int result = tlsio_bearssl_open(handle, on_io_open_complete, NULL, on_bytes_received, NULL, on_io_error, NULL);
@@ -559,10 +559,10 @@ BEGIN_TEST_SUITE(tlsio_bearssl_ut)
 		FakeoutCertOptions(handle);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(br_ssl_client_init_full(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_set_buffer(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_client_reset(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(xio_open(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG)).SetReturn(__LINE__);
+        STRICT_EXPECTED_CALL(br_ssl_client_init_full(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_set_buffer(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_client_reset(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(xio_open(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG)).SetReturn(__LINE__);
 
         //act
         result = tlsio_bearssl_open(handle, on_io_open_complete, NULL, on_bytes_received, NULL, on_io_error, NULL);
@@ -602,7 +602,7 @@ BEGIN_TEST_SUITE(tlsio_bearssl_ut)
 		int result = tlsio_bearssl_open(handle, on_io_open_complete, NULL, on_bytes_received, NULL, on_io_error, NULL);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(xio_close(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(xio_close(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
         //act
         result = tlsio_bearssl_close(handle, on_io_close_complete, NULL);
@@ -690,9 +690,9 @@ BEGIN_TEST_SUITE(tlsio_bearssl_ut)
         g_open_complete(g_open_complete_ctx, IO_OPEN_OK);
         umock_c_reset_all_calls();
 
-		STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(singlylinkedlist_add(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+		STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(singlylinkedlist_add(IGNORED_ARG, IGNORED_ARG));
 
         //act
         int result = tlsio_bearssl_send(handle, TEST_DATA_VALUE, TEST_DATA_SIZE, on_send_complete, NULL);
@@ -720,7 +720,7 @@ BEGIN_TEST_SUITE(tlsio_bearssl_ut)
         g_open_complete(g_open_complete_ctx, IO_OPEN_OK);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG)).SetReturn(NULL);
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)).SetReturn(NULL);
 
         //act
         int result = tlsio_bearssl_send(handle, TEST_DATA_VALUE, TEST_DATA_SIZE, on_send_complete, NULL);
@@ -761,12 +761,12 @@ BEGIN_TEST_SUITE(tlsio_bearssl_ut)
         g_open_complete(g_open_complete_ctx, IO_OPEN_OK);
         umock_c_reset_all_calls();
 
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG)).SetReturn(BR_SSL_RECVREC);
-		STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(xio_dowork(IGNORED_PTR_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG)).SetReturn(BR_SSL_RECVREC);
+		STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG));
 
         //act
         tlsio_bearssl_dowork(handle);
@@ -794,21 +794,21 @@ BEGIN_TEST_SUITE(tlsio_bearssl_ut)
 
 		umock_c_reset_all_calls();
 		
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG)).SetReturn(BR_SSL_SENDAPP);
-		STRICT_EXPECTED_CALL(on_io_open_complete(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(xio_dowork(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG)).SetReturn(BR_SSL_RECVAPP);
-		STRICT_EXPECTED_CALL(br_ssl_engine_recvapp_buf(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(on_bytes_received(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_recvapp_ack(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(xio_dowork(IGNORED_PTR_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG)).SetReturn(BR_SSL_SENDAPP);
+		STRICT_EXPECTED_CALL(on_io_open_complete(IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG)).SetReturn(BR_SSL_RECVAPP);
+		STRICT_EXPECTED_CALL(br_ssl_engine_recvapp_buf(IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(on_bytes_received(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_recvapp_ack(IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG));
 
 		//act
 		tlsio_bearssl_dowork(handle);
@@ -848,21 +848,21 @@ BEGIN_TEST_SUITE(tlsio_bearssl_ut)
 		
 		umock_c_reset_all_calls();
 
-		STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(singlylinkedlist_add(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG)).SetReturn(BR_SSL_RECVREC);
-		STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_PTR_ARG)).SetReturn(TEST_LISTITEM_HANDLE);
-		STRICT_EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG)).SetReturn(tlsio);
-		STRICT_EXPECTED_CALL(br_ssl_engine_recvrec_buf(IGNORED_PTR_ARG, IGNORED_PTR_ARG)).CopyOutArgumentBuffer_len(&buffer_len, sizeof(size_t)).SetReturn(buffer);
-		STRICT_EXPECTED_CALL(br_ssl_engine_recvrec_ack(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(singlylinkedlist_remove(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(xio_dowork(IGNORED_PTR_ARG));
+		STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(singlylinkedlist_add(IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG)).SetReturn(BR_SSL_RECVREC);
+		STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_ARG)).SetReturn(TEST_LISTITEM_HANDLE);
+		STRICT_EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG)).SetReturn(tlsio);
+		STRICT_EXPECTED_CALL(br_ssl_engine_recvrec_buf(IGNORED_ARG, IGNORED_ARG)).CopyOutArgumentBuffer_len(&buffer_len, sizeof(size_t)).SetReturn(buffer);
+		STRICT_EXPECTED_CALL(br_ssl_engine_recvrec_ack(IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(singlylinkedlist_remove(IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG));
 
         //act
         g_on_bytes_received(g_on_bytes_received_ctx, TEST_DATA_VALUE, TEST_DATA_SIZE);
@@ -892,14 +892,14 @@ BEGIN_TEST_SUITE(tlsio_bearssl_ut)
 
 		umock_c_reset_all_calls();
 
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG)).SetReturn(BR_SSL_SENDREC);
-		STRICT_EXPECTED_CALL(br_ssl_engine_sendrec_buf(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(xio_send(IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_sendrec_ack(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(xio_dowork(IGNORED_PTR_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG)).SetReturn(BR_SSL_SENDREC);
+		STRICT_EXPECTED_CALL(br_ssl_engine_sendrec_buf(IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(xio_send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_sendrec_ack(IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG));
 
 		//act
 		tlsio_bearssl_dowork(handle);
@@ -939,20 +939,20 @@ BEGIN_TEST_SUITE(tlsio_bearssl_ut)
 
 		umock_c_reset_all_calls();
 
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG)).SetReturn(BR_SSL_SENDAPP);
-		STRICT_EXPECTED_CALL(on_io_open_complete(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_PTR_ARG)).SetReturn(TEST_LISTITEM_HANDLE);
-		STRICT_EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG)).SetReturn(tlsio);
-		STRICT_EXPECTED_CALL(br_ssl_engine_sendapp_buf(IGNORED_PTR_ARG, IGNORED_PTR_ARG)).CopyOutArgumentBuffer_len(&buffer_len, 8).SetReturn(buffer);
-		STRICT_EXPECTED_CALL(br_ssl_engine_sendapp_ack(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(singlylinkedlist_remove(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_flush(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_PTR_ARG));
-		STRICT_EXPECTED_CALL(xio_dowork(IGNORED_PTR_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG)).SetReturn(BR_SSL_SENDAPP);
+		STRICT_EXPECTED_CALL(on_io_open_complete(IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_ARG)).SetReturn(TEST_LISTITEM_HANDLE);
+		STRICT_EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG)).SetReturn(tlsio);
+		STRICT_EXPECTED_CALL(br_ssl_engine_sendapp_buf(IGNORED_ARG, IGNORED_ARG)).CopyOutArgumentBuffer_len(&buffer_len, 8).SetReturn(buffer);
+		STRICT_EXPECTED_CALL(br_ssl_engine_sendapp_ack(IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(singlylinkedlist_remove(IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_flush(IGNORED_ARG, IGNORED_ARG));
+		STRICT_EXPECTED_CALL(br_ssl_engine_current_state(IGNORED_ARG));
+		STRICT_EXPECTED_CALL(xio_dowork(IGNORED_ARG));
 
 		//act
 		tlsio_bearssl_dowork(handle);

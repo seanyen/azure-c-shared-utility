@@ -7,7 +7,7 @@
 #pragma once
 
 #include "stdafx.h"
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 
 #define MICROMOCK_EXCEPTION_VALUES                        \
 MICROMOCK_EXCEPTION_INVALID_VALIDATE_BUFFERS,             \
