@@ -42,6 +42,12 @@ typedef void(*LOGGER_LOG_GETLASTERROR)(const char* file, const char* func, int l
 
 #ifdef NO_LOGGING
 /*no logging is useful when time and fprintf are mocked*/
+/* Undef any macros previously defined by c-logging (logger_v1_v2.h) */
+#undef LOG
+#undef LogInfo
+#undef LogBinary
+#undef LogError
+#undef LogLastError
 #define LOG(...)
 #define LogInfo(...)
 #define LogBinary(...)
