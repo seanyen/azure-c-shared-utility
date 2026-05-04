@@ -718,7 +718,7 @@ if(LINUX)
     endif()
 endif()
 
-target_link_libraries(aziotsharedutil PUBLIC ${aziotsharedutil_target_libs})
+target_link_libraries(aziotsharedutil PUBLIC ${aziotsharedutil_target_libs} c_logging_v2)
 if(${build_as_dynamic})
     target_link_libraries(aziotsharedutil_dll PUBLIC ${aziotsharedutil_target_libs} macro_utils_c)
     target_link_libraries(aziotsharedutil_dll PRIVATE c_logging_v2)
@@ -777,6 +777,13 @@ if(${build_as_dynamic})
 else(${build_as_dynamic})
     set(targets aziotsharedutil)
 endif(${build_as_dynamic})
+
+# Re-export c_logging_v2 (and c_logging_v2_core) via aziotsharedutilTargets so
+# downstream installed-deps consumers can resolve the c_logging_v2 imported
+# target referenced by aziotsharedutil's INTERFACE_LINK_LIBRARIES.
+if(TARGET c_logging_v2 AND TARGET c_logging_v2_core)
+    list(APPEND targets c_logging_v2 c_logging_v2_core)
+endif()
 
 install (TARGETS ${targets} EXPORT aziotsharedutilTargets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
