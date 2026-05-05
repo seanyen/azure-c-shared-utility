@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 #include "testrunnerswitcher.h"
 #include "azure_c_shared_utility/crt_abstractions.h"
 #include "azure_c_shared_utility/lock.h"
@@ -76,7 +76,7 @@ TEST_FUNCTION(LOCK_Lock_Init_succeeds)
 {
     //arrange
 #ifdef WIN32
-    STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
 #endif
 
     //act
@@ -134,7 +134,7 @@ TEST_FUNCTION(LOCK_Init_DeInit_succeeds)
     umock_c_reset_all_calls();
 
 #ifdef WIN32
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 #endif
 
     //act
@@ -184,7 +184,7 @@ TEST_FUNCTION(LOCK_DeInit_NULL_fails)
 TEST_FUNCTION(LOCK_Lock_Init_fails_if_malloc_fails)
 {
     //arrange
-    STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(malloc(IGNORED_ARG))
         .SetReturn(NULL);
 
     //act

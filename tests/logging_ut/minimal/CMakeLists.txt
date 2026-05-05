@@ -55,4 +55,7 @@ if(${logerror_captures_stack_traces_value})
     target_link_libraries(${exeName} Dbghelp.lib)
 endif()
 
+target_link_libraries(${exeName} macro_utils_c c_logging_v2)
+target_include_directories(${exeName} PRIVATE ${SHARED_UTIL_INC_FOLDER})
+
 set_target_properties(${exeName} PROPERTIES FOLDER "tests/azure_c_shared_utility_tests")

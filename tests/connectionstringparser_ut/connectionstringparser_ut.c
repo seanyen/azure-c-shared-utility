@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 
 static void* my_gballoc_malloc(size_t size)
 {
@@ -311,7 +311,7 @@ TEST_FUNCTION(connectionstringparser_parse_with_a_key_value_pair_adds_it_to_the_
     STRICT_EXPECTED_CALL(STRING_copy_n(value, (TEST_STRING_PAIR +5), 6));
     STRICT_EXPECTED_CALL(STRING_c_str(key));
     STRICT_EXPECTED_CALL(STRING_c_str(value));
-    STRICT_EXPECTED_CALL(Map_Add(IGNORED_PTR_ARG, "key1", "value1")).IgnoreArgument(1);
+    STRICT_EXPECTED_CALL(Map_Add(IGNORED_ARG, "key1", "value1")).IgnoreArgument(1);
     STRICT_EXPECTED_CALL(gballoc_malloc(5));
     STRICT_EXPECTED_CALL(gballoc_malloc(7));
     STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(tokens, key, "="));
@@ -376,19 +376,19 @@ TEST_FUNCTION(when_the_key_is_zero_length_then_connectionstringparser_parse_fail
     umock_c_reset_all_calls();
     STRICT_EXPECTED_CALL(STRING_TOKENIZER_create(TEST_STRING_HANDLE_PAIR));
     STRICT_EXPECTED_CALL(STRING_c_str(TEST_STRING_HANDLE_PAIR));
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG)).IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(STRING_new()).SetReturn(key);
     STRICT_EXPECTED_CALL(STRING_new()).SetReturn(value);
     STRICT_EXPECTED_CALL(Map_Create(NULL)).SetReturn(map);
-    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_PTR_ARG, key, "=")).IgnoreArgument(1);
+    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_ARG, key, "=")).IgnoreArgument(1);
     STRICT_EXPECTED_CALL(STRING_copy_n(key, TEST_STRING_PAIR, 4));
-    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_PTR_ARG, value, ";")).IgnoreArgument(1);
+    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_ARG, value, ";")).IgnoreArgument(1);
     STRICT_EXPECTED_CALL(STRING_copy_n(value, (TEST_STRING_PAIR + 5), 6));
     STRICT_EXPECTED_CALL(STRING_c_str(key)).SetReturn("");
     STRICT_EXPECTED_CALL(Map_Destroy(map));
     STRICT_EXPECTED_CALL(STRING_delete(value));
     STRICT_EXPECTED_CALL(STRING_delete(key));
-    STRICT_EXPECTED_CALL(STRING_TOKENIZER_destroy(IGNORED_PTR_ARG)).IgnoreArgument(1);
+    STRICT_EXPECTED_CALL(STRING_TOKENIZER_destroy(IGNORED_ARG)).IgnoreArgument(1);
 
     // act
     result = connectionstringparser_parse(TEST_STRING_HANDLE_PAIR);
@@ -447,19 +447,19 @@ TEST_FUNCTION(when_getting_the_C_string_for_the_key_fails_then_connectionstringp
     umock_c_reset_all_calls();
     STRICT_EXPECTED_CALL(STRING_TOKENIZER_create(TEST_STRING_HANDLE_PAIR));
     STRICT_EXPECTED_CALL(STRING_c_str(TEST_STRING_HANDLE_PAIR));
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG)).IgnoreAllArguments();
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(STRING_new()).SetReturn(key);
     STRICT_EXPECTED_CALL(STRING_new()).SetReturn(value);
     STRICT_EXPECTED_CALL(Map_Create(NULL)).SetReturn(map);
-    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_PTR_ARG, key, "=")).IgnoreArgument(1);
+    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_ARG, key, "=")).IgnoreArgument(1);
     STRICT_EXPECTED_CALL(STRING_copy_n(key, TEST_STRING_PAIR, 4));
-    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_PTR_ARG, value, ";")).IgnoreArgument(1);
+    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_ARG, value, ";")).IgnoreArgument(1);
     STRICT_EXPECTED_CALL(STRING_copy_n(value, (TEST_STRING_PAIR + 5), 6));
     STRICT_EXPECTED_CALL(STRING_c_str(key)).SetReturn(NULL);
     STRICT_EXPECTED_CALL(Map_Destroy(map));
     STRICT_EXPECTED_CALL(STRING_delete(value));
     STRICT_EXPECTED_CALL(STRING_delete(key));
-    STRICT_EXPECTED_CALL(STRING_TOKENIZER_destroy(IGNORED_PTR_ARG)).IgnoreArgument(1);
+    STRICT_EXPECTED_CALL(STRING_TOKENIZER_destroy(IGNORED_ARG)).IgnoreArgument(1);
 
     // act
     result = connectionstringparser_parse(TEST_STRING_HANDLE_PAIR);
@@ -655,7 +655,7 @@ TEST_FUNCTION(connectionstringparser_parse_from_char_with_2_key_value_pairs_ende
 
     umock_c_reset_all_calls();
     STRICT_EXPECTED_CALL(STRING_construct(TEST_STRING_2_PAIR_SEMICOLON)).SetReturn(test_string_val);
-    STRICT_EXPECTED_CALL(STRING_TOKENIZER_create(IGNORED_PTR_ARG)).SetReturn(tokens);
+    STRICT_EXPECTED_CALL(STRING_TOKENIZER_create(IGNORED_ARG)).SetReturn(tokens);
     STRICT_EXPECTED_CALL(STRING_new())
         .SetReturn(key);
     STRICT_EXPECTED_CALL(STRING_new())
@@ -663,32 +663,32 @@ TEST_FUNCTION(connectionstringparser_parse_from_char_with_2_key_value_pairs_ende
     STRICT_EXPECTED_CALL(Map_Create(NULL)).SetReturn(map);
 
     // 1st kvp
-    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_PTR_ARG, IGNORED_PTR_ARG, "="));
-    STRICT_EXPECTED_CALL(STRING_copy_n(IGNORED_PTR_ARG, TEST_STRING_2_PAIR_SEMICOLON, 4));
-    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_PTR_ARG, IGNORED_PTR_ARG, ";"));
-    STRICT_EXPECTED_CALL(STRING_copy_n(IGNORED_PTR_ARG, (TEST_STRING_2_PAIR_SEMICOLON + 5), 6));
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(Map_Add(IGNORED_PTR_ARG, "key1", "value1"));
+    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_ARG, IGNORED_ARG, "="));
+    STRICT_EXPECTED_CALL(STRING_copy_n(IGNORED_ARG, TEST_STRING_2_PAIR_SEMICOLON, 4));
+    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_ARG, IGNORED_ARG, ";"));
+    STRICT_EXPECTED_CALL(STRING_copy_n(IGNORED_ARG, (TEST_STRING_2_PAIR_SEMICOLON + 5), 6));
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(Map_Add(IGNORED_ARG, "key1", "value1"));
     STRICT_EXPECTED_CALL(gballoc_malloc(5));
     STRICT_EXPECTED_CALL(gballoc_malloc(7));
 
     // 2st kvp
-    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_PTR_ARG, IGNORED_PTR_ARG, "="));
-    STRICT_EXPECTED_CALL(STRING_copy_n(IGNORED_PTR_ARG, (TEST_STRING_2_PAIR_SEMICOLON + 12), 4));
-    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_PTR_ARG, IGNORED_PTR_ARG, ";"));
-    STRICT_EXPECTED_CALL(STRING_copy_n(IGNORED_PTR_ARG, (TEST_STRING_2_PAIR_SEMICOLON + 17), 6));
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(Map_Add(IGNORED_PTR_ARG, "key2", "value2"));
+    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_ARG, IGNORED_ARG, "="));
+    STRICT_EXPECTED_CALL(STRING_copy_n(IGNORED_ARG, (TEST_STRING_2_PAIR_SEMICOLON + 12), 4));
+    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_ARG, IGNORED_ARG, ";"));
+    STRICT_EXPECTED_CALL(STRING_copy_n(IGNORED_ARG, (TEST_STRING_2_PAIR_SEMICOLON + 17), 6));
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(Map_Add(IGNORED_ARG, "key2", "value2"));
     STRICT_EXPECTED_CALL(gballoc_malloc(5));
     STRICT_EXPECTED_CALL(gballoc_malloc(7));
 
-    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_PTR_ARG, IGNORED_PTR_ARG, "="));
-    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(STRING_TOKENIZER_destroy(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(STRING_TOKENIZER_get_next_token(IGNORED_ARG, IGNORED_ARG, "="));
+    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(STRING_TOKENIZER_destroy(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_ARG));
 
     // act
     result = connectionstringparser_parse_from_char(TEST_STRING_2_PAIR_SEMICOLON);

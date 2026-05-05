@@ -41,7 +41,7 @@
 #include "umock_c/umocktypes_bool.h"
 #include "umock_c/umocktypes_stdint.h"
 #include "umock_c/umock_c_negative_tests.h"
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 
 #define ENABLE_MOCKS
 #include "azure_c_shared_utility/gballoc.h"
@@ -294,7 +294,7 @@ TEST_SUITE_INITIALIZE(a)
 
         STRICT_EXPECTED_CALL(recv(test_socket, buffer, size, RECV_ZERO_FLAGS)).SetReturn(RECV_FAIL_RETURN);
         // getsockopt is used to get the extended error information after a socket failure
-        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_ARG, IGNORED_ARG))
             .CopyOutArgumentBuffer_optval(&getsockopt_extended_error_return_value, sizeof_int);
 
         ///act
@@ -323,7 +323,7 @@ TEST_SUITE_INITIALIZE(a)
 
         STRICT_EXPECTED_CALL(recv(test_socket, buffer, size, RECV_ZERO_FLAGS)).SetReturn(RECV_FAIL_RETURN);
         // getsockopt is used to get the extended error information after a socket failure
-        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_ARG, IGNORED_ARG))
             .CopyOutArgumentBuffer_optval(&getsockopt_extended_error_return_value, sizeof_int);
 
         ///act
@@ -403,7 +403,7 @@ TEST_SUITE_INITIALIZE(a)
 
         STRICT_EXPECTED_CALL(send(test_socket, buffer, size, SEND_ZERO_FLAGS)).SetReturn(SEND_FAIL_RETURN);
         // getsockopt is used to get the extended error information after a socket failure
-        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_ARG, IGNORED_ARG))
             .CopyOutArgumentBuffer_optval(&getsockopt_extended_error_return_value, sizeof_int);
 
         ///act
@@ -431,7 +431,7 @@ TEST_SUITE_INITIALIZE(a)
 
         STRICT_EXPECTED_CALL(send(test_socket, buffer, size, SEND_ZERO_FLAGS)).SetReturn(SEND_FAIL_RETURN);
         // getsockopt is used to get the extended error information after a socket failure
-        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_ARG, IGNORED_ARG))
             .CopyOutArgumentBuffer_optval(&getsockopt_extended_error_return_value, sizeof_int);
 
         ///act
@@ -518,9 +518,9 @@ TEST_SUITE_INITIALIZE(a)
         // getsockopt is used to get the extended error information after a socket failure
         int getsockopt_extended_error_return_value = EXTENDED_ERROR_FAIL;
 
-        STRICT_EXPECTED_CALL(select(test_socket + 1, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG)).SetReturn(SELECT_FAIL_RETURN);
+        STRICT_EXPECTED_CALL(select(test_socket + 1, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG)).SetReturn(SELECT_FAIL_RETURN);
         // getsockopt is used to get the extended error information after a socket failure
-        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_ARG, IGNORED_ARG))
             .CopyOutArgumentBuffer_optval(&getsockopt_extended_error_return_value, sizeof_int);
 
         ///act
@@ -545,9 +545,9 @@ TEST_SUITE_INITIALIZE(a)
         // getsockopt is used to get the extended error information after a socket failure
         getsockopt_extended_error_return_value = EXTENDED_ERROR_FAIL;
 
-        STRICT_EXPECTED_CALL(select(test_socket + 1, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(select(test_socket + 1, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
         // getsockopt is used to get the extended error information after a socket failure
-        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_ARG, IGNORED_ARG))
             .CopyOutArgumentBuffer_optval(&getsockopt_extended_error_return_value, sizeof_int);
 
         ///act
@@ -568,7 +568,7 @@ TEST_SUITE_INITIALIZE(a)
         // Define how the FD_ISET etc. macros behave
         select_behavior = SELECT_TCP_IS_COMPLETE_NOT_READY_OK;
 
-        STRICT_EXPECTED_CALL(select(test_socket + 1, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(select(test_socket + 1, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
         ///act
         create_complete_result = socket_async_is_create_complete(test_socket, is_complete_param);
@@ -589,7 +589,7 @@ TEST_SUITE_INITIALIZE(a)
         // Define how the FD_ISET etc. macros behave
         select_behavior = SELECT_TCP_IS_COMPLETE_READY_OK;
 
-        STRICT_EXPECTED_CALL(select(test_socket + 1, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(select(test_socket + 1, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
         ///act
         create_complete_result = socket_async_is_create_complete(test_socket, is_complete_param);
@@ -628,7 +628,7 @@ TEST_SUITE_INITIALIZE(a)
 
 
         STRICT_EXPECTED_CALL(socket(AF_INET, SOCK_STREAM, 0));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG)).SetReturn(SETSOCKOPT_FAIL_RETURN);
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG)).SetReturn(SETSOCKOPT_FAIL_RETURN);
 
         ///act
         create_result = socket_async_create(test_ipv4, test_port, is_udp, options);
@@ -651,10 +651,10 @@ TEST_SUITE_INITIALIZE(a)
         ASSERT_ARE_EQUAL(int, 0, negativeTestsInitResult);
 
         STRICT_EXPECTED_CALL(socket(AF_INET, SOCK_STREAM, 0));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
         umock_c_negative_tests_snapshot();
 
         for (i = 1; i < umock_c_negative_tests_call_count(); i++)
@@ -687,12 +687,12 @@ TEST_SUITE_INITIALIZE(a)
         SOCKET_ASYNC_HANDLE create_result;
 
         STRICT_EXPECTED_CALL(socket(AF_INET, SOCK_STREAM, 0));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(bind(test_socket, IGNORED_PTR_ARG, IGNORED_NUM_ARG)).SetReturn(BIND_FAIL_RETURN);
-        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(bind(test_socket, IGNORED_ARG, IGNORED_ARG)).SetReturn(BIND_FAIL_RETURN);
+        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_ARG, IGNORED_ARG))
             .CopyOutArgumentBuffer_optval(&getsockopt_extended_error_return_value, sizeof_int);
 
         ///act
@@ -716,13 +716,13 @@ TEST_SUITE_INITIALIZE(a)
 
 
         STRICT_EXPECTED_CALL(socket(AF_INET, SOCK_STREAM, 0));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(bind(test_socket, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(connect(test_socket, IGNORED_PTR_ARG, IGNORED_NUM_ARG)).SetReturn(BIND_FAIL_RETURN);
-        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(bind(test_socket, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(connect(test_socket, IGNORED_ARG, IGNORED_ARG)).SetReturn(BIND_FAIL_RETURN);
+        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_ARG, IGNORED_ARG))
             .CopyOutArgumentBuffer_optval(&getsockopt_extended_error_return_value, sizeof_int);
 
         ///act
@@ -748,13 +748,13 @@ TEST_SUITE_INITIALIZE(a)
         init_keep_alive_values();
 
         STRICT_EXPECTED_CALL(socket(AF_INET, SOCK_STREAM, 0));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(bind(test_socket, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(connect(test_socket, IGNORED_PTR_ARG, IGNORED_NUM_ARG)).SetReturn(BIND_FAIL_RETURN);
-        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(bind(test_socket, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(connect(test_socket, IGNORED_ARG, IGNORED_ARG)).SetReturn(BIND_FAIL_RETURN);
+        STRICT_EXPECTED_CALL(getsockopt(test_socket, SOL_SOCKET, SO_ERROR, IGNORED_ARG, IGNORED_ARG))
             .CopyOutArgumentBuffer_optval(&getsockopt_extended_error_return_value, sizeof_int);
 
         ///act
@@ -779,12 +779,12 @@ TEST_SUITE_INITIALIZE(a)
         init_keep_alive_values();
 
         STRICT_EXPECTED_CALL(socket(AF_INET, SOCK_STREAM /* the TCP value */, 0));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(bind(test_socket, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(connect(test_socket, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(bind(test_socket, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(connect(test_socket, IGNORED_ARG, IGNORED_ARG));
 
         ///act
         create_result = socket_async_create(test_ipv4, test_port, is_udp, options);
@@ -808,8 +808,8 @@ TEST_SUITE_INITIALIZE(a)
         init_keep_alive_values();
 
         STRICT_EXPECTED_CALL(socket(AF_INET, SOCK_STREAM /* the TCP value */, 0));
-        STRICT_EXPECTED_CALL(bind(test_socket, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(connect(test_socket, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(bind(test_socket, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(connect(test_socket, IGNORED_ARG, IGNORED_ARG));
 
         ///act
         create_result = socket_async_create(test_ipv4, test_port, is_udp, options);
@@ -832,9 +832,9 @@ TEST_SUITE_INITIALIZE(a)
         init_keep_alive_values();
 
         STRICT_EXPECTED_CALL(socket(AF_INET, SOCK_STREAM /* the TCP value */, 0));
-        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(bind(test_socket, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(connect(test_socket, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(setsockopt(test_socket, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(bind(test_socket, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(connect(test_socket, IGNORED_ARG, IGNORED_ARG));
 
         ///act
         create_result = socket_async_create(test_ipv4, test_port, is_udp, options);
@@ -858,8 +858,8 @@ TEST_SUITE_INITIALIZE(a)
         init_keep_alive_values();
 
         STRICT_EXPECTED_CALL(socket(AF_INET, SOCK_DGRAM /* the UDP value */, 0));
-        STRICT_EXPECTED_CALL(bind(test_socket, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(connect(test_socket, IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+        STRICT_EXPECTED_CALL(bind(test_socket, IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(connect(test_socket, IGNORED_ARG, IGNORED_ARG));
 
         ///act
         create_result = socket_async_create(test_ipv4, test_port, is_udp, options);

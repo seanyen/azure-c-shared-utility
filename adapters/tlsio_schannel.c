@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 #include "azure_c_shared_utility/tlsio.h"
 #include "azure_c_shared_utility/tlsio_schannel.h"
 #include "azure_c_shared_utility/socketio.h"

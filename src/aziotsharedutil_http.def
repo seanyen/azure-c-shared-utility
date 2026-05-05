@@ -6,16 +6,12 @@
     HTTPHeaders_GetHeader
     HTTPHeaders_GetHeaderCount
     HTTPHeaders_ReplaceHeaderNameValuePair
-    HTTP_HEADERS_RESULTStringStorage
-    HTTP_HEADERS_RESULTStrings
-    HTTP_HEADERS_RESULT_FromString
+    MU_HTTP_HEADERS_RESULT_ToString
 
     HTTPAPIEX_Create
     HTTPAPIEX_Destroy
     HTTPAPIEX_ExecuteRequest
-    HTTPAPIEX_RESULTStringStorage
-    HTTPAPIEX_RESULTStrings
-    HTTPAPIEX_RESULT_FromString
+    MU_HTTPAPIEX_RESULT_ToString
     HTTPAPIEX_SAS_Create
     HTTPAPIEX_SAS_Create_From_String
     HTTPAPIEX_SAS_Destroy
@@ -28,7 +24,5 @@
     HTTPAPI_Deinit
     HTTPAPI_ExecuteRequest
     HTTPAPI_Init
-    HTTPAPI_RESULTStringStorage
-    HTTPAPI_RESULTStrings
-    HTTPAPI_RESULT_FromString
+    MU_HTTPAPI_RESULT_ToString
     HTTPAPI_SetOption

@@ -11,7 +11,7 @@
 #include <stdint.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 #include "testrunnerswitcher.h"
 #include "azure_c_shared_utility/threadapi.h"
 #include "umock_c/umocktypes_stdint.h"
@@ -55,6 +55,8 @@ static void tickcounter_ms_t_ToString(char* string, size_t bufferSize, tickcount
 {
     (void)snprintf(string, bufferSize, "%llu", (unsigned long long)val);
 }
+
+CTEST_DEFINE_EQUALITY_ASSERTION_FUNCTIONS_FOR_TYPE(tickcounter_ms_t, static)
 
 static void on_umock_c_error(UMOCK_C_ERROR_CODE error_code)
 {
@@ -105,7 +107,7 @@ TEST_FUNCTION(tickcounter_freertos_create_fails)
 {
     ///arrange
     TICK_COUNTER_HANDLE tickHandle;
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .IgnoreArgument(1)
         .SetReturn((void*)NULL);
 
@@ -124,7 +126,7 @@ TEST_FUNCTION(tickcounter_freertos_create_succeed)
 {
     ///arrange
     TICK_COUNTER_HANDLE tickHandle;
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(xTaskGetTickCount())
         .SetReturn(FAKE_TICK_NO_OVERFLOW);
@@ -159,7 +161,7 @@ TEST_FUNCTION(tickcounter_freertos_destroy_succeed)
     TICK_COUNTER_HANDLE tickHandle = tickcounter_create();
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
         .IgnoreArgument(1);
 
     ///act
@@ -210,7 +212,7 @@ TEST_FUNCTION(tickcounter_freertos_get_current_ms_succeed)
     tickcounter_ms_t current_ms = 0;
     int result;
     TICK_COUNTER_HANDLE tickHandle;
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(xTaskGetTickCount())
         .SetReturn(FAKE_TICK_NO_OVERFLOW);
@@ -238,7 +240,7 @@ TEST_FUNCTION(tickcounter_freertos_get_current_ms_succeed_despite_overflow)
     tickcounter_ms_t current_ms = 0;
     int result;
 
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .IgnoreArgument(1);
     STRICT_EXPECTED_CALL(xTaskGetTickCount())
         .SetReturn(FAKE_TICK_BEFORE_OVERFLOW);

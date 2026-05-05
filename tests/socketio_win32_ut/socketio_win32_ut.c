@@ -23,7 +23,7 @@
 #include <afunix.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 #include "testrunnerswitcher.h"
 
 static size_t currentmalloc_call;
@@ -482,11 +482,11 @@ TEST_FUNCTION(socketio_create_singlylinkedlist_create_fails)
     SOCKETIO_CONFIG socketConfig = { HOSTNAME_ARG, PORT_NUM, NULL };
     CONCRETE_IO_HANDLE ioHandle;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     EXPECTED_CALL(singlylinkedlist_create()).SetReturn((SINGLYLINKEDLIST_HANDLE)NULL);
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     ioHandle = socketio_create(&socketConfig);
@@ -502,12 +502,12 @@ TEST_FUNCTION(socketio_create_succeeds)
     SOCKETIO_CONFIG socketConfig = { HOSTNAME_ARG, PORT_NUM, NULL };
     CONCRETE_IO_HANDLE ioHandle;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     EXPECTED_CALL(singlylinkedlist_create());
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
 
     // act
     ioHandle = socketio_create(&socketConfig);
@@ -539,8 +539,8 @@ TEST_FUNCTION(socketio_destroy_socket_succeeds)
     socketio_open(ioHandle, test_on_io_open_complete, &callbackContext, test_on_bytes_received, &callbackContext, test_on_io_error, &callbackContext);
 
     umock_c_reset_all_calls();
-    EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_PTR_ARG));
-    EXPECTED_CALL(send(IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+    EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_ARG));
+    EXPECTED_CALL(send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .SetReturn(0);
     EXPECTED_CALL(WSAGetLastError())
         .SetReturn(WSAEWOULDBLOCK);
@@ -548,20 +548,20 @@ TEST_FUNCTION(socketio_destroy_socket_succeeds)
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(closesocket(IGNORED_NUM_ARG));
-    EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_PTR_ARG));
-    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(singlylinkedlist_remove(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-    EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_PTR_ARG));
+    EXPECTED_CALL(closesocket(IGNORED_ARG));
+    EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_ARG));
+    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(singlylinkedlist_remove(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_ARG));
     EXPECTED_CALL(freeaddrinfo(&TEST_ADDR_INFO));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(singlylinkedlist_destroy(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(singlylinkedlist_destroy(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     socketio_destroy(ioHandle);
@@ -591,7 +591,7 @@ TEST_FUNCTION(socketio_open_socket_fails)
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(socket(IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+    EXPECTED_CALL(socket(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .SetReturn(INVALID_SOCKET);
 
 #ifndef NO_LOGGING
@@ -619,14 +619,14 @@ TEST_FUNCTION(socketio_open_getaddrinfo_fails)
     umock_c_reset_all_calls();
 
     g_addrinfo_call_fail = true;
-    EXPECTED_CALL(socket(IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(getaddrinfo(IGNORED_PTR_ARG, IGNORED_PTR_ARG, &TEST_ADDR_INFO, IGNORED_PTR_ARG));
+    EXPECTED_CALL(socket(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(getaddrinfo(IGNORED_ARG, IGNORED_ARG, &TEST_ADDR_INFO, IGNORED_ARG));
 
 #ifndef NO_LOGGING
     EXPECTED_CALL(WSAGetLastError());
 #endif
 
-    EXPECTED_CALL(closesocket(IGNORED_NUM_ARG));
+    EXPECTED_CALL(closesocket(IGNORED_ARG));
 
     // act
     result = socketio_open(ioHandle, test_on_io_open_complete, &callbackContext, test_on_bytes_received, &callbackContext, test_on_io_error, &callbackContext);
@@ -648,16 +648,16 @@ TEST_FUNCTION(socketio_open_connect_fails)
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(socket(IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(getaddrinfo(IGNORED_PTR_ARG, IGNORED_PTR_ARG, &TEST_ADDR_INFO, IGNORED_PTR_ARG));
-    EXPECTED_CALL(connect(IGNORED_NUM_ARG, (const struct sockaddr*)&test_sock_addr, IGNORED_NUM_ARG))
+    EXPECTED_CALL(socket(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(getaddrinfo(IGNORED_ARG, IGNORED_ARG, &TEST_ADDR_INFO, IGNORED_ARG));
+    EXPECTED_CALL(connect(IGNORED_ARG, (const struct sockaddr*)&test_sock_addr, IGNORED_ARG))
         .SetReturn(WSAECONNREFUSED);
 
 #ifndef NO_LOGGING
     EXPECTED_CALL(WSAGetLastError());
 #endif
 
-    EXPECTED_CALL(closesocket(IGNORED_NUM_ARG));
+    EXPECTED_CALL(closesocket(IGNORED_ARG));
 
     // act
     result = socketio_open(ioHandle, test_on_io_open_complete, &callbackContext, test_on_bytes_received, &callbackContext, test_on_io_error, &callbackContext);
@@ -680,17 +680,17 @@ TEST_FUNCTION(socketio_open_ioctlsocket_fails)
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(socket(IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(getaddrinfo(IGNORED_PTR_ARG, IGNORED_PTR_ARG, &TEST_ADDR_INFO, IGNORED_PTR_ARG));
-    EXPECTED_CALL(connect(IGNORED_NUM_ARG, (const struct sockaddr*) &test_sock_addr, IGNORED_NUM_ARG));
-    EXPECTED_CALL(ioctlsocket(IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG))
+    EXPECTED_CALL(socket(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(getaddrinfo(IGNORED_ARG, IGNORED_ARG, &TEST_ADDR_INFO, IGNORED_ARG));
+    EXPECTED_CALL(connect(IGNORED_ARG, (const struct sockaddr*) &test_sock_addr, IGNORED_ARG));
+    EXPECTED_CALL(ioctlsocket(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .SetReturn(WSAENETDOWN);
 
 #ifndef NO_LOGGING
     EXPECTED_CALL(WSAGetLastError());
 #endif
 
-    EXPECTED_CALL(closesocket(IGNORED_NUM_ARG));
+    EXPECTED_CALL(closesocket(IGNORED_ARG));
 
     // act
     result = socketio_open(ioHandle, test_on_io_open_complete, &callbackContext, test_on_bytes_received, &callbackContext, test_on_io_error, &callbackContext);
@@ -712,10 +712,10 @@ TEST_FUNCTION(socketio_open_succeeds)
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(socket(IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(getaddrinfo(IGNORED_PTR_ARG, IGNORED_PTR_ARG, &TEST_ADDR_INFO, IGNORED_PTR_ARG));
-    EXPECTED_CALL(connect(IGNORED_NUM_ARG, (const struct sockaddr*) &test_sock_addr, IGNORED_NUM_ARG));
-    EXPECTED_CALL(ioctlsocket(IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG));
+    EXPECTED_CALL(socket(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(getaddrinfo(IGNORED_ARG, IGNORED_ARG, &TEST_ADDR_INFO, IGNORED_ARG));
+    EXPECTED_CALL(connect(IGNORED_ARG, (const struct sockaddr*) &test_sock_addr, IGNORED_ARG));
+    EXPECTED_CALL(ioctlsocket(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
     // act
     result = socketio_open(ioHandle, test_on_io_open_complete, &callbackContext, test_on_bytes_received, &callbackContext, test_on_io_error, &callbackContext);
@@ -739,10 +739,10 @@ TEST_FUNCTION(socketio_open_with_ip_address_type_succeeds)
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(socket(AF_INET, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(getaddrinfo(IGNORED_PTR_ARG, IGNORED_PTR_ARG, &TEST_ADDR_INFO, IGNORED_PTR_ARG));
-    EXPECTED_CALL(connect(IGNORED_NUM_ARG, (const struct sockaddr*) &test_sock_addr, IGNORED_NUM_ARG));
-    EXPECTED_CALL(ioctlsocket(IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG));
+    EXPECTED_CALL(socket(AF_INET, IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(getaddrinfo(IGNORED_ARG, IGNORED_ARG, &TEST_ADDR_INFO, IGNORED_ARG));
+    EXPECTED_CALL(connect(IGNORED_ARG, (const struct sockaddr*) &test_sock_addr, IGNORED_ARG));
+    EXPECTED_CALL(ioctlsocket(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
     // act
     result = socketio_open(ioHandle, test_on_io_open_complete, &callbackContext, test_on_bytes_received, &callbackContext, test_on_io_error, &callbackContext);
@@ -767,9 +767,9 @@ TEST_FUNCTION(socketio_open_with_domain_socket_address_type_succeeds)
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(socket(AF_UNIX, IGNORED_NUM_ARG, 0));
-    EXPECTED_CALL(connect(IGNORED_NUM_ARG, (const struct sockaddr*) &test_sock_addr, IGNORED_NUM_ARG));
-    EXPECTED_CALL(ioctlsocket(IGNORED_NUM_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG));
+    EXPECTED_CALL(socket(AF_UNIX, IGNORED_ARG, 0));
+    EXPECTED_CALL(connect(IGNORED_ARG, (const struct sockaddr*) &test_sock_addr, IGNORED_ARG));
+    EXPECTED_CALL(ioctlsocket(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
     // act
     result = socketio_open(ioHandle, test_on_io_open_complete, &callbackContext, test_on_bytes_received, &callbackContext, test_on_io_error, &callbackContext);
@@ -804,7 +804,7 @@ TEST_FUNCTION(socketio_close_Succeeds)
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(closesocket(IGNORED_NUM_ARG));
+    EXPECTED_CALL(closesocket(IGNORED_ARG));
 
     // act
     result = socketio_close(ioHandle, test_on_io_close_complete, (void*)0x4242);
@@ -883,8 +883,8 @@ TEST_FUNCTION(socketio_send_succeeds)
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_PTR_ARG));
-    EXPECTED_CALL(send(IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_ARG));
+    EXPECTED_CALL(send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
 
     // act
     result = socketio_send(ioHandle, (const void*)TEST_BUFFER_VALUE, TEST_BUFFER_SIZE, OnSendComplete, (void*)TEST_CALLBACK_CONTEXT);
@@ -908,13 +908,12 @@ TEST_FUNCTION(socketio_send_returns_1_succeeds)
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_PTR_ARG));
-    EXPECTED_CALL(send(IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG)).SetReturn(1);
+    EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_ARG));
+    EXPECTED_CALL(send(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG)).SetReturn(1);
     EXPECTED_CALL(WSAGetLastError()).SetReturn(WSAEWOULDBLOCK);
-    EXPECTED_CALL(gballoc_calloc(IGNORED_NUM_ARG, IGNORED_NUM_ARG))
-        .IgnoreAllArguments();
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    EXPECTED_CALL(singlylinkedlist_add(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_calloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    EXPECTED_CALL(singlylinkedlist_add(IGNORED_ARG, IGNORED_ARG));
 
     // act
     result = socketio_send(ioHandle, (const void*)TEST_BUFFER_VALUE, TEST_BUFFER_SIZE, OnSendComplete, (void*)TEST_CALLBACK_CONTEXT);
@@ -948,8 +947,8 @@ TEST_FUNCTION(socketio_dowork_succeeds)
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_PTR_ARG));
-    EXPECTED_CALL(recv(IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_ARG));
+    EXPECTED_CALL(recv(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     EXPECTED_CALL(WSAGetLastError());
 
     // act
@@ -971,11 +970,11 @@ TEST_FUNCTION(socketio_dowork_recv_bytes_succeeds)
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_PTR_ARG));
-    EXPECTED_CALL(recv(IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG))
+    EXPECTED_CALL(singlylinkedlist_get_head_item(IGNORED_ARG));
+    EXPECTED_CALL(recv(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .CopyOutArgumentBuffer(2, "t", 1)
         .SetReturn(1);
-    EXPECTED_CALL(recv(IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(recv(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     EXPECTED_CALL(WSAGetLastError());
 
     // act
@@ -1004,8 +1003,8 @@ static CONCRETE_IO_HANDLE setup_socket_and_expect_WSAIoctl()
 
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(WSAIoctl(*(SOCKET*)ioHandle, SIO_KEEPALIVE_VALS, IGNORED_PTR_ARG,
-        sizeof(struct tcp_keepalive), NULL, 0, IGNORED_PTR_ARG, NULL, NULL))
+    STRICT_EXPECTED_CALL(WSAIoctl(*(SOCKET*)ioHandle, SIO_KEEPALIVE_VALS, IGNORED_ARG,
+        sizeof(struct tcp_keepalive), NULL, 0, IGNORED_ARG, NULL, NULL))
         .IgnoreArgument_lpvInBuffer()
         .IgnoreArgument_lpcbBytesReturned();
 
@@ -1203,13 +1202,13 @@ TEST_FUNCTION(socketio_setoption_does_not_persist_keepalive_values_if_WSAIoctl_f
 
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(WSAIoctl(*(SOCKET*)ioHandle, SIO_KEEPALIVE_VALS, IGNORED_PTR_ARG,
-        sizeof(struct tcp_keepalive), NULL, 0, IGNORED_PTR_ARG, NULL, NULL))
+    STRICT_EXPECTED_CALL(WSAIoctl(*(SOCKET*)ioHandle, SIO_KEEPALIVE_VALS, IGNORED_ARG,
+        sizeof(struct tcp_keepalive), NULL, 0, IGNORED_ARG, NULL, NULL))
         .IgnoreArgument_lpvInBuffer()
         .IgnoreArgument_lpcbBytesReturned()
         .SetReturn(1); // 1st call fails, keepalive changes should be discarded
-    STRICT_EXPECTED_CALL(WSAIoctl(*(SOCKET*)ioHandle, SIO_KEEPALIVE_VALS, IGNORED_PTR_ARG,
-        sizeof(struct tcp_keepalive), NULL, 0, IGNORED_PTR_ARG, NULL, NULL))
+    STRICT_EXPECTED_CALL(WSAIoctl(*(SOCKET*)ioHandle, SIO_KEEPALIVE_VALS, IGNORED_ARG,
+        sizeof(struct tcp_keepalive), NULL, 0, IGNORED_ARG, NULL, NULL))
         .IgnoreArgument_lpvInBuffer()
         .IgnoreArgument_lpcbBytesReturned()
         .SetReturn(0); // purpose of 2nd call is just to see the keepalive state after the 1st call

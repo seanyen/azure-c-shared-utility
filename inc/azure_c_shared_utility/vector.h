@@ -12,7 +12,7 @@
 #endif
 
 #include "azure_c_shared_utility/crt_abstractions.h"
-#include "umock_c/umock_c_prod.h"
+#include "azure_c_shared_utility/umock_c_prod_compat.h"
 #include "azure_c_shared_utility/vector_types.h"
 
 #ifdef __cplusplus

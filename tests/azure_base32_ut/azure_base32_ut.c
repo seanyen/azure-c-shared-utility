@@ -9,7 +9,7 @@
 #include <stddef.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 
 static void* my_gballoc_malloc(size_t size)
 {
@@ -347,9 +347,9 @@ BEGIN_TEST_SUITE(azure_base32_ut)
 
         STRICT_EXPECTED_CALL(BUFFER_length(input_buff));
         STRICT_EXPECTED_CALL(BUFFER_u_char(input_buff));
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(STRING_construct(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(STRING_construct(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         //act
         result = Azure_Base32_Encode(input_buff);
@@ -427,9 +427,9 @@ BEGIN_TEST_SUITE(azure_base32_ut)
         //arrange
         BUFFER_HANDLE result;
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(BUFFER_create(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(BUFFER_create(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         //act
         result = Azure_Base32_Decode_String(test_val_len[0].base32_data);
@@ -468,10 +468,10 @@ BEGIN_TEST_SUITE(azure_base32_ut)
         STRING_HANDLE input = STRING_construct(test_val_len[22].base32_data);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(BUFFER_create(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(BUFFER_create(IGNORED_ARG, IGNORED_ARG));
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         //act
         result = Azure_Base32_Decode(input);
@@ -495,7 +495,7 @@ BEGIN_TEST_SUITE(azure_base32_ut)
         STRING_HANDLE input = STRING_construct(test_val_len[22].base32_data);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG)).SetReturn(NULL);
+        STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG)).SetReturn(NULL);
 
         //act
         result = Azure_Base32_Decode(input);

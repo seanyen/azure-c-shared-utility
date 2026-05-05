@@ -9,7 +9,7 @@
 #include <stddef.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 
 /**
 * The gballoc.h will replace the malloc, free, and realloc by the my_gballoc functions, in this case,
@@ -416,7 +416,7 @@ TEST_FUNCTION(tlsio_options__set_malloc_fail__fails)
     p0[k] = OPTION_X509_ECC_KEY; /*  */ k++;
     use_negative_mocks();
 
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));  // concrete_io struct
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));  // concrete_io struct
     umock_c_negative_tests_snapshot();
 
     // Cycle through each failing combo of parameters
@@ -557,7 +557,7 @@ TEST_FUNCTION(tlsio_options__clone_option_malloc_fail__fails)
     p0[k] = OPTION_X509_ECC_KEY; /*  */ k++;
     use_negative_mocks();
 
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));  // concrete_io struct
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));  // concrete_io struct
     umock_c_negative_tests_snapshot();
 
     // Cycle through each failing combo of parameters
@@ -630,7 +630,7 @@ TEST_FUNCTION(tlsio_options__clone_malloc_fail__fails)
     p0[k] = OPTION_X509_ECC_KEY; /*  */ k++;
     use_negative_mocks();
 
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));  // concrete_io struct
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));  // concrete_io struct
     umock_c_negative_tests_snapshot();
 
     // Cycle through each failing combo of parameters
@@ -860,7 +860,7 @@ TEST_FUNCTION(tlsio_options__retrieve_ex_OptionHandler_Create_fail__fails)
     p0[k] = OPTION_X509_ECC_KEY; /*  */ k++;
     use_negative_mocks();
 
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     umock_c_negative_tests_snapshot();
 
     // Cycle through each option
@@ -904,9 +904,9 @@ TEST_FUNCTION(tlsio_options__retrieve_ex_OptionHandler_AddOption_fail__fails)
     p0[k] = OPTION_X509_ECC_KEY; /*  */ k++;
     use_negative_mocks();
 
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     umock_c_negative_tests_snapshot();
 
     // Cycle through each option

@@ -40,6 +40,9 @@ jobs:
   pool:
     vmImage: 'windows-2022'
   displayName: 'Windows x86'
+  # Disabled pending PR to add x86 stub for c-logging get_thread_stack.
+  # See: https://github.com/ewertons/c-logging/tree/ewertons/x86-get-thread-stack-stub
+  condition: false
   steps:
   - checkout: self
     submodules: true

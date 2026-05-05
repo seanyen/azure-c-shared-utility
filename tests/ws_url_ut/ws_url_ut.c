@@ -12,7 +12,7 @@
 #include <stdbool.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 #include "testrunnerswitcher.h"
 #include "umock_c/umock_c.h"
 #include "umock_c/umock_c_negative_tests.h"
@@ -215,34 +215,34 @@ BEGIN_TEST_SUITE(ws_url_ut)
         WS_URL_HANDLE ws_url;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // port
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         // act
         ws_url = ws_url_create(url);
@@ -286,32 +286,32 @@ BEGIN_TEST_SUITE(ws_url_ut)
             }
 
             umock_c_reset_all_calls();
-            STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-            STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+            STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+            STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
             // host
-            STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-            STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-            STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-            STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3)); // 5
+            STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+            STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+            STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+            STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3)); // 5
 
             // port
-            STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-            STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-            STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-            STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1)); // 9
+            STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+            STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+            STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+            STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1)); // 9
 
             // path
-            STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-            STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-            STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-            STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1)); // 13
+            STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+            STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+            STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+            STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1)); // 13
 
             // query
-            STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG)); // 14
-            STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-            STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-            STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1)); // 17
+            STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG)); // 14
+            STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+            STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+            STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1)); // 17
             umock_c_negative_tests_snapshot();
 
             negative_tests_call_count = umock_c_negative_tests_call_count();
@@ -349,34 +349,34 @@ BEGIN_TEST_SUITE(ws_url_ut)
         WS_URL_HANDLE ws_url;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 5, strlen(url) - 5, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 5, strlen(url) - 5, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // port
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         // act
         ws_url = ws_url_create(url);
@@ -425,28 +425,28 @@ BEGIN_TEST_SUITE(ws_url_ut)
         WS_URL_HANDLE ws_url;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         // act
         ws_url = ws_url_create(url);
@@ -485,7 +485,7 @@ BEGIN_TEST_SUITE(ws_url_ut)
         WS_URL_HANDLE ws_url;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
 
         // act
         ws_url = ws_url_create(url);
@@ -520,32 +520,32 @@ BEGIN_TEST_SUITE(ws_url_ut)
         WS_URL_HANDLE ws_url;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // port
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         ws_url = ws_url_create(url);
 
@@ -568,17 +568,17 @@ BEGIN_TEST_SUITE(ws_url_ut)
         WS_URL_HANDLE ws_url;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         // act
         ws_url = ws_url_create(url);
@@ -598,23 +598,23 @@ BEGIN_TEST_SUITE(ws_url_ut)
         WS_URL_HANDLE ws_url;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         // act
         ws_url = ws_url_create(url);
@@ -634,17 +634,17 @@ BEGIN_TEST_SUITE(ws_url_ut)
         WS_URL_HANDLE ws_url;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         // act
         ws_url = ws_url_create(url);
@@ -664,17 +664,17 @@ BEGIN_TEST_SUITE(ws_url_ut)
         WS_URL_HANDLE ws_url;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         // act
         ws_url = ws_url_create(url);
@@ -714,34 +714,34 @@ BEGIN_TEST_SUITE(ws_url_ut)
         int result;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // port
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         ws_url = ws_url_create(url);
 
@@ -767,34 +767,34 @@ BEGIN_TEST_SUITE(ws_url_ut)
         bool is_secure;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // port
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         ws_url = ws_url_create(url);
 
@@ -838,34 +838,34 @@ BEGIN_TEST_SUITE(ws_url_ut)
         int result;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // port
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         ws_url = ws_url_create(url);
 
@@ -891,34 +891,34 @@ BEGIN_TEST_SUITE(ws_url_ut)
         size_t port;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // port
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         ws_url = ws_url_create(url);
 
@@ -964,34 +964,34 @@ BEGIN_TEST_SUITE(ws_url_ut)
         size_t host_length;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // port
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         ws_url = ws_url_create(url);
 
@@ -1016,34 +1016,34 @@ BEGIN_TEST_SUITE(ws_url_ut)
         const char* host;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // port
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         ws_url = ws_url_create(url);
 
@@ -1070,34 +1070,34 @@ BEGIN_TEST_SUITE(ws_url_ut)
         size_t host_length;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // port
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         ws_url = ws_url_create(url);
 
@@ -1143,34 +1143,34 @@ BEGIN_TEST_SUITE(ws_url_ut)
         size_t path_length;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // port
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         ws_url = ws_url_create(url);
 
@@ -1195,34 +1195,34 @@ BEGIN_TEST_SUITE(ws_url_ut)
         const char* path;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // port
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         ws_url = ws_url_create(url);
 
@@ -1249,34 +1249,34 @@ BEGIN_TEST_SUITE(ws_url_ut)
         size_t path_length;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // port
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         ws_url = ws_url_create(url);
 
@@ -1323,34 +1323,34 @@ BEGIN_TEST_SUITE(ws_url_ut)
         size_t query_length;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // port
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         ws_url = ws_url_create(url);
 
@@ -1375,34 +1375,34 @@ BEGIN_TEST_SUITE(ws_url_ut)
         const char* query;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // port
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         ws_url = ws_url_create(url);
 
@@ -1429,34 +1429,34 @@ BEGIN_TEST_SUITE(ws_url_ut)
         size_t query_length;
 
         umock_c_reset_all_calls();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, url));
-        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, url));
+        STRICT_EXPECTED_CALL(StringToken_GetFirst(url + 6, strlen(url) - 6, IGNORED_ARG, 3));
 
         // host
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 3));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 3));
 
         // port
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // path
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
         // query
-        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1));
+        STRICT_EXPECTED_CALL(StringToken_GetDelimiter(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetValue(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetLength(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(StringToken_GetNext(IGNORED_ARG, IGNORED_ARG, 1));
 
-        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_PTR_ARG));
+        STRICT_EXPECTED_CALL(StringToken_Destroy(IGNORED_ARG));
 
         ws_url = ws_url_create(url);
 

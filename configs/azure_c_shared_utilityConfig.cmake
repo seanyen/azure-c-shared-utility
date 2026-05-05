@@ -1,9 +1,14 @@
 #Copyright (c) Microsoft. All rights reserved.
 #Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+include(CMakeFindDependencyMacro)
+
+# aziotsharedutil's exported targets reference macro_utils_c via INTERFACE_LINK_LIBRARIES,
+# so consumers must be able to resolve it before the targets file is included.
+find_dependency(macro_utils_c)
+
 if(UNIX)
     if(${use_http})
-        include(CMakeFindDependencyMacro)
         find_dependency(CURL)
     endif()
 endif()

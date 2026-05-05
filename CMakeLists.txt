@@ -1,7 +1,9 @@
 #Copyright (c) Microsoft. All rights reserved.
 #Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-cmake_minimum_required (VERSION 3.5)
+if(NOT DEFINED CMAKE_MINIMUM_REQUIRED_VERSION)
+    cmake_minimum_required(VERSION 3.18)
+endif()
 
 if (TARGET aziotsharedutil)
     RETURN()
@@ -10,6 +12,59 @@ endif()
 project(azure_c_shared_utility)
 
 FILE(READ ${CMAKE_CURRENT_LIST_DIR}/version.txt C_SHARED_VERSION)
+
+#bring in dependencies
+#do not add or build any tests of the dependencies
+set(original_run_e2e_tests ${run_e2e_tests})
+set(original_run_int_tests ${run_int_tests})
+set(original_run_perf_tests ${run_perf_tests})
+set(original_run_unittests ${run_unittests})
+set(original_run_traceability ${run_traceability})
+set(original_run_reals_check ${run_reals_check})
+
+set(run_e2e_tests OFF)
+set(run_int_tests OFF)
+set(run_perf_tests OFF)
+set(run_unittests OFF)
+set(run_traceability OFF)
+set(run_reals_check OFF)
+
+if ((NOT TARGET c_build_tools) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-build-tools/CMakeLists.txt))
+    add_subdirectory(deps/c-build-tools)
+    set_default_build_options()
+endif()
+
+if ((NOT TARGET macro_utils_c) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/macro-utils-c/CMakeLists.txt))
+    add_subdirectory(deps/macro-utils-c)
+endif()
+
+if ((NOT TARGET c_logging) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-logging/CMakeLists.txt))
+    add_subdirectory(deps/c-logging)
+    # c-logging's own guard checks TARGET c_logging, but only c_logging_v2 is created.
+    # Create an alias so nested copies (in ctest, umock-c, etc.) skip their own add_subdirectory.
+    if (NOT TARGET c_logging)
+        add_library(c_logging ALIAS c_logging_v2)
+    endif()
+endif()
+
+if ((NOT TARGET ctest) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/ctest/CMakeLists.txt))
+    add_subdirectory(deps/ctest)
+endif()
+
+if ((NOT TARGET testrunnerswitcher) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-testrunnerswitcher/CMakeLists.txt))
+    add_subdirectory(deps/c-testrunnerswitcher)
+endif()
+
+if ((NOT TARGET umock_c) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/umock-c/CMakeLists.txt))
+    add_subdirectory(deps/umock-c)
+endif()
+
+set(run_e2e_tests ${original_run_e2e_tests})
+set(run_int_tests ${original_run_int_tests})
+set(run_perf_tests ${original_run_perf_tests})
+set(run_unittests ${original_run_unittests})
+set(run_traceability ${original_run_traceability})
+set(run_reals_check ${original_run_reals_check})
 
 # Include the common build rules for the C SDK
 include(configs/azure_iot_build_rules.cmake)
@@ -176,6 +231,11 @@ if(MSVC)
 elseif(LINUX) #LINUX OR APPLE
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wformat=2 -Wformat-security")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wformat=2 -Wformat-security")
+    if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+        # Clang in C99 mode errors on typedef redefinition (allowed in C11+).
+        # umock_c MOCKABLE_FUNCTION macros produce duplicate typedefs when headers are included multiple times.
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-typedef-redefinition")
+    endif()
     if(${use_openssl})
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_OPENSSL")
         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DUSE_OPENSSL")
@@ -198,6 +258,9 @@ elseif(LINUX) #LINUX OR APPLE
 elseif(APPLE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wformat-security")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wformat-security")
+    # Clang in C99 mode errors on typedef redefinition (allowed in C11+).
+    # umock_c MOCKABLE_FUNCTION macros produce duplicate typedefs when headers are included multiple times.
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-typedef-redefinition")
     if(${use_openssl})
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUSE_OPENSSL")
         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DUSE_OPENSSL")
@@ -212,8 +275,6 @@ elseif(APPLE)
     endif()
 endif()
 
-
-include_directories(${UMOCK_C_INC_FOLDER})
 
 #these are the C source files
 set(source_c_files
@@ -492,6 +553,12 @@ add_library(aziotsharedutil ${source_c_files} ${source_h_files} ${aziotshareduti
 setTargetBuildProperties(aziotsharedutil)
 
 target_include_directories(aziotsharedutil PUBLIC $<BUILD_INTERFACE:${SHARED_UTIL_INC_FOLDER}>)
+target_link_libraries(aziotsharedutil PUBLIC macro_utils_c)
+# c_logging_v2 and umock_c provide headers needed by aziotsharedutil sources.
+# Use include_directories (not target_link_libraries) to avoid adding these
+# targets to the export set — matching the legacy behavior.
+include_directories(${CMAKE_CURRENT_LIST_DIR}/deps/c-logging/v2/inc)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/deps/umock-c/inc)
 
 if(MSVC)
     set(source_h_files ${source_h_files}
@@ -651,36 +718,20 @@ if(LINUX)
     endif()
 endif()
 
-target_link_libraries(aziotsharedutil ${aziotsharedutil_target_libs})
+target_link_libraries(aziotsharedutil PUBLIC ${aziotsharedutil_target_libs} c_logging_v2)
 if(${build_as_dynamic})
-    target_link_libraries(aziotsharedutil_dll ${aziotsharedutil_target_libs})
+    target_link_libraries(aziotsharedutil_dll PUBLIC ${aziotsharedutil_target_libs} macro_utils_c)
+    target_link_libraries(aziotsharedutil_dll PRIVATE c_logging_v2)
+    target_include_directories(aziotsharedutil_dll PUBLIC $<BUILD_INTERFACE:${SHARED_UTIL_INC_FOLDER}>)
+    target_include_directories(aziotsharedutil_dll PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/deps/c-logging/v2/inc>)
+    target_include_directories(aziotsharedutil_dll PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/deps/umock-c/inc>)
 endif()
 
-set(original_run_e2e_tests ${run_e2e_tests})
-set(original_run_unittests ${run_unittests})
-set(original_run_int_tests ${run_int_tests})
-
-set(run_e2e_tests OFF)
-set(run_unittests OFF)
-set(run_int_tests OFF)
-
-include(dependencies.cmake)
-
-if (${original_run_unittests} OR ${original_run_e2e_tests})
-    include("${CMAKE_CURRENT_LIST_DIR}/dependencies-test.cmake")
+# Dependencies are already loaded in the preamble via deps/c-build-tools etc.
+# testtools/micromock and testtools/sal are still needed for legacy test infrastructure
+if (${run_unittests} OR ${run_e2e_tests})
     add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/testtools)
-
-    setTargetBuildProperties(ctest)
-    setTargetBuildProperties(testrunnerswitcher)
-    setTargetBuildProperties(umock_c)
 endif()
-
-set(run_e2e_tests ${original_run_e2e_tests})
-set(run_unittests ${original_run_unittests})
-set(run_int_tests ${original_run_int_tests})
-
-include_directories(${MACRO_UTILS_INC_FOLDER})
-include_directories(${UMOCK_C_INC_FOLDER})
 
 if (${run_unittests} OR ${run_int_tests})
     add_subdirectory(tests)
@@ -726,6 +777,13 @@ if(${build_as_dynamic})
 else(${build_as_dynamic})
     set(targets aziotsharedutil)
 endif(${build_as_dynamic})
+
+# Re-export c_logging_v2 (and c_logging_v2_core) via aziotsharedutilTargets so
+# downstream installed-deps consumers can resolve the c_logging_v2 imported
+# target referenced by aziotsharedutil's INTERFACE_LINK_LIBRARIES.
+if(TARGET c_logging_v2 AND TARGET c_logging_v2_core)
+    list(APPEND targets c_logging_v2 c_logging_v2_core)
+endif()
 
 install (TARGETS ${targets} EXPORT aziotsharedutilTargets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

@@ -12,14 +12,14 @@
 #error only supported on Windows
 #endif
 
-static LOGGER_LOG global_log_function = etwlogger_log;
+static XLOGGING_LOGGER_LOG global_log_function = etwlogger_log;
 
-void xlogging_set_log_function(LOGGER_LOG log_function)
+void xlogging_set_log_function(XLOGGING_LOGGER_LOG log_function)
 {
     global_log_function = log_function;
 }
 
-LOGGER_LOG xlogging_get_log_function(void)
+XLOGGING_LOGGER_LOG xlogging_get_log_function(void)
 {
     return global_log_function;
 }

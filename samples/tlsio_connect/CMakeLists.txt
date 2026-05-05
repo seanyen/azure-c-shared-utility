@@ -13,6 +13,7 @@ add_executable(tlsio_connect ${tlsio_connect_c_files})
 
 target_link_libraries(tlsio_connect
     aziotsharedutil
+    c_logging_v2
 )
 
 if(${use_openssl} AND WIN32)

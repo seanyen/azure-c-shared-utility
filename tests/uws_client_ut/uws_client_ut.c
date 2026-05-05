@@ -12,7 +12,7 @@
 #include <stdint.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 #include "testrunnerswitcher.h"
 #include "umock_c/umock_c.h"
 #include "umock_c/umocktypes_charptr.h"
@@ -580,18 +580,18 @@ TEST_FUNCTION(uws_client_create_with_valid_args_no_ssl_succeeds)
     socketio_config.hostname = "test_host";
     socketio_config.port = 80;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "111"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "111"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(Map_Create(NULL));
     STRICT_EXPECTED_CALL(singlylinkedlist_create());
     STRICT_EXPECTED_CALL(socketio_get_interface_description());
     STRICT_EXPECTED_CALL(xio_create(TEST_SOCKET_IO_INTERFACE_DESCRIPTION, &socketio_config))
         .IgnoreArgument_io_create_parameters();
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_protocol"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_protocol"))
         .IgnoreArgument_destination();
 
     // act
@@ -642,18 +642,18 @@ TEST_FUNCTION(uws_client_create_with_valid_args_no_ssl_port_different_than_80_su
     socketio_config.hostname = "test_host";
     socketio_config.port = 81;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "333"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "333"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(Map_Create(NULL));
     STRICT_EXPECTED_CALL(singlylinkedlist_create());
     STRICT_EXPECTED_CALL(socketio_get_interface_description());
     STRICT_EXPECTED_CALL(xio_create(TEST_SOCKET_IO_INTERFACE_DESCRIPTION, &socketio_config))
         .IgnoreArgument_io_create_parameters();
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_protocol"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_protocol"))
         .IgnoreArgument_destination();
 
     // act
@@ -678,10 +678,10 @@ TEST_FUNCTION(uws_client_create_with_NULL_protocols_succeeds)
     socketio_config.hostname = "test_host";
     socketio_config.port = 81;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "333"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "333"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(Map_Create(NULL));
     STRICT_EXPECTED_CALL(singlylinkedlist_create());
@@ -755,7 +755,7 @@ TEST_FUNCTION(when_allocating_memory_for_the_new_uws_instance_fails_then_uws_cli
     socketio_config.hostname = "test_host";
     socketio_config.port = 80;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .SetReturn(NULL);
 
     // act
@@ -777,11 +777,11 @@ TEST_FUNCTION(when_allocating_memory_for_the_hostname_copy_fails_then_uws_client
     socketio_config.hostname = "test_host";
     socketio_config.port = 80;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination()
         .SetReturn(1);
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     uws_client = uws_client_create("test_host", 80, "bbb", false, protocols, sizeof(protocols) / sizeof(protocols[0]));
@@ -802,14 +802,14 @@ TEST_FUNCTION(when_allocating_memory_for_the_resource_name_copy_fails_then_uws_c
     socketio_config.hostname = "test_host";
     socketio_config.port = 80;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_resource/1"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_resource/1"))
         .IgnoreArgument_destination()
         .SetReturn(1);
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     uws_client = uws_client_create("test_host", 80, "test_resource/1", false, protocols, sizeof(protocols) / sizeof(protocols[0]));
@@ -830,18 +830,18 @@ TEST_FUNCTION(when_creating_the_pending_sends_list_fails_then_uws_client_create_
     socketio_config.hostname = "test_host";
     socketio_config.port = 80;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_resource/1"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_resource/1"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(Map_Create(NULL));
     STRICT_EXPECTED_CALL(singlylinkedlist_create())
         .SetReturn(NULL);
-    EXPECTED_CALL(Map_Destroy(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(Map_Destroy(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     uws_client = uws_client_create("test_host", 80, "test_resource/1", false, protocols, sizeof(protocols) / sizeof(protocols[0]));
@@ -862,20 +862,20 @@ TEST_FUNCTION(when_getting_the_socket_interface_description_fails_then_uws_clien
     socketio_config.hostname = "test_host";
     socketio_config.port = 80;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_resource/1"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_resource/1"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(Map_Create(NULL));
     STRICT_EXPECTED_CALL(singlylinkedlist_create());
     STRICT_EXPECTED_CALL(socketio_get_interface_description())
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(singlylinkedlist_destroy(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
-    EXPECTED_CALL(Map_Destroy(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(Map_Destroy(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     uws_client = uws_client_create("test_host", 80, "test_resource/1", false, protocols, sizeof(protocols) / sizeof(protocols[0]));
@@ -896,10 +896,10 @@ TEST_FUNCTION(when_creating_the_io_handle_fails_then_uws_client_create_fails)
     socketio_config.hostname = "test_host";
     socketio_config.port = 80;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_resource/1"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_resource/1"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(Map_Create(NULL));
     STRICT_EXPECTED_CALL(singlylinkedlist_create());
@@ -908,10 +908,10 @@ TEST_FUNCTION(when_creating_the_io_handle_fails_then_uws_client_create_fails)
         .IgnoreArgument_io_create_parameters()
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(singlylinkedlist_destroy(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
-    EXPECTED_CALL(Map_Destroy(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(Map_Destroy(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     uws_client = uws_client_create("test_host", 80, "test_resource/1", false, protocols, sizeof(protocols) / sizeof(protocols[0]));
@@ -932,24 +932,24 @@ TEST_FUNCTION(when_allocating_memory_for_the_protocols_array_fails_then_uws_clie
     socketio_config.hostname = "test_host";
     socketio_config.port = 80;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_resource/1"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_resource/1"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(Map_Create(NULL));
     STRICT_EXPECTED_CALL(singlylinkedlist_create());
     STRICT_EXPECTED_CALL(socketio_get_interface_description());
     STRICT_EXPECTED_CALL(xio_create(TEST_SOCKET_IO_INTERFACE_DESCRIPTION, &socketio_config))
         .IgnoreArgument_io_create_parameters();
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(xio_destroy(TEST_IO_HANDLE));
     STRICT_EXPECTED_CALL(singlylinkedlist_destroy(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
-    EXPECTED_CALL(Map_Destroy(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(Map_Destroy(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     uws_client = uws_client_create("test_host", 80, "test_resource/1", false, protocols, sizeof(protocols) / sizeof(protocols[0]));
@@ -970,27 +970,27 @@ TEST_FUNCTION(when_allocating_memory_for_the_first_proitocol_name_fails_then_uws
     socketio_config.hostname = "test_host";
     socketio_config.port = 80;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_resource/1"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_resource/1"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(Map_Create(NULL));
     STRICT_EXPECTED_CALL(singlylinkedlist_create());
     STRICT_EXPECTED_CALL(socketio_get_interface_description());
     STRICT_EXPECTED_CALL(xio_create(TEST_SOCKET_IO_INTERFACE_DESCRIPTION, &socketio_config))
         .IgnoreArgument_io_create_parameters();
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_protocol"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_protocol"))
         .IgnoreArgument_destination()
         .SetReturn(1);
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_destroy(TEST_IO_HANDLE));
     STRICT_EXPECTED_CALL(singlylinkedlist_destroy(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
-    EXPECTED_CALL(Map_Destroy(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(Map_Destroy(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     uws_client = uws_client_create("test_host", 80, "test_resource/1", false, protocols, sizeof(protocols) / sizeof(protocols[0]));
@@ -1012,30 +1012,30 @@ TEST_FUNCTION(when_allocating_memory_for_the_second_protocol_name_fails_then_uws
     socketio_config.hostname = "test_host";
     socketio_config.port = 80;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_resource/1"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_resource/1"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(Map_Create(NULL));
     STRICT_EXPECTED_CALL(singlylinkedlist_create());
     STRICT_EXPECTED_CALL(socketio_get_interface_description());
     STRICT_EXPECTED_CALL(xio_create(TEST_SOCKET_IO_INTERFACE_DESCRIPTION, &socketio_config))
         .IgnoreArgument_io_create_parameters();
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_protocol1"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_protocol1"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_protocol2"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_protocol2"))
         .IgnoreArgument_destination()
         .SetReturn(1);
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_destroy(TEST_IO_HANDLE));
     STRICT_EXPECTED_CALL(singlylinkedlist_destroy(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
-    EXPECTED_CALL(Map_Destroy(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(Map_Destroy(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     uws_client = uws_client_create("test_host", 80, "test_resource/1", false, two_protocols, sizeof(two_protocols) / sizeof(two_protocols[0]));
@@ -1067,10 +1067,10 @@ TEST_FUNCTION(uws_client_create_with_valid_args_ssl_succeeds)
     tlsio_config.underlying_io_interface = TEST_SOCKET_IO_INTERFACE_DESCRIPTION;
     tlsio_config.underlying_io_parameters = &socketio_config;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_resource/23"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_resource/23"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(Map_Create(NULL));
     STRICT_EXPECTED_CALL(singlylinkedlist_create());
@@ -1078,9 +1078,9 @@ TEST_FUNCTION(uws_client_create_with_valid_args_ssl_succeeds)
     STRICT_EXPECTED_CALL(socketio_get_interface_description());
     STRICT_EXPECTED_CALL(xio_create(TEST_TLS_IO_INTERFACE_DESCRIPTION, &tlsio_config))
         .IgnoreArgument_io_create_parameters();
-    STRICT_EXPECTED_CALL(xio_setoption(IGNORED_PTR_ARG, OPTION_SET_TLS_RENEGOTIATION, IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_protocol"))
+    STRICT_EXPECTED_CALL(xio_setoption(IGNORED_ARG, OPTION_SET_TLS_RENEGOTIATION, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_protocol"))
         .IgnoreArgument_destination();
 
     // act
@@ -1114,10 +1114,10 @@ TEST_FUNCTION(uws_client_create_with_valid_args_ssl_port_different_than_443_succ
     tlsio_config.underlying_io_interface = TEST_SOCKET_IO_INTERFACE_DESCRIPTION;
     tlsio_config.underlying_io_parameters = &socketio_config;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_resource/23"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_resource/23"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(Map_Create(NULL));
     STRICT_EXPECTED_CALL(singlylinkedlist_create());
@@ -1125,9 +1125,9 @@ TEST_FUNCTION(uws_client_create_with_valid_args_ssl_port_different_than_443_succ
     STRICT_EXPECTED_CALL(socketio_get_interface_description());
     STRICT_EXPECTED_CALL(xio_create(TEST_TLS_IO_INTERFACE_DESCRIPTION, &tlsio_config))
         .IgnoreArgument_io_create_parameters();
-    STRICT_EXPECTED_CALL(xio_setoption(IGNORED_PTR_ARG, OPTION_SET_TLS_RENEGOTIATION, IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_protocol"))
+    STRICT_EXPECTED_CALL(xio_setoption(IGNORED_ARG, OPTION_SET_TLS_RENEGOTIATION, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_protocol"))
         .IgnoreArgument_destination();
 
     // act
@@ -1151,20 +1151,20 @@ TEST_FUNCTION(when_getting_the_tlsio_interface_fails_then_uws_client_create_fail
     tlsio_config.hostname = "test_host";
     tlsio_config.port = 444;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_resource/23"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_resource/23"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(Map_Create(NULL));
     STRICT_EXPECTED_CALL(singlylinkedlist_create());
     STRICT_EXPECTED_CALL(platform_get_default_tlsio())
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(singlylinkedlist_destroy(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
-    EXPECTED_CALL(Map_Destroy(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(Map_Destroy(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     uws_client = uws_client_create("test_host", 444, "test_resource/23", true, protocols, sizeof(protocols) / sizeof(protocols[0]));
@@ -1193,18 +1193,18 @@ TEST_FUNCTION(uws_client_create_with_io_valid_args_succeeds)
     socketio_config.hostname = "my_horrible_host";
     socketio_config.port = 1122;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "111"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "111"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(Map_Create(NULL));
     STRICT_EXPECTED_CALL(singlylinkedlist_create());
     STRICT_EXPECTED_CALL(xio_create(TEST_SOCKET_IO_INTERFACE_DESCRIPTION, &socketio_config))
         .IgnoreArgument_io_create_parameters();
-    STRICT_EXPECTED_CALL(xio_setoption(IGNORED_PTR_ARG, OPTION_SET_TLS_RENEGOTIATION, IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_protocol"))
+    STRICT_EXPECTED_CALL(xio_setoption(IGNORED_ARG, OPTION_SET_TLS_RENEGOTIATION, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_protocol"))
         .IgnoreArgument_destination();
 
     // act
@@ -1296,12 +1296,12 @@ TEST_FUNCTION(when_any_call_fails_uws_client_create_with_io_fails)
     socketio_config.hostname = "my_horrible_host";
     socketio_config.port = 1122;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .SetFailReturn(NULL);
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination()
         .SetFailReturn(1);
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "111"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "111"))
         .IgnoreArgument_destination()
         .SetFailReturn(1);
     STRICT_EXPECTED_CALL(Map_Create(NULL));
@@ -1310,13 +1310,13 @@ TEST_FUNCTION(when_any_call_fails_uws_client_create_with_io_fails)
     STRICT_EXPECTED_CALL(xio_create(TEST_SOCKET_IO_INTERFACE_DESCRIPTION, &socketio_config))
         .IgnoreArgument_io_create_parameters()
         .SetFailReturn(NULL);
-    STRICT_EXPECTED_CALL(xio_setoption(IGNORED_PTR_ARG, OPTION_SET_TLS_RENEGOTIATION, IGNORED_PTR_ARG)).CallCannotFail();
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(xio_setoption(IGNORED_ARG, OPTION_SET_TLS_RENEGOTIATION, IGNORED_ARG)).CallCannotFail();
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .SetFailReturn(NULL);
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_protocol1"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_protocol1"))
         .IgnoreArgument_destination()
         .SetFailReturn(1);
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_protocol2"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_protocol2"))
         .IgnoreArgument_destination()
         .SetFailReturn(1);
 
@@ -1349,16 +1349,16 @@ TEST_FUNCTION(uws_client_create_with_io_with_NULL_protocols_succeeds)
     socketio_config.hostname = "my_horrible_host";
     socketio_config.port = 1122;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "test_host"))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "test_host"))
         .IgnoreArgument_destination();
-    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "111"))
+    STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "111"))
         .IgnoreArgument_destination();
     STRICT_EXPECTED_CALL(Map_Create(NULL));
     STRICT_EXPECTED_CALL(singlylinkedlist_create());
     STRICT_EXPECTED_CALL(xio_create(TEST_SOCKET_IO_INTERFACE_DESCRIPTION, &socketio_config))
         .IgnoreArgument_io_create_parameters();
-    STRICT_EXPECTED_CALL(xio_setoption(IGNORED_PTR_ARG, OPTION_SET_TLS_RENEGOTIATION, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(xio_setoption(IGNORED_ARG, OPTION_SET_TLS_RENEGOTIATION, IGNORED_ARG));
 
     // act
     uws_client = uws_client_create_with_io(TEST_SOCKET_IO_INTERFACE_DESCRIPTION, &socketio_config, "test_host", 80, "111", NULL, 0);
@@ -1449,16 +1449,16 @@ TEST_FUNCTION(uws_client_destroy_fress_the_resources)
     uws_client = uws_client_create("test_host", 444, "aaa", true, protocols, sizeof(protocols) / sizeof(protocols[0]));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_destroy(TEST_IO_HANDLE));
     STRICT_EXPECTED_CALL(singlylinkedlist_destroy(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(Map_Destroy(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(Map_Destroy(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     uws_client_destroy(uws_client);
@@ -1481,17 +1481,17 @@ TEST_FUNCTION(uws_client_destroy_with_2_protocols_fress_both_protocols)
     uws_client = uws_client_create("test_host", 444, "aaa", true, two_protocols, sizeof(two_protocols) / sizeof(two_protocols[0]));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_destroy(TEST_IO_HANDLE));
     STRICT_EXPECTED_CALL(singlylinkedlist_destroy(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(Map_Destroy(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(Map_Destroy(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     uws_client_destroy(uws_client);
@@ -1513,14 +1513,14 @@ TEST_FUNCTION(uws_client_destroy_with_no_protocols_frees_all_other_resources)
     uws_client = uws_client_create("test_host", 444, "aaa", true, NULL, 0);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_destroy(TEST_IO_HANDLE));
     STRICT_EXPECTED_CALL(singlylinkedlist_destroy(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(Map_Destroy(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(Map_Destroy(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     uws_client_destroy(uws_client);
@@ -1559,18 +1559,18 @@ TEST_FUNCTION(uws_client_destroy_also_performs_a_close)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_destroy(TEST_IO_HANDLE));
     STRICT_EXPECTED_CALL(singlylinkedlist_destroy(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    EXPECTED_CALL(Map_Destroy(IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    EXPECTED_CALL(Map_Destroy(IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     uws_client_destroy(uws_client);
@@ -1598,7 +1598,7 @@ TEST_FUNCTION(uws_client_open_async_opens_the_underlying_IO)
     uws_client = uws_client_create("test_host", 444, "aaa", true, protocols, sizeof(protocols) / sizeof(protocols[0]));
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -1745,7 +1745,7 @@ TEST_FUNCTION(uws_client_open_async_with_NULL_on_ws_open_complete_context_succee
     uws_client = uws_client_create("test_host", 444, "aaa", true, protocols, sizeof(protocols) / sizeof(protocols[0]));
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -1778,7 +1778,7 @@ TEST_FUNCTION(uws_client_open_async_with_NULL_on_ws_frame_received_context_succe
     uws_client = uws_client_create("test_host", 444, "aaa", true, protocols, sizeof(protocols) / sizeof(protocols[0]));
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -1811,7 +1811,7 @@ TEST_FUNCTION(uws_client_open_async_with_NULL_on_ws_peer_closed_context_succeeds
     uws_client = uws_client_create("test_host", 444, "aaa", true, protocols, sizeof(protocols) / sizeof(protocols[0]));
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -1844,7 +1844,7 @@ TEST_FUNCTION(uws_client_open_async_with_NULL_on_ws_error_context_succeeds)
     uws_client = uws_client_create("test_host", 444, "aaa", true, protocols, sizeof(protocols) / sizeof(protocols[0]));
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -1878,7 +1878,7 @@ TEST_FUNCTION(when_opening_the_underlying_io_fails_uws_client_open_async_fails)
     uws_client = uws_client_create("test_host", 444, "aaa", true, protocols, sizeof(protocols) / sizeof(protocols[0]));
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -2006,7 +2006,7 @@ TEST_FUNCTION(uws_client_close_async_closes_the_underlying_IO)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_close_complete()
         .IgnoreArgument_callback_context();
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
@@ -2054,7 +2054,7 @@ TEST_FUNCTION(uws_client_close_async_with_NULL_close_complete_callback_is_allowe
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_close_complete()
         .IgnoreArgument_callback_context();
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
@@ -2088,7 +2088,7 @@ TEST_FUNCTION(uws_client_close_async_with_NULL_close_context_succeeds)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_close_complete()
         .IgnoreArgument_callback_context();
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
@@ -2122,7 +2122,7 @@ TEST_FUNCTION(when_the_underlying_xio_close_fails_then_uws_client_close_async_fa
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_close_complete()
         .IgnoreArgument_callback_context()
         .SetReturn(1);
@@ -2271,16 +2271,16 @@ TEST_FUNCTION(uws_client_close_async_with_1_pending_send_frames_indicates_the_fr
     (void)uws_client_send_frame_async(uws_client, WS_FRAME_TYPE_BINARY, NULL, 0, true, test_on_ws_send_frame_complete, (void*)0x4248);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_close_complete()
         .IgnoreArgument_callback_context();
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE))
         .CaptureReturn(&list_item);
-    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG))
+    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG))
         .ValidateArgumentValue_item_handle(&list_item);
     STRICT_EXPECTED_CALL(test_on_ws_send_frame_complete((void*)0x4248, WS_SEND_FRAME_CANCELLED));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
 
     // act
@@ -2321,23 +2321,23 @@ TEST_FUNCTION(uws_client_close_async_with_2_pending_send_frames_indicates_the_fr
     (void)uws_client_send_frame_async(uws_client, WS_FRAME_TYPE_TEXT, test_frame_2, sizeof(test_frame_2), true, test_on_ws_send_frame_complete, (void*)0x4249);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_close_complete()
         .IgnoreArgument_callback_context();
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE))
         .CaptureReturn(&list_item_1);
-    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG))
+    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG))
         .ValidateArgumentValue_item_handle(&list_item_1);
     STRICT_EXPECTED_CALL(test_on_ws_send_frame_complete((void*)0x4248, WS_SEND_FRAME_CANCELLED));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE))
         .CaptureReturn(&list_item_2);
-    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG))
+    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG))
         .ValidateArgumentValue_item_handle(&list_item_2);
     STRICT_EXPECTED_CALL(test_on_ws_send_frame_complete((void*)0x4249, WS_SEND_FRAME_CANCELLED));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
 
     // act
@@ -2377,18 +2377,18 @@ TEST_FUNCTION(uws_client_close_handshake_async_sends_the_close_frame)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, IGNORED_PTR_ARG, sizeof(close_frame_payload), true, true, 0))
+    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, IGNORED_ARG, sizeof(close_frame_payload), true, true, 0))
         .ValidateArgumentBuffer(2, close_frame_payload, sizeof(close_frame_payload))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(close_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(close_frame));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, close_frame, sizeof(close_frame), IGNORED_PTR_ARG, NULL))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, close_frame, sizeof(close_frame), IGNORED_ARG, NULL))
         .ValidateArgumentBuffer(2, close_frame, sizeof(close_frame));
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
 
@@ -2438,18 +2438,18 @@ TEST_FUNCTION(uws_client_close_handshake_async_with_NULL_close_complete_callback
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, IGNORED_PTR_ARG, sizeof(close_frame_payload), true, true, 0))
+    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, IGNORED_ARG, sizeof(close_frame_payload), true, true, 0))
         .ValidateArgumentBuffer(2, close_frame_payload, sizeof(close_frame_payload))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(close_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(close_frame));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, close_frame, sizeof(close_frame), IGNORED_PTR_ARG, NULL))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, close_frame, sizeof(close_frame), IGNORED_ARG, NULL))
         .ValidateArgumentBuffer(2, close_frame, sizeof(close_frame));
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
 
@@ -2485,18 +2485,18 @@ TEST_FUNCTION(uws_client_close_handshake_async_with_NULL_context_is_allowed)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, IGNORED_PTR_ARG, sizeof(close_frame_payload), true, true, 0))
+    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, IGNORED_ARG, sizeof(close_frame_payload), true, true, 0))
         .ValidateArgumentBuffer(2, close_frame_payload, sizeof(close_frame_payload))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(close_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(close_frame));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, close_frame, sizeof(close_frame), IGNORED_PTR_ARG, NULL))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, close_frame, sizeof(close_frame), IGNORED_ARG, NULL))
         .ValidateArgumentBuffer(2, close_frame, sizeof(close_frame));
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
     STRICT_EXPECTED_CALL(singlylinkedlist_get_head_item(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE));
 
@@ -2532,19 +2532,19 @@ TEST_FUNCTION(when_xio_send_fails_uws_client_close_handshake_async_fails)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, IGNORED_PTR_ARG, sizeof(close_frame_payload), true, true, 0))
+    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, IGNORED_ARG, sizeof(close_frame_payload), true, true, 0))
         .ValidateArgumentBuffer(2, close_frame_payload, sizeof(close_frame_payload))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(close_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(close_frame));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, close_frame, sizeof(close_frame), IGNORED_PTR_ARG, NULL))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, close_frame, sizeof(close_frame), IGNORED_ARG, NULL))
         .ValidateArgumentBuffer(2, close_frame, sizeof(close_frame))
         .SetReturn(1);
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
 
     // act
@@ -2720,7 +2720,7 @@ TEST_FUNCTION(uws_client_open_async_after_WS_OPEN_ERROR_UNDERLYING_IO_OPEN_FAILE
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_ERROR);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -2805,7 +2805,7 @@ TEST_FUNCTION(uws_client_open_async_after_WS_OPEN_ERROR_UNDERLYING_IO_OPEN_CANCE
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_CANCELLED);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -2864,7 +2864,7 @@ TEST_FUNCTION(on_underlying_io_open_complete_with_OK_prepares_and_sends_the_WebS
     (void)uws_client_open_async(uws_client, test_on_ws_open_complete, (void*)0x4242, test_on_ws_frame_received, (void*)0x4243, test_on_ws_peer_closed, (void*)0x4301, test_on_ws_error, (void*)0x4244);
 
     umock_c_reset_all_calls();
-    STRICT_EXPECTED_CALL(Map_AddOrUpdate(TEST_REQUEST_HEADERS_MAP, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(Map_AddOrUpdate(TEST_REQUEST_HEADERS_MAP, IGNORED_ARG, IGNORED_ARG));
     (void)uws_client_set_request_header(uws_client, req_header1_key, req_header1_value);
 
     umock_c_reset_all_calls();
@@ -2876,18 +2876,18 @@ TEST_FUNCTION(on_underlying_io_open_complete_with_OK_prepares_and_sends_the_WebS
         expected_nonce[i] = (unsigned char)i;
     }
 
-    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_PTR_ARG, 16))
+    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_ARG, 16))
         .ValidateArgumentBuffer(1, expected_nonce, 16);
     // get_request_headers()
-    STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(malloc(strlen(req_header1_key)+strlen(req_header1_value)+2+2+1));
 
-    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_PTR_ARG)).SetReturn("ZWRuYW1vZGU6bm9jYXBlcyE=");
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_PTR_ARG));
-    EXPECTED_CALL(free(IGNORED_PTR_ARG)); // request headers
+    STRICT_EXPECTED_CALL(STRING_c_str(IGNORED_ARG)).SetReturn("ZWRuYW1vZGU6bm9jYXBlcyE=");
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(STRING_delete(IGNORED_ARG));
+    EXPECTED_CALL(free(IGNORED_ARG)); // request headers
 
     // act
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
@@ -2922,7 +2922,7 @@ TEST_FUNCTION(when_base64_encode_fails_on_underlying_io_open_complete_triggers_t
         expected_nonce[i] = (unsigned char)i;
     }
 
-    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_PTR_ARG, 16))
+    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_ARG, 16))
         .ValidateArgumentBuffer(1, expected_nonce, 16)
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_ERROR_BASE64_ENCODE_FAILED));
@@ -2960,19 +2960,19 @@ TEST_FUNCTION(when_allocating_memory_for_the_websocket_upgrade_request_fails_the
         expected_nonce[i] = (unsigned char)i;
     }
 
-    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_PTR_ARG, 16))
+    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_ARG, 16))
         .ValidateArgumentBuffer(1, expected_nonce, 16);
     // get_request_headers()
-    STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
 
     STRICT_EXPECTED_CALL(STRING_c_str(BASE64_ENCODED_STRING)).SetReturn("ZWRuYW1vZGU6bm9jYXBlcyE=");
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_ERROR_NOT_ENOUGH_MEMORY));
     STRICT_EXPECTED_CALL(STRING_delete(BASE64_ENCODED_STRING));
-    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG)); // empty request headers
+    STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG)); // empty request headers
 
     // act
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
@@ -3008,16 +3008,16 @@ TEST_FUNCTION(uws_client_open_async_after_WS_OPEN_ERROR_NOT_ENOUGH_MEMORY_succee
         expected_nonce[i] = (unsigned char)i;
     }
 
-    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_PTR_ARG, 16))
+    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_ARG, 16))
         .ValidateArgumentBuffer(1, expected_nonce, 16);
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_ERROR_NOT_ENOUGH_MEMORY));
 
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -3059,13 +3059,13 @@ TEST_FUNCTION(when_sending_the_upgrade_request_fails_the_error_WS_OPEN_ERROR_CAN
         expected_nonce[i] = (unsigned char)i;
     }
 
-    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_PTR_ARG, 16))
+    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_ARG, 16))
         .ValidateArgumentBuffer(1, expected_nonce, 16);
-    STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG)); // get_request_headers(), no headers
+    STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(malloc(IGNORED_ARG)); // get_request_headers(), no headers
     STRICT_EXPECTED_CALL(STRING_c_str(BASE64_ENCODED_STRING)).SetReturn("ZWRuYW1vZGU6bm9jYXBlcyE=");
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_send_complete()
         .IgnoreArgument_callback_context()
         .IgnoreArgument_buffer()
@@ -3073,9 +3073,9 @@ TEST_FUNCTION(when_sending_the_upgrade_request_fails_the_error_WS_OPEN_ERROR_CAN
         .SetReturn(1);
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_ERROR_CANNOT_SEND_UPGRADE_REQUEST));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
     STRICT_EXPECTED_CALL(STRING_delete(BASE64_ENCODED_STRING));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
@@ -3111,15 +3111,15 @@ TEST_FUNCTION(uws_client_open_async_after_WS_OPEN_ERROR_CANNOT_SEND_UPGRADE_REQU
         expected_nonce[i] = (unsigned char)i;
     }
 
-    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_PTR_ARG, 16))
+    STRICT_EXPECTED_CALL(Azure_Base64_Encode_Bytes(IGNORED_ARG, 16))
         .ValidateArgumentBuffer(1, expected_nonce, 16);
     // get_request_headers()
-    STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(malloc(IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(Map_GetInternals(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(malloc(IGNORED_ARG));
 
     STRICT_EXPECTED_CALL(STRING_c_str(BASE64_ENCODED_STRING)).SetReturn("ZWRuYW1vZGU6bm9jYXBlcyE=");
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_NUM_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_send_complete()
         .IgnoreArgument_callback_context()
         .IgnoreArgument_buffer()
@@ -3129,7 +3129,7 @@ TEST_FUNCTION(uws_client_open_async_after_WS_OPEN_ERROR_CANNOT_SEND_UPGRADE_REQU
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -3195,7 +3195,7 @@ TEST_FUNCTION(uws_client_open_async_after_WS_OPEN_ERROR_MULTIPLE_UNDERLYING_IO_O
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -3239,7 +3239,7 @@ TEST_FUNCTION(on_underlying_io_bytes_received_with_a_full_reply_after_the_upgrad
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_OK));
 
     // act
@@ -3270,7 +3270,7 @@ TEST_FUNCTION(on_underlying_io_bytes_received_with_a_reply_with_a_status_code_di
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_ERROR_BAD_RESPONSE_STATUS));
 
@@ -3302,7 +3302,7 @@ TEST_FUNCTION(on_underlying_io_bytes_received_with_a_reply_with_status_100_indic
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_ERROR_BAD_RESPONSE_STATUS));
 
@@ -3335,7 +3335,7 @@ TEST_FUNCTION(open_after_a_bad_status_is_decoded_succeeds)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -3382,7 +3382,7 @@ TEST_FUNCTION(after_a_bad_status_code_a_subsequent_open_completes)
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_OK));
 
     // act
@@ -3413,7 +3413,7 @@ TEST_FUNCTION(on_underlying_io_bytes_received_with_an_empty_reply_indicates_an_o
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_ERROR_BAD_UPGRADE_RESPONSE));
 
@@ -3445,7 +3445,7 @@ TEST_FUNCTION(on_underlying_io_bytes_received_with_an_imcomplete_HTTP_1_1__reply
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_ERROR_BAD_UPGRADE_RESPONSE));
 
@@ -3477,7 +3477,7 @@ TEST_FUNCTION(on_underlying_io_bytes_received_with_a_complete_HTTP_version_but_n
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_ERROR_BAD_UPGRADE_RESPONSE));
 
@@ -3508,7 +3508,7 @@ TEST_FUNCTION(open_completes_when_response_has_more_spaces_in_it)
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_OK));
 
     // act
@@ -3538,7 +3538,7 @@ TEST_FUNCTION(open_completes_when_response_has_more_spaces_in_it_after_the_statu
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_OK));
 
     // act
@@ -3568,7 +3568,7 @@ TEST_FUNCTION(open_completes_when_a_header_is_present_in_the_response)
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_OK));
 
     // act
@@ -3598,7 +3598,7 @@ TEST_FUNCTION(when_allocating_memory_for_the_received_bytes_fails_on_underlying_
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG))
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_ERROR_NOT_ENOUGH_MEMORY));
@@ -3631,7 +3631,7 @@ TEST_FUNCTION(when_only_a_byte_is_received_no_open_complete_is_indicated)
 
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
 
     // act
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
@@ -3771,7 +3771,7 @@ TEST_FUNCTION(when_allocating_memory_for_a_second_byte_fails_open_complete_is_in
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG))
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, NULL, NULL));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_ERROR_NOT_ENOUGH_MEMORY));
@@ -3801,7 +3801,7 @@ void when_only_n_bytes_are_received_from_the_response_no_open_complete_is_indica
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
 
     // act
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, n);
@@ -3842,9 +3842,9 @@ TEST_FUNCTION(when_1_extra_byte_is_received_the_open_complete_is_properly_indica
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_OK));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
 
     // act
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response));
@@ -3888,8 +3888,8 @@ TEST_FUNCTION(when_a_1_byte_binary_frame_is_received_it_shall_be_indicated_to_th
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_PTR_ARG, 1))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_ARG, 1))
         .ValidateArgumentBuffer(3, expected_payload, sizeof(expected_payload));
 
     // act
@@ -3925,8 +3925,8 @@ TEST_FUNCTION(when_a_1_byte_text_frame_is_received_it_shall_be_indicated_to_the_
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_TEXT, IGNORED_PTR_ARG, 1))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_TEXT, IGNORED_ARG, 1))
         .ValidateArgumentBuffer(3, expected_payload, sizeof(expected_payload));
 
     // act
@@ -3959,8 +3959,8 @@ TEST_FUNCTION(when_a_0_bytes_binary_frame_is_received_it_shall_be_indicated_to_t
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_PTR_ARG, 0))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_ARG, 0))
         .IgnoreArgument_buffer();
 
     // act
@@ -3993,8 +3993,8 @@ TEST_FUNCTION(when_a_0_bytes_text_frame_is_received_it_shall_be_indicated_to_the
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_TEXT, IGNORED_PTR_ARG, 0))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_TEXT, IGNORED_ARG, 0))
         .IgnoreArgument_buffer();
 
     // act
@@ -4047,13 +4047,13 @@ TEST_FUNCTION(when_a_fragmented_text_frame_is_received_it_shall_be_indicated_to_
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_TEXT, IGNORED_PTR_ARG, 255))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_TEXT, IGNORED_ARG, 255))
         .ValidateArgumentBuffer(3, result_payload, 255);
 
     // act
@@ -4109,13 +4109,13 @@ TEST_FUNCTION(when_a_fragmented_binary_frame_is_received_it_shall_be_indicated_t
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_PTR_ARG, 255))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_ARG, 255))
         .ValidateArgumentBuffer(3, result_payload, 255);
 
     // act
@@ -4150,9 +4150,9 @@ TEST_FUNCTION(when_a_fragmented_frame_is_interleaved_within_another_fragmented_f
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_error((void*)0x4244, WS_ERROR_BAD_FRAME_RECEIVED));
 
     // act
@@ -4189,11 +4189,11 @@ TEST_FUNCTION(when_a_fragmented_frame_is_received_all_at_once_the_frame_is_indic
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_PTR_ARG, 1))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_ARG, 1))
         .IgnoreArgument_buffer();
 
     // act
@@ -4250,29 +4250,29 @@ TEST_FUNCTION(pong_frame_can_be_injected_in_middle_of_fragmented_message)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_PONG_FRAME, IGNORED_PTR_ARG, 0, true, true, 0))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_PONG_FRAME, IGNORED_ARG, 0, true, true, 0))
         .IgnoreArgument_payload()
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(pong_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(pong_frame));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, pong_frame, sizeof(pong_frame), IGNORED_PTR_ARG, NULL))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, pong_frame, sizeof(pong_frame), IGNORED_ARG, NULL))
         .ValidateArgumentBuffer(2, pong_frame, sizeof(pong_frame));
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_TEXT, IGNORED_PTR_ARG, 255))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_TEXT, IGNORED_ARG, 255))
         .ValidateArgumentBuffer(3, result_payload, 255);
 
     // act
@@ -4307,7 +4307,7 @@ TEST_FUNCTION(when_a_fragmented_control_frame_is_received_there_is_an_error)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_error((void*)0x4244, WS_ERROR_BAD_FRAME_RECEIVED));
 
     // act
@@ -4347,8 +4347,8 @@ TEST_FUNCTION(when_a_125_bytes_binary_frame_is_received_it_shall_be_indicated_to
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_PTR_ARG, 125))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_ARG, 125))
         .ValidateArgumentBuffer(3, &test_frame[2], 125);
 
     // act
@@ -4386,8 +4386,8 @@ TEST_FUNCTION(when_a_126_bytes_binary_frame_is_received_it_shall_be_indicated_to
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_PTR_ARG, 126))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_ARG, 126))
         .ValidateArgumentBuffer(3, &test_frame[4], 126);
 
     // act
@@ -4425,8 +4425,8 @@ TEST_FUNCTION(when_a_127_bytes_binary_frame_is_received_it_shall_be_indicated_to
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_PTR_ARG, 127))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_ARG, 127))
         .ValidateArgumentBuffer(3, &test_frame[4], 127);
 
     // act
@@ -4468,8 +4468,8 @@ TEST_FUNCTION(when_a_65535_bytes_binary_frame_is_received_it_shall_be_indicated_
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_PTR_ARG, 65535))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_ARG, 65535))
         .ValidateArgumentBuffer(3, &test_frame[4], 65535);
 
     // act
@@ -4518,8 +4518,8 @@ TEST_FUNCTION(when_a_65536_bytes_binary_frame_is_received_it_shall_be_indicated_
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_PTR_ARG, 65536))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_ARG, 65536))
         .ValidateArgumentBuffer(3, &test_frame[10], 65536);
 
     // act
@@ -4568,8 +4568,8 @@ TEST_FUNCTION(when_a_65537_bytes_binary_frame_is_received_it_shall_be_indicated_
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_PTR_ARG, 65537))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_ARG, 65537))
         .ValidateArgumentBuffer(3, &test_frame[10], 65537);
 
     // act
@@ -4602,7 +4602,7 @@ TEST_FUNCTION(when_a_0_byte_binary_frame_is_received_with_16_bit_length_an_error
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_error((void*)0x4244, WS_ERROR_BAD_FRAME_RECEIVED));
 
     // act
@@ -4640,7 +4640,7 @@ TEST_FUNCTION(when_a_125_byte_binary_frame_is_received_with_16_bit_length_an_err
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_error((void*)0x4244, WS_ERROR_BAD_FRAME_RECEIVED));
 
     // act
@@ -4672,7 +4672,7 @@ TEST_FUNCTION(when_a_0_byte_binary_frame_is_received_with_64_bit_length_an_error
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_error((void*)0x4244, WS_ERROR_BAD_FRAME_RECEIVED));
 
     // act
@@ -4720,7 +4720,7 @@ TEST_FUNCTION(when_a_65535_byte_binary_frame_is_received_with_64_bit_length_an_e
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_error((void*)0x4244, WS_ERROR_BAD_FRAME_RECEIVED));
 
     // act
@@ -4753,7 +4753,7 @@ TEST_FUNCTION(check_for_16_bit_length_too_low_is_done_as_soon_as_length_is_recei
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_error((void*)0x4244, WS_ERROR_BAD_FRAME_RECEIVED));
 
     // act
@@ -4785,7 +4785,7 @@ TEST_FUNCTION(check_for_64_bit_length_too_low_is_done_as_soon_as_length_is_recei
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_error((void*)0x4244, WS_ERROR_BAD_FRAME_RECEIVED));
 
     // act
@@ -4833,7 +4833,7 @@ TEST_FUNCTION(when_the_highest_bit_is_set_in_a_64_bit_length_frame_an_error_is_i
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_error((void*)0x4244, WS_ERROR_BAD_FRAME_RECEIVED));
 
     // act
@@ -4865,7 +4865,7 @@ TEST_FUNCTION(when_allocating_memory_for_the_received_frame_bytes_fails_an_error
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG))
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(test_on_ws_error((void*)0x4244, WS_ERROR_NOT_ENOUGH_MEMORY));
 
@@ -4901,8 +4901,8 @@ TEST_FUNCTION(when_1_byte_is_received_together_with_the_upgrade_request_and_one_
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)upgrade_response_frame, sizeof(test_upgrade_response));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_PTR_ARG, 0))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_ARG, 0))
         .IgnoreArgument_buffer();
 
     // act
@@ -4938,9 +4938,9 @@ TEST_FUNCTION(when_a_complete_frame_is_received_together_with_the_upgrade_reques
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_OK));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_PTR_ARG, 0))
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_ARG, 0))
         .IgnoreArgument_buffer();
 
     // act
@@ -4978,7 +4978,7 @@ TEST_FUNCTION(when_a_1_byte_complete_frame_is_received_together_with_the_upgrade
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_OK));
     STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, expected_frame_payload, sizeof(expected_frame_payload)))
         .ValidateArgumentBuffer(3, expected_frame_payload, sizeof(expected_frame_payload));
@@ -5019,11 +5019,11 @@ TEST_FUNCTION(when_2_complete_frames_are_received_together_with_the_upgrade_requ
     g_on_io_open_complete(g_on_io_open_complete_context, IO_OPEN_OK);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(test_on_ws_open_complete((void*)0x4242, WS_OPEN_OK));
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_TEXT, IGNORED_PTR_ARG, 1))
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_TEXT, IGNORED_ARG, 1))
         .ValidateArgumentBuffer(3, "a", 1);
-    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_PTR_ARG, 0))
+    STRICT_EXPECTED_CALL(test_on_ws_frame_received((void*)0x4243, WS_FRAME_TYPE_BINARY, IGNORED_ARG, 0))
         .IgnoreArgument_buffer();
 
     // act
@@ -5061,19 +5061,19 @@ TEST_FUNCTION(when_a_masked_frame_is_received_an_error_is_indicated_and_connecti
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, IGNORED_PTR_ARG, sizeof(close_frame_payload), true, true, 0))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, IGNORED_ARG, sizeof(close_frame_payload), true, true, 0))
         .ValidateArgumentBuffer(2, close_frame_payload, sizeof(close_frame_payload))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(close_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(close_frame));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, close_frame, sizeof(close_frame), IGNORED_PTR_ARG, NULL))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, close_frame, sizeof(close_frame), IGNORED_ARG, NULL))
         .ValidateArgumentBuffer(2, close_frame, sizeof(close_frame));
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
     STRICT_EXPECTED_CALL(test_on_ws_error((void*)0x4244, WS_ERROR_BAD_FRAME_RECEIVED));
 
@@ -5104,7 +5104,7 @@ TEST_FUNCTION(when_a_masked_frame_is_received_and_encoding_the_close_frame_fails
     tlsio_config.hostname = "test_host";
     tlsio_config.port = 444;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&buffer_handle);
     uws_client = uws_client_create("test_host", 444, "/aaa", true, protocols, sizeof(protocols) / sizeof(protocols[0]));
@@ -5113,8 +5113,8 @@ TEST_FUNCTION(when_a_masked_frame_is_received_and_encoding_the_close_frame_fails
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, IGNORED_PTR_ARG, sizeof(close_frame_payload), true, true, 0))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, IGNORED_ARG, sizeof(close_frame_payload), true, true, 0))
         .ValidateArgumentBuffer(2, close_frame_payload, sizeof(close_frame_payload))
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(test_on_ws_error((void*)0x4244, WS_ERROR_BAD_FRAME_RECEIVED));
@@ -5153,20 +5153,20 @@ TEST_FUNCTION(when_a_masked_frame_is_received_and_sending_the_encoded_CLOSE_fram
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, IGNORED_PTR_ARG, sizeof(close_frame_payload), true, true, 0))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, IGNORED_ARG, sizeof(close_frame_payload), true, true, 0))
         .ValidateArgumentBuffer(2, close_frame_payload, sizeof(close_frame_payload))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(close_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(close_frame));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, close_frame, sizeof(close_frame), IGNORED_PTR_ARG, NULL))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, close_frame, sizeof(close_frame), IGNORED_ARG, NULL))
         .ValidateArgumentBuffer(2, close_frame, sizeof(close_frame))
         .SetReturn(1);
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
     STRICT_EXPECTED_CALL(test_on_ws_error((void*)0x4244, WS_ERROR_BAD_FRAME_RECEIVED));
 
@@ -5211,22 +5211,22 @@ TEST_FUNCTION(when_a_CLOSE_frame_is_received_while_in_open_the_code_is_reported_
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, NULL, 0, true, true, 0))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sent_close_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(sent_close_frame));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, sent_close_frame, sizeof(sent_close_frame), IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, sent_close_frame, sizeof(sent_close_frame), IGNORED_ARG, IGNORED_ARG))
         .ValidateArgumentBuffer(2, sent_close_frame, sizeof(sent_close_frame))
         .IgnoreArgument_callback_context()
         .IgnoreArgument_on_send_complete();
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
-    STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, IGNORED_PTR_ARG, NULL, 0))
+    STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, IGNORED_ARG, NULL, 0))
         .ValidateArgumentBuffer(2, &expected_close_code, sizeof(expected_close_code));
 
     // act
@@ -5264,20 +5264,20 @@ TEST_FUNCTION(when_a_CLOSE_frame_is_received_without_a_close_code_while_in_open_
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, NULL, 0, true, true, 0))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sent_close_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(sent_close_frame));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, sent_close_frame, sizeof(sent_close_frame), IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, sent_close_frame, sizeof(sent_close_frame), IGNORED_ARG, IGNORED_ARG))
         .ValidateArgumentBuffer(2, sent_close_frame, sizeof(sent_close_frame))
         .IgnoreArgument_callback_context()
         .IgnoreArgument_on_send_complete();
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
     STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, NULL, NULL, 0));
 
@@ -5315,24 +5315,24 @@ TEST_FUNCTION(when_a_CLOSE_frame_is_received_with_extra_bytes_the_bytes_are_pass
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(utf8_checker_is_valid_utf8(IGNORED_PTR_ARG, 2))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(utf8_checker_is_valid_utf8(IGNORED_ARG, 2))
         .ValidateArgumentBuffer(1, &close_frame[4], 2);
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, NULL, 0, true, true, 0))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sent_close_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(sent_close_frame));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, sent_close_frame, sizeof(sent_close_frame), IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, sent_close_frame, sizeof(sent_close_frame), IGNORED_ARG, IGNORED_ARG))
         .ValidateArgumentBuffer(2, sent_close_frame, sizeof(sent_close_frame))
         .IgnoreArgument_callback_context()
         .IgnoreArgument_on_send_complete();
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
-    STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, IGNORED_PTR_ARG, IGNORED_PTR_ARG, sizeof(expected_extra_data)))
+    STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, IGNORED_ARG, IGNORED_ARG, sizeof(expected_extra_data)))
         .ValidateArgumentBuffer(2, &expected_close_code, sizeof(expected_close_code))
         .ValidateArgumentBuffer(3, &expected_extra_data, sizeof(expected_extra_data));
 
@@ -5365,14 +5365,14 @@ TEST_FUNCTION(when_a_CLOSE_frame_is_received_with_a_malformed_UTF8_text_the_conn
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(utf8_checker_is_valid_utf8(IGNORED_PTR_ARG, 1))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(utf8_checker_is_valid_utf8(IGNORED_ARG, 1))
         .ValidateArgumentBuffer(1, &close_frame[4], 1)
         .SetReturn(false);
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_callback_context()
         .IgnoreArgument_on_io_close_complete();
-    STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, IGNORED_PTR_ARG, IGNORED_PTR_ARG, 0))
+    STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, IGNORED_ARG, IGNORED_ARG, 0))
         .ValidateArgumentBuffer(2, &expected_close_code, sizeof(expected_close_code));
 
     // act
@@ -5406,13 +5406,13 @@ TEST_FUNCTION(when_a_CLOSE_frame_is_received_while_in_open_and_encoding_the_outg
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, NULL, 0, true, true, 0))
         .SetReturn(NULL);
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_callback_context()
         .IgnoreArgument_on_io_close_complete();
-    STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, IGNORED_PTR_ARG, NULL, 0))
+    STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, IGNORED_ARG, NULL, 0))
         .ValidateArgumentBuffer(2, &expected_close_code, sizeof(expected_close_code));
 
     // act
@@ -5448,26 +5448,26 @@ TEST_FUNCTION(when_a_CLOSE_frame_is_received_while_in_open_and_sending_the_outgo
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, NULL, 0, true, true, 0))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sent_close_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(sent_close_frame));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, sent_close_frame, sizeof(sent_close_frame), IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, sent_close_frame, sizeof(sent_close_frame), IGNORED_ARG, IGNORED_ARG))
         .ValidateArgumentBuffer(2, sent_close_frame, sizeof(sent_close_frame))
         .IgnoreArgument_callback_context()
         .IgnoreArgument_on_send_complete()
         .SetReturn(1);
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_callback_context()
         .IgnoreArgument_on_io_close_complete();
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
-    STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, IGNORED_PTR_ARG, NULL, 0))
+    STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, IGNORED_ARG, NULL, 0))
         .ValidateArgumentBuffer(2, &expected_close_code, sizeof(expected_close_code));
 
     // act
@@ -5680,22 +5680,22 @@ TEST_FUNCTION(uws_client_send_frame_async_succeeds)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_BINARY_FRAME, test_payload, sizeof(test_payload), true, true, 0))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(encoded_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(encoded_frame));
-    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG))
         .IgnoreArgument_item();
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_PTR_ARG, sizeof(encoded_frame), IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_ARG, sizeof(encoded_frame), IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_send_complete()
         .IgnoreArgument_callback_context()
         .ValidateArgumentBuffer(2, encoded_frame, sizeof(encoded_frame));
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
 
     // act
@@ -5730,22 +5730,22 @@ TEST_FUNCTION(uws_send_text_frame_succeeds)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_TEXT_FRAME, test_payload, sizeof(test_payload), true, true, 0))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(encoded_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(encoded_frame));
-    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG))
         .IgnoreArgument_item();
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_PTR_ARG, sizeof(encoded_frame), IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_ARG, sizeof(encoded_frame), IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_send_complete()
         .IgnoreArgument_callback_context()
         .ValidateArgumentBuffer(2, encoded_frame, sizeof(encoded_frame));
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
 
     // act
@@ -5778,7 +5778,7 @@ TEST_FUNCTION(when_allocating_memory_for_the_new_sent_item_fails_uws_client_send
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
         .SetReturn(NULL);
 
     // act
@@ -5811,10 +5811,10 @@ TEST_FUNCTION(when_encoding_the_frame_fails_uws_client_send_frame_async_fails)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_BINARY_FRAME, test_payload, sizeof(test_payload), true, true, 0))
         .SetReturn(NULL);
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     result = uws_client_send_frame_async(uws_client, WS_FRAME_TYPE_BINARY, test_payload, sizeof(test_payload), true, test_on_ws_send_frame_complete, (void*)0x4248);
@@ -5844,7 +5844,7 @@ TEST_FUNCTION(when_xio_send_fails_uws_client_send_frame_async_fails)
     tlsio_config.hostname = "test_host";
     tlsio_config.port = 444;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&buffer_handle);
 
@@ -5854,29 +5854,29 @@ TEST_FUNCTION(when_xio_send_fails_uws_client_send_frame_async_fails)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_BINARY_FRAME, test_payload, sizeof(test_payload), true, true, 0))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(encoded_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(encoded_frame));
-    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG))
         .IgnoreArgument_item()
         .CaptureReturn(&new_item_handle);
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_PTR_ARG, sizeof(encoded_frame), IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_ARG, sizeof(encoded_frame), IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_send_complete()
         .IgnoreArgument_callback_context()
         .ValidateArgumentBuffer(2, encoded_frame, sizeof(encoded_frame))
         .SetReturn(1);
-    STRICT_EXPECTED_CALL(singlylinkedlist_find(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(singlylinkedlist_find(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .SetReturn((LIST_ITEM_HANDLE)0x1234);
-    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG))
         .ValidateArgumentValue_item_handle(&new_item_handle);
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
 
     // act
@@ -5906,7 +5906,7 @@ TEST_FUNCTION(when_xio_send_fails_uws_client_send_frame_async_fails_message_remo
     tlsio_config.hostname = "test_host";
     tlsio_config.port = 444;
 
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&buffer_handle);
 
@@ -5916,33 +5916,33 @@ TEST_FUNCTION(when_xio_send_fails_uws_client_send_frame_async_fails_message_remo
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response));
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_BINARY_FRAME, test_payload, sizeof(test_payload), true, true, 0))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(encoded_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(encoded_frame));
-    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG))
         .IgnoreArgument_item()
         .CaptureReturn(&new_item_handle);
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_PTR_ARG, sizeof(encoded_frame), IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_ARG, sizeof(encoded_frame), IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_send_complete()
         .IgnoreArgument_callback_context()
         .ValidateArgumentBuffer(2, encoded_frame, sizeof(encoded_frame));
-    STRICT_EXPECTED_CALL(singlylinkedlist_find(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(singlylinkedlist_find(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .SetReturn(NULL);
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
 
     // section for on_io_send_complete()
     g_xio_send_result = 1;
-    STRICT_EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(test_on_ws_send_frame_complete(IGNORED_PTR_ARG, WS_SEND_FRAME_ERROR));
-    STRICT_EXPECTED_CALL(free(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(test_on_ws_send_frame_complete(IGNORED_ARG, WS_SEND_FRAME_ERROR));
+    STRICT_EXPECTED_CALL(free(IGNORED_ARG));
 
     // act
     result = uws_client_send_frame_async(uws_client, WS_FRAME_TYPE_BINARY, test_payload, sizeof(test_payload), true, test_on_ws_send_frame_complete, (void*)0x4248);
@@ -5977,20 +5977,20 @@ TEST_FUNCTION(when_adding_the_item_to_the_list_fails_uws_client_send_frame_async
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_BINARY_FRAME, test_payload, sizeof(test_payload), true, true, 0))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(encoded_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(encoded_frame));
-    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG))
         .IgnoreArgument_item()
         .SetReturn(NULL);
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
 
     // act
@@ -6025,22 +6025,22 @@ TEST_FUNCTION(uws_client_send_frame_async_with_NULL_complete_callback_succeeds)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_BINARY_FRAME, test_payload, sizeof(test_payload), true, true, 0))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(encoded_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(encoded_frame));
-    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(singlylinkedlist_add(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG))
         .IgnoreArgument_item();
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_PTR_ARG, sizeof(encoded_frame), IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, IGNORED_ARG, sizeof(encoded_frame), IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_send_complete()
         .IgnoreArgument_callback_context()
         .ValidateArgumentBuffer(2, encoded_frame, sizeof(encoded_frame));
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
 
     // act
@@ -6077,11 +6077,11 @@ TEST_FUNCTION(on_underlying_io_send_complete_with_OK_indicates_the_frame_as_sent
     (void)uws_client_send_frame_async(uws_client, WS_FRAME_TYPE_BINARY, test_payload, sizeof(test_payload), true, test_on_ws_send_frame_complete, (void*)0x4245);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG))
+    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG))
         .IgnoreArgument_item_handle();
     STRICT_EXPECTED_CALL(test_on_ws_send_frame_complete((void*)0x4245, WS_SEND_FRAME_OK));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     g_on_io_send_complete(g_on_io_send_complete_context, IO_SEND_OK);
@@ -6112,8 +6112,8 @@ TEST_FUNCTION(when_removing_the_sent_framefrom_the_list_fails_then_an_error_is_i
     (void)uws_client_send_frame_async(uws_client, WS_FRAME_TYPE_BINARY, test_payload, sizeof(test_payload), true, test_on_ws_send_frame_complete, (void*)0x4245);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG))
+    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG))
         .IgnoreArgument_item_handle()
         .SetReturn(1);
     STRICT_EXPECTED_CALL(test_on_ws_error((void*)0x4244, WS_ERROR_CANNOT_REMOVE_SENT_ITEM_FROM_LIST));
@@ -6147,11 +6147,11 @@ TEST_FUNCTION(on_underlying_io_send_complete_with_ERROR_indicates_the_frame_with
     (void)uws_client_send_frame_async(uws_client, WS_FRAME_TYPE_BINARY, test_payload, sizeof(test_payload), true, test_on_ws_send_frame_complete, (void*)0x4245);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG))
+    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG))
         .IgnoreArgument_item_handle();
     STRICT_EXPECTED_CALL(test_on_ws_send_frame_complete((void*)0x4245, WS_SEND_FRAME_ERROR));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     g_on_io_send_complete(g_on_io_send_complete_context, IO_SEND_ERROR);
@@ -6182,11 +6182,11 @@ TEST_FUNCTION(on_underlying_io_send_complete_with_CANCELLED_indicates_the_frame_
     (void)uws_client_send_frame_async(uws_client, WS_FRAME_TYPE_BINARY, test_payload, sizeof(test_payload), true, test_on_ws_send_frame_complete, (void*)0x4245);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG))
+    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG))
         .IgnoreArgument_item_handle();
     STRICT_EXPECTED_CALL(test_on_ws_send_frame_complete((void*)0x4245, WS_SEND_FRAME_CANCELLED));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     g_on_io_send_complete(g_on_io_send_complete_context, IO_SEND_CANCELLED);
@@ -6246,11 +6246,11 @@ TEST_FUNCTION(on_underlying_io_send_complete_with_an_unknown_result_indicates_an
     (void)uws_client_send_frame_async(uws_client, WS_FRAME_TYPE_BINARY, test_payload, sizeof(test_payload), true, test_on_ws_send_frame_complete, (void*)0x4245);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_PTR_ARG));
-    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_PTR_ARG))
+    EXPECTED_CALL(singlylinkedlist_item_get_value(IGNORED_ARG));
+    STRICT_EXPECTED_CALL(singlylinkedlist_remove(TEST_SINGLYLINKEDSINGLYLINKEDLIST_HANDLE, IGNORED_ARG))
         .IgnoreArgument_item_handle();
     STRICT_EXPECTED_CALL(test_on_ws_send_frame_complete((void*)0x4245, WS_SEND_FRAME_ERROR));
-    EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+    EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
     // act
     g_on_io_send_complete(g_on_io_send_complete_context, (IO_SEND_RESULT)0x42);
@@ -6466,7 +6466,7 @@ TEST_FUNCTION(open_after_error_during_sending_close_succeeds)
     g_on_io_error(g_on_io_error_context);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -6506,7 +6506,7 @@ TEST_FUNCTION(on_underlying_io_error_while_CLOSING_underlying_io_indicates_the_c
     g_on_io_send_complete(g_on_io_send_complete_context, IO_SEND_OK);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_callback_context()
         .IgnoreArgument_on_io_close_complete();
 
@@ -6542,7 +6542,7 @@ TEST_FUNCTION(open_after_error_during_closing_underlying_io_succeeds)
     g_on_io_error(g_on_io_error_context);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -6580,7 +6580,7 @@ TEST_FUNCTION(on_underlying_io_error_while_CLOSING_due_to_local_initiated_close)
     (void)uws_client_close_handshake_async(uws_client, 1002, "", test_on_ws_close_complete, (void*)0x6666);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_close_complete()
         .IgnoreArgument_callback_context()
         .SetReturn(1);
@@ -6646,7 +6646,7 @@ TEST_FUNCTION(on_underlying_io_close_sent_when_a_CLOSE_was_sent_closes_the_under
     g_on_bytes_received(g_on_bytes_received_context, close_frame, sizeof(close_frame));
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_close_complete()
         .IgnoreArgument_callback_context();
 
@@ -6680,7 +6680,7 @@ TEST_FUNCTION(when_xio_close_fails_in_on_underlying_io_close_sent_and_CLOSE_init
     g_on_bytes_received(g_on_bytes_received_context, close_frame, sizeof(close_frame));
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_close_complete()
         .IgnoreArgument_callback_context()
         .SetReturn(1);
@@ -6715,14 +6715,14 @@ TEST_FUNCTION(when_xio_close_fails_in_on_underlying_io_close_sent_and_CLOSE_init
     g_on_bytes_received(g_on_bytes_received_context, close_frame, sizeof(close_frame));
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_close_complete()
         .IgnoreArgument_callback_context()
         .SetReturn(1);
     g_on_io_send_complete(g_on_io_send_complete_context, IO_SEND_OK);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -6767,19 +6767,19 @@ TEST_FUNCTION(when_a_PING_frame_was_received_a_PONG_frame_is_sent)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
-    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_PONG_FRAME, IGNORED_PTR_ARG, 0, true, true, 0))
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
+    STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_PONG_FRAME, IGNORED_ARG, 0, true, true, 0))
         .IgnoreArgument_payload()
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(pong_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(pong_frame));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, pong_frame, sizeof(pong_frame), IGNORED_PTR_ARG, NULL))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, pong_frame, sizeof(pong_frame), IGNORED_ARG, NULL))
         .ValidateArgumentBuffer(2, pong_frame, sizeof(pong_frame));
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
 
     // act
@@ -6808,7 +6808,7 @@ TEST_FUNCTION(when_a_PING_frame_was_received_with_some_payload_a_PONG_frame_is_s
     tlsio_config.hostname = "test_host";
     tlsio_config.port = 444;
 
-    EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_malloc(IGNORED_ARG));
     STRICT_EXPECTED_CALL(BUFFER_new())
         .CaptureReturn(&buffer_handle);
 
@@ -6818,19 +6818,19 @@ TEST_FUNCTION(when_a_PING_frame_was_received_with_some_payload_a_PONG_frame_is_s
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_PONG_FRAME, pong_frame_payload, sizeof(pong_frame_payload), true, true, 0))
         .ValidateArgumentBuffer(2, pong_frame_payload, sizeof(pong_frame_payload))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(pong_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(pong_frame));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, pong_frame, sizeof(pong_frame), IGNORED_PTR_ARG, NULL))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, pong_frame, sizeof(pong_frame), IGNORED_ARG, NULL))
         .ValidateArgumentBuffer(2, pong_frame, sizeof(pong_frame));
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
 
     // act
@@ -6864,22 +6864,22 @@ TEST_FUNCTION(when_a_PING_frame_is_received_after_a_close_frame_no_pong_is_sent)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, NULL, 0, true, true, 0))
         .CaptureReturn(&buffer_handle);
-    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_u_char(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sent_close_frame);
-    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_length(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle)
         .SetReturn(sizeof(sent_close_frame));
-    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, sent_close_frame, sizeof(sent_close_frame), IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_send(TEST_IO_HANDLE, sent_close_frame, sizeof(sent_close_frame), IGNORED_ARG, IGNORED_ARG))
         .ValidateArgumentBuffer(2, sent_close_frame, sizeof(sent_close_frame))
         .IgnoreArgument_callback_context()
         .IgnoreArgument_on_send_complete();
-    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(BUFFER_delete(IGNORED_ARG))
         .ValidateArgumentValue_handle(&buffer_handle);
-    EXPECTED_CALL(test_on_ws_peer_closed(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, 0));
+    EXPECTED_CALL(test_on_ws_peer_closed(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, 0));
 
     // act
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)close_and_ping_frames, sizeof(close_and_ping_frames));
@@ -7071,10 +7071,10 @@ TEST_FUNCTION(uws_retrieve_options_calls_the_underlying_xio_retrieve_options_and
     uws_client = uws_client_create("test_host", 444, "/aaa", true, protocols, sizeof(protocols) / sizeof(protocols[0]));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_retrieveoptions(TEST_IO_HANDLE));
     STRICT_EXPECTED_CALL(OptionHandler_AddOption(TEST_OPTIONHANDLER_HANDLE, "uWSClientOptions", TEST_IO_OPTIONHANDLER_HANDLE));
-    STRICT_EXPECTED_CALL(OptionHandler_Destroy(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(OptionHandler_Destroy(IGNORED_ARG));
 
     // act
     result = uws_client_retrieve_options(uws_client);
@@ -7100,7 +7100,7 @@ TEST_FUNCTION(when_OptionHandler_Create_fails_then_uws_retrieve_options_fails)
     uws_client = uws_client_create("test_host", 444, "/aaa", true, protocols, sizeof(protocols) / sizeof(protocols[0]));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .SetReturn(NULL);
 
     // act
@@ -7127,7 +7127,7 @@ TEST_FUNCTION(when_xio_retrieveoptions_fails_then_uws_retrieve_options_fails)
     uws_client = uws_client_create("test_host", 444, "/aaa", true, protocols, sizeof(protocols) / sizeof(protocols[0]));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_retrieveoptions(TEST_IO_HANDLE))
         .SetReturn(NULL);
     STRICT_EXPECTED_CALL(OptionHandler_Destroy(TEST_OPTIONHANDLER_HANDLE));
@@ -7156,7 +7156,7 @@ TEST_FUNCTION(when_OptionHandler_AddOption_fails_then_uws_retrieve_options_fails
     uws_client = uws_client_create("test_host", 444, "/aaa", true, protocols, sizeof(protocols) / sizeof(protocols[0]));
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(OptionHandler_Create(IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    EXPECTED_CALL(OptionHandler_Create(IGNORED_ARG, IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(xio_retrieveoptions(TEST_IO_HANDLE));
     STRICT_EXPECTED_CALL(OptionHandler_AddOption(TEST_OPTIONHANDLER_HANDLE, "uWSClientOptions", TEST_IO_OPTIONHANDLER_HANDLE))
         .SetReturn(OPTIONHANDLER_ERROR);
@@ -7189,7 +7189,7 @@ TEST_FUNCTION(uws_client_clone_option_calls_xio_cloneoption)
     uws_client = uws_client_create("test_host", 444, "/aaa", true, protocols, sizeof(protocols) / sizeof(protocols[0]));
     (void)uws_client_retrieve_options(uws_client);
     umock_c_reset_all_calls();
-    STRICT_EXPECTED_CALL(OptionHandler_Clone(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(OptionHandler_Clone(IGNORED_ARG));
 
     // act
     result = g_clone_option("uWSClientOptions", (void*)0x4243);
@@ -7395,13 +7395,13 @@ TEST_FUNCTION(underlying_io_close_after_a_send_close_frame_failed_puts_the_uws_i
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, NULL, 0, true, true, 0))
         .SetReturn(NULL);
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_callback_context()
         .IgnoreArgument_on_io_close_complete();
-    STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, IGNORED_PTR_ARG, IGNORED_PTR_ARG, 0))
+    STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, IGNORED_ARG, IGNORED_ARG, 0))
         .ValidateArgumentBuffer(2, &expected_close_code, sizeof(expected_close_code))
         .IgnoreArgument_extra_data();
 
@@ -7409,7 +7409,7 @@ TEST_FUNCTION(underlying_io_close_after_a_send_close_frame_failed_puts_the_uws_i
     g_on_io_close_complete(g_on_io_close_complete_context);
     umock_c_reset_all_calls();
 
-    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_open(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_on_io_open_complete()
         .IgnoreArgument_on_io_open_complete_context()
         .IgnoreArgument_on_bytes_received()
@@ -7447,13 +7447,13 @@ TEST_FUNCTION(underlying_io_close_due_to_CLOSE_frame_being_received_doe_not_trig
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, NULL, 0, true, true, 0))
         .SetReturn(NULL);
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_callback_context()
         .IgnoreArgument_on_io_close_complete();
-    STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, IGNORED_PTR_ARG, IGNORED_PTR_ARG, 0))
+    STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, IGNORED_ARG, IGNORED_ARG, 0))
         .ValidateArgumentBuffer(2, &expected_close_code, sizeof(expected_close_code))
         .IgnoreArgument_extra_data();
 
@@ -7490,13 +7490,13 @@ TEST_FUNCTION(underlying_io_close_complete_with_NULL_context_does_nothing)
     g_on_bytes_received(g_on_bytes_received_context, (const unsigned char*)test_upgrade_response, sizeof(test_upgrade_response) - 1);
     umock_c_reset_all_calls();
 
-    EXPECTED_CALL(gballoc_realloc(IGNORED_PTR_ARG, IGNORED_NUM_ARG));
+    EXPECTED_CALL(gballoc_realloc(IGNORED_ARG, IGNORED_ARG));
     STRICT_EXPECTED_CALL(uws_frame_encoder_encode(WS_CLOSE_FRAME, NULL, 0, true, true, 0))
         .SetReturn(NULL);
-    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(xio_close(TEST_IO_HANDLE, IGNORED_ARG, IGNORED_ARG))
         .IgnoreArgument_callback_context()
         .IgnoreArgument_on_io_close_complete();
-    STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, IGNORED_PTR_ARG, IGNORED_PTR_ARG, 0))
+    STRICT_EXPECTED_CALL(test_on_ws_peer_closed((void*)0x4301, IGNORED_ARG, IGNORED_ARG, 0))
         .ValidateArgumentBuffer(2, &expected_close_code, sizeof(expected_close_code))
         .IgnoreArgument_extra_data();
 
@@ -7660,7 +7660,7 @@ TEST_FUNCTION(uws_client_set_request_header_negative_tests)
     uws_client = uws_client_create("test_host", 444, "/aaa", true, protocols, sizeof(protocols) / sizeof(protocols[0]));
 
     umock_c_reset_all_calls();
-    STRICT_EXPECTED_CALL(Map_AddOrUpdate(TEST_REQUEST_HEADERS_MAP, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(Map_AddOrUpdate(TEST_REQUEST_HEADERS_MAP, IGNORED_ARG, IGNORED_ARG));
     umock_c_negative_tests_snapshot();
 
     for (i = 0; i < umock_c_negative_tests_call_count(); i++)
@@ -7697,7 +7697,7 @@ TEST_FUNCTION(uws_client_set_request_header_success)
     uws_client = uws_client_create("test_host", 444, "/aaa", true, protocols, sizeof(protocols) / sizeof(protocols[0]));
 
     umock_c_reset_all_calls();
-    STRICT_EXPECTED_CALL(Map_AddOrUpdate(TEST_REQUEST_HEADERS_MAP, IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(Map_AddOrUpdate(TEST_REQUEST_HEADERS_MAP, IGNORED_ARG, IGNORED_ARG));
 
     // act
     result = uws_client_set_request_header(uws_client, req_header1_key, req_header1_value);

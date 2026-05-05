@@ -19,6 +19,7 @@ add_executable(iot_c_utility ${iot_c_utility_c_files})
 
 target_link_libraries(iot_c_utility
     aziotsharedutil
+    c_logging_v2
 )
 
 compileTargetAsC99(iot_c_utility)

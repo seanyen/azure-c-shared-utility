@@ -3,13 +3,17 @@
 
 #include <stdlib.h>
 #include <stdint.h>
+
+#ifdef WIN32
+// winsock2.h must come before windows.h (which c-logging may include transitively)
+#include <winsock2.h>
+#endif
+
 #include "azure_c_shared_utility/lock.h"
 #include "azure_c_shared_utility/optimize_size.h"
 #include "azure_c_shared_utility/xlogging.h"
 
-#ifdef WIN32
-#include <winsock2.h>
-#else
+#ifndef WIN32
 #include <sys/socket.h>
 #endif
 

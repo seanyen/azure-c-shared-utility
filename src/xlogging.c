@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include "azure_c_shared_utility/xlogging.h"
-#include "azure_c_shared_utility/consolelogger.h"
 
 #ifndef NO_LOGGING
 
@@ -11,21 +10,23 @@
 #endif // WIN32
 
 
-LOGGER_LOG global_log_function = consolelogger_log;
+// Legacy function pointer - kept for backward compatibility.
+// In the c-logging world, logging sinks are configured via logger_set_config().
+static XLOGGING_LOGGER_LOG global_log_function = NULL;
 
-void xlogging_set_log_function(LOGGER_LOG log_function)
+void xlogging_set_log_function(XLOGGING_LOGGER_LOG log_function)
 {
     global_log_function = log_function;
 }
 
-LOGGER_LOG xlogging_get_log_function(void)
+XLOGGING_LOGGER_LOG xlogging_get_log_function(void)
 {
     return global_log_function;
 }
 
 #if (defined(_MSC_VER))
 
-LOGGER_LOG_GETLASTERROR global_log_function_GetLastError = consolelogger_log_with_GetLastError;
+static LOGGER_LOG_GETLASTERROR global_log_function_GetLastError = NULL;
 
 void xlogging_set_log_function_GetLastError(LOGGER_LOG_GETLASTERROR log_function_GetLastError)
 {
@@ -56,7 +57,7 @@ void LogBinary(const char* comment, const void* data, size_t size)
     const unsigned char* bufAsChar = (const unsigned char*)data;
     const unsigned char* startPos = bufAsChar;
 
-    LOG(AZ_LOG_TRACE, LOG_LINE, "%s     %lu bytes", comment, (unsigned long)size);
+    LogVerbose("%s     %lu bytes", comment, (unsigned long)size);
 
     /* Print the whole buffer. */
     for (i = 0; i < size; i++)
@@ -79,7 +80,7 @@ void LogBinary(const char* comment, const void* data, size_t size)
         {
             charBuf[countbuf] = '\0';
             hexBuf[countbuf * 3] = '\0';
-            LOG(AZ_LOG_TRACE, LOG_LINE, "%p: %s    %s", startPos, hexBuf, charBuf);
+            LogVerbose("%p: %s    %s", startPos, hexBuf, charBuf);
             countbuf = 0;
             startPos = bufAsChar;
         }
@@ -104,7 +105,7 @@ void LogBinary(const char* comment, const void* data, size_t size)
         hexBuf[countbuf * 3] = '\0';
 
         /* Print the last line. */
-        LOG(AZ_LOG_TRACE, LOG_LINE, "%p: %s    %s", startPos, hexBuf, charBuf);
+        LogVerbose("%p: %s    %s", startPos, hexBuf, charBuf);
     }
 }
 
@@ -143,6 +144,3 @@ void xlogging_LogErrorWinHTTPWithGetLastErrorAsStringFormatter(int errorMessageI
 
 
 #endif // NO_LOGGING
-
-
-

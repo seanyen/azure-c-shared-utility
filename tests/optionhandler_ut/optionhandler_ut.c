@@ -23,7 +23,7 @@ static void my_gballoc_free(void* s)
 #include <stddef.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 #include "testrunnerswitcher.h"
 #include "umock_c/umock_c.h"
 #include "umock_c/umocktypes_charptr.h"
@@ -100,7 +100,17 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
         REGISTER_GLOBAL_MOCK_FAIL_RETURN(gballoc_malloc, NULL);
         REGISTER_GLOBAL_MOCK_HOOK(gballoc_free, my_gballoc_free);
 
-        REGISTER_GLOBAL_INTERFACE_HOOKS(vector);
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_create, UMOCK_REAL(VECTOR_create));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_move, UMOCK_REAL(VECTOR_move));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_destroy, UMOCK_REAL(VECTOR_destroy));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_push_back, UMOCK_REAL(VECTOR_push_back));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_erase, UMOCK_REAL(VECTOR_erase));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_clear, UMOCK_REAL(VECTOR_clear));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_element, UMOCK_REAL(VECTOR_element));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_front, UMOCK_REAL(VECTOR_front));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_back, UMOCK_REAL(VECTOR_back));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_find_if, UMOCK_REAL(VECTOR_find_if));
+        REGISTER_GLOBAL_MOCK_HOOK(VECTOR_size, UMOCK_REAL(VECTOR_size));
         REGISTER_GLOBAL_MOCK_FAIL_RETURN(VECTOR_create, NULL);
         REGISTER_GLOBAL_MOCK_FAIL_RETURN(VECTOR_push_back, MU_FAILURE);
 
@@ -178,10 +188,10 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
     /*the following function, called "inert" - allegedly half happy and half unhappy is hared between the positive and negative test cases*/
     static void OptionHandler_Create_inert_path(void)
     {
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG)) /*this is creating the handle*/
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG)) /*this is creating the handle*/
             .IgnoreArgument_size();
 
-        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_NUM_ARG)) /*this is creating the vector that stores the options*/
+        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_ARG)) /*this is creating the vector that stores the options*/
             .IgnoreArgument_elementSize();
     }
 
@@ -268,11 +278,11 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
         source = OptionHandler_Create(aCloneOption, aDestroyOption, aSetOption);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument_size();
-        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_ARG))
             .IgnoreArgument_elementSize();
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
             .IgnoreArgument_handle();
 
         ///act
@@ -303,19 +313,19 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
         (void)OptionHandler_AddOption(source, "TrustedCerts", "xxx");
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument_size();
-        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_ARG))
             .IgnoreArgument_elementSize();
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "TrustedCerts"))
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "TrustedCerts"))
             .IgnoreArgument_destination();
-        STRICT_EXPECTED_CALL(aCloneOption("TrustedCerts", IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(aCloneOption("TrustedCerts", IGNORED_ARG))
             .IgnoreArgument_value();
-        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1))
+        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1))
             .IgnoreArgument_handle()
             .IgnoreArgument_elements();
 
@@ -348,30 +358,30 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
         (void)OptionHandler_AddOption(source, "option_2", "y");
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument_size();
-        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_ARG))
             .IgnoreArgument_elementSize();
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
             .IgnoreArgument_handle();
 
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "TrustedCerts"))
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "TrustedCerts"))
             .IgnoreArgument_destination();
-        STRICT_EXPECTED_CALL(aCloneOption("TrustedCerts", IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(aCloneOption("TrustedCerts", IGNORED_ARG))
             .IgnoreArgument_value();
-        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1))
+        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1))
             .IgnoreArgument_handle()
             .IgnoreArgument_elements();
 
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 1))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 1))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "option_2"))
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "option_2"))
             .IgnoreArgument_destination();
-        STRICT_EXPECTED_CALL(aCloneOption("option_2", IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(aCloneOption("option_2", IGNORED_ARG))
             .IgnoreArgument_value();
-        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1))
+        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1))
             .IgnoreArgument_handle()
             .IgnoreArgument_elements();
 
@@ -399,7 +409,7 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
         (void)OptionHandler_AddOption(source, "option_2", "y");
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument_size()
             .SetReturn(NULL);
 
@@ -426,12 +436,12 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
         (void)OptionHandler_AddOption(source, "option_2", "y");
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument_size();
-        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_ARG))
             .IgnoreArgument_elementSize()
             .SetReturn(NULL);
-        EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         ///act
         result = OptionHandler_Clone(source);
@@ -456,23 +466,23 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
         (void)OptionHandler_AddOption(source, "option_2", "y");
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument_size();
-        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_ARG))
             .IgnoreArgument_elementSize();
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
             .IgnoreArgument_handle();
 
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "TrustedCerts"))
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "TrustedCerts"))
             .IgnoreArgument_destination()
             .SetReturn(1);
 
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
             .IgnoreArgument_handle();
-        EXPECTED_CALL(VECTOR_destroy(IGNORED_PTR_ARG));
-        EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        EXPECTED_CALL(VECTOR_destroy(IGNORED_ARG));
+        EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         ///act
         result = OptionHandler_Clone(source);
@@ -497,26 +507,26 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
         (void)OptionHandler_AddOption(source, "option_2", "y");
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument_size();
-        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_ARG))
             .IgnoreArgument_elementSize();
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
             .IgnoreArgument_handle();
 
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "TrustedCerts"))
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "TrustedCerts"))
             .IgnoreArgument_destination();
-        STRICT_EXPECTED_CALL(aCloneOption("TrustedCerts", IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(aCloneOption("TrustedCerts", IGNORED_ARG))
             .IgnoreArgument_value()
             .SetReturn(NULL);
 
-        EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+        EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
             .IgnoreArgument_handle();
-        EXPECTED_CALL(VECTOR_destroy(IGNORED_PTR_ARG));
-        EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        EXPECTED_CALL(VECTOR_destroy(IGNORED_ARG));
+        EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         ///act
         result = OptionHandler_Clone(source);
@@ -541,30 +551,30 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
         (void)OptionHandler_AddOption(source, "option_2", "y");
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument_size();
-        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_ARG))
             .IgnoreArgument_elementSize();
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
             .IgnoreArgument_handle();
 
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "TrustedCerts"))
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "TrustedCerts"))
             .IgnoreArgument_destination();
-        STRICT_EXPECTED_CALL(aCloneOption("TrustedCerts", IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(aCloneOption("TrustedCerts", IGNORED_ARG))
             .IgnoreArgument_value();
-        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1))
+        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1))
             .IgnoreArgument_handle()
             .IgnoreArgument_elements()
             .SetReturn(1);
 
-        EXPECTED_CALL(aDestroyOption("TrustedCerts", IGNORED_PTR_ARG));
-        EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+        EXPECTED_CALL(aDestroyOption("TrustedCerts", IGNORED_ARG));
+        EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
             .IgnoreArgument_handle();
-        EXPECTED_CALL(VECTOR_destroy(IGNORED_PTR_ARG));
-        EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        EXPECTED_CALL(VECTOR_destroy(IGNORED_ARG));
+        EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         ///act
         result = OptionHandler_Clone(source);
@@ -589,37 +599,37 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
         (void)OptionHandler_AddOption(source, "option_2", "y");
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument_size();
-        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_ARG))
             .IgnoreArgument_elementSize();
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
             .IgnoreArgument_handle();
 
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "TrustedCerts"))
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "TrustedCerts"))
             .IgnoreArgument_destination();
-        STRICT_EXPECTED_CALL(aCloneOption("TrustedCerts", IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(aCloneOption("TrustedCerts", IGNORED_ARG))
             .IgnoreArgument_value();
-        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1))
+        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1))
             .IgnoreArgument_handle()
             .IgnoreArgument_elements();
 
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 1))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 1))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "option_2"))
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "option_2"))
             .IgnoreArgument_destination()
             .SetReturn(1);
 
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
             .IgnoreArgument_handle();
-        EXPECTED_CALL(aDestroyOption("TrustedCerts", IGNORED_PTR_ARG));
-        EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-        EXPECTED_CALL(VECTOR_destroy(IGNORED_PTR_ARG));
-        EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        EXPECTED_CALL(aDestroyOption("TrustedCerts", IGNORED_ARG));
+        EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+        EXPECTED_CALL(VECTOR_destroy(IGNORED_ARG));
+        EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         ///act
         result = OptionHandler_Clone(source);
@@ -644,40 +654,40 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
         (void)OptionHandler_AddOption(source, "option_2", "y");
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument_size();
-        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_ARG))
             .IgnoreArgument_elementSize();
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
             .IgnoreArgument_handle();
 
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "TrustedCerts"))
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "TrustedCerts"))
             .IgnoreArgument_destination();
-        STRICT_EXPECTED_CALL(aCloneOption("TrustedCerts", IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(aCloneOption("TrustedCerts", IGNORED_ARG))
             .IgnoreArgument_value();
-        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1))
+        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1))
             .IgnoreArgument_handle()
             .IgnoreArgument_elements();
 
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 1))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 1))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "option_2"))
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "option_2"))
             .IgnoreArgument_destination();
-        STRICT_EXPECTED_CALL(aCloneOption("option_2", IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(aCloneOption("option_2", IGNORED_ARG))
             .IgnoreArgument_value()
             .SetReturn(NULL);
 
-        EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+        EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
             .IgnoreArgument_handle();
-        EXPECTED_CALL(aDestroyOption("TrustedCerts", IGNORED_PTR_ARG));
-        EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-        EXPECTED_CALL(VECTOR_destroy(IGNORED_PTR_ARG));
-        EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        EXPECTED_CALL(aDestroyOption("TrustedCerts", IGNORED_ARG));
+        EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+        EXPECTED_CALL(VECTOR_destroy(IGNORED_ARG));
+        EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         ///act
         result = OptionHandler_Clone(source);
@@ -702,44 +712,44 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
         (void)OptionHandler_AddOption(source, "option_2", "y");
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(gballoc_malloc(IGNORED_ARG))
             .IgnoreArgument_size();
-        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_NUM_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_create(IGNORED_ARG))
             .IgnoreArgument_elementSize();
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
             .IgnoreArgument_handle();
 
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "TrustedCerts"))
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "TrustedCerts"))
             .IgnoreArgument_destination();
-        STRICT_EXPECTED_CALL(aCloneOption("TrustedCerts", IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(aCloneOption("TrustedCerts", IGNORED_ARG))
             .IgnoreArgument_value();
-        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1))
+        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1))
             .IgnoreArgument_handle()
             .IgnoreArgument_elements();
 
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 1))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 1))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "option_2"))
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "option_2"))
             .IgnoreArgument_destination();
-        STRICT_EXPECTED_CALL(aCloneOption("option_2", IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(aCloneOption("option_2", IGNORED_ARG))
             .IgnoreArgument_value();
-        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1))
+        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1))
             .IgnoreArgument_handle()
             .IgnoreArgument_elements()
             .SetReturn(1);
 
-        EXPECTED_CALL(aDestroyOption("option_2", IGNORED_PTR_ARG));
-        EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+        EXPECTED_CALL(aDestroyOption("option_2", IGNORED_ARG));
+        EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
             .IgnoreArgument_handle();
-        EXPECTED_CALL(aDestroyOption("TrustedCerts", IGNORED_PTR_ARG));
-        EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
-        EXPECTED_CALL(VECTOR_destroy(IGNORED_PTR_ARG));
-        EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG));
+        EXPECTED_CALL(aDestroyOption("TrustedCerts", IGNORED_ARG));
+        EXPECTED_CALL(gballoc_free(IGNORED_ARG));
+        EXPECTED_CALL(VECTOR_destroy(IGNORED_ARG));
+        EXPECTED_CALL(gballoc_free(IGNORED_ARG));
 
         ///act
         result = OptionHandler_Clone(source);
@@ -802,11 +812,10 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
 
     void OptionHandler_AddOption_inert_path(void* value)
     {
-        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_PTR_ARG, "name"))
+        STRICT_EXPECTED_CALL(mallocAndStrcpy_s(IGNORED_ARG, "name"))
             .IgnoreArgument_destination();
-        STRICT_EXPECTED_CALL(aCloneOption("name", value))
-            .IgnoreAllArguments();
-        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_PTR_ARG, IGNORED_PTR_ARG, 1))
+        STRICT_EXPECTED_CALL(aCloneOption("name", value));
+        STRICT_EXPECTED_CALL(VECTOR_push_back(IGNORED_ARG, IGNORED_ARG, 1))
             .IgnoreArgument_handle()
             .IgnoreArgument_elements();
     }
@@ -916,7 +925,7 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
         OPTIONHANDLER_HANDLE handle = OptionHandler_Create(aCloneOption, aDestroyOption, aSetOption);
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*will return 0, so nothing else happens*/
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*will return 0, so nothing else happens*/
             .IgnoreArgument_handle();
 
         ///act
@@ -932,11 +941,11 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
 
     static void OptionHandler_FeedOptions_with_1_saved_options_feeds_1_inert_path(void)
     {
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*will return 0, so nothing else happens*/
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*will return 0, so nothing else happens*/
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(aSetOption((void*)42, "a", IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(aSetOption((void*)42, "a", IGNORED_ARG))
             .IgnoreArgument_value();
     }
 
@@ -1027,16 +1036,16 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
 
     static void OptionHandler_FeedOptions_with_2_saved_options_feeds_2_inert_path(void)
     {
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG)) /*will return 0, so nothing else happens*/
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG)) /*will return 0, so nothing else happens*/
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(aSetOption((void*)42, "a", IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(aSetOption((void*)42, "a", IGNORED_ARG))
             .IgnoreArgument_value();
 
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 1))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 1))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(aSetOption((void*)42, "c", IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(aSetOption((void*)42, "c", IGNORED_ARG))
             .IgnoreArgument_value();
     }
 
@@ -1152,26 +1161,26 @@ BEGIN_TEST_SUITE(optionhandler_unittests)
         (void)OptionHandler_AddOption(handle, "c", "b2");
         umock_c_reset_all_calls();
 
-        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_size(IGNORED_ARG))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 0))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 0))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(aDestroyOption("a", IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(aDestroyOption("a", IGNORED_ARG))
             .IgnoreArgument_value();
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument_ptr();
 
-        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_PTR_ARG, 1))
+        STRICT_EXPECTED_CALL(VECTOR_element(IGNORED_ARG, 1))
             .IgnoreArgument_handle();
-        STRICT_EXPECTED_CALL(aDestroyOption("c", IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(aDestroyOption("c", IGNORED_ARG))
             .IgnoreArgument_value();
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument_ptr();
 
-        STRICT_EXPECTED_CALL(VECTOR_destroy(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(VECTOR_destroy(IGNORED_ARG))
             .IgnoreArgument_handle();
 
-        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(gballoc_free(IGNORED_ARG))
             .IgnoreArgument_ptr();
 
         ///act
